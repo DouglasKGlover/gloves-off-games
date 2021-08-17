@@ -1,0 +1,13 @@
+query gameCollectionQuery {
+  allGames: gameCollection {
+    items {
+      sys {
+        id
+      }
+      title
+      system {
+          title
+      }
+    }
+  }
+}

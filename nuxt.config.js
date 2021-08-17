@@ -2,6 +2,11 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  env: {
+    CTF_HOST: process.env.CTF_HOST,
+    CTF_PREVIEW: process.env.CTF_HOST == "preview.contentful.com", // true/false based on whether we're on a preview site
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Gloves Off Games',
