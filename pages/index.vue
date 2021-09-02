@@ -4,15 +4,22 @@
       <b-row>
         <b-col>
           <h1>Gloves Off Games</h1>
+          <p>My personal collection tracking site.</p>
         </b-col>
       </b-row>
 
       <b-row>
         <b-col>
-          <h2>Games</h2>
-
-          <div v-for="(game, index) in pageData.allGames.items">
-            {{ game.title }} ({{ game.system.title }})
+          <div
+            v-for="(system, index) in allSystems"
+            :key="`systems-list-item-${index}`"
+          >
+            <nuxt-link :to="`/systems/${system.slug}`">
+              {{ system.title }}
+              <sup v-if="system.shortName" style="font-size: 0.6em">
+                [{{ system.shortName }}]</sup
+              >
+            </nuxt-link>
           </div>
         </b-col>
       </b-row>
@@ -21,19 +28,16 @@
 </template>
 
 <script>
-import { gameCollectionQuery } from "~/graphql/allGames.gql";
+import { allSystemsQuery } from "~/graphql/allSystems.gql";
 export default {
   async asyncData({ $graphql }) {
-    const queryVariables = {
+    let allSystems = await $graphql.default.request(allSystemsQuery, {
       preview: process.env.CTF_PREVIEW,
-    };
-    const pageData = await $graphql.default.request(
-      gameCollectionQuery,
-      queryVariables
-    );
+    });
+    allSystems = allSystems.systemCollection.items;
 
     return {
-      pageData,
+      allSystems,
     };
   },
 };

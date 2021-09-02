@@ -1,13 +1,8 @@
-query gameCollectionQuery {
-  allGames: gameCollection {
+query allGamesQuery {
+  gameCollection(order: [title_ASC]) {
     items {
-      sys {
-        id
-      }
       title
-      system {
-          title
-      }
+      slug
     }
   }
 }

@@ -1,0 +1,11 @@
+query gamesBySystem($system: String!) {
+  gameCollection(where: { system: { slug: $system } }, order: [title_ASC]) {
+    items {
+      sys {
+        id
+      }
+      title
+      slug
+    }
+  }
+}

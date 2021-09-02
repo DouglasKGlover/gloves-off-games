@@ -1,0 +1,9 @@
+query allSystemsQuery {
+  systemCollection(order: [title_ASC]) {
+    items {
+      title
+      shortName
+      slug
+    }
+  }
+}

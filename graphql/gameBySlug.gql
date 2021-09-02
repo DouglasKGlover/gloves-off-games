@@ -1,0 +1,24 @@
+query gameBySlug($slug: String!) {
+  gameCollection(where: { slug: $slug }, limit: 1) {
+    items {
+      sys {
+        id
+      }
+      title
+      system {
+        title
+        shortName
+        slug
+        manufacturer {
+          title
+          logo {
+            url
+          }
+        }
+      }
+      region
+      playedStatus
+      wtbWts
+    }
+  }
+}
