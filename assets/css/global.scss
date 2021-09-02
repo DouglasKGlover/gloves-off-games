@@ -1,14 +1,15 @@
 :root {
-  --black: #333;
-  --grey: #999;
-  --white: #ddd;
+  --foreground: #333;
+  --mid: #999;
+  --background: #ddd;
+  --highlight: #fff;
   --primary: red;
 }
 
 body {
-  background: var(--white);
-  color: var(--black);
-  text-shadow: -1px -1px 0 white;
+  background: var(--background);
+  color: var(--foreground);
+  text-shadow: -1px -1px 0 var(--highlight);
 }
 
 * {
@@ -25,17 +26,26 @@ a {
   &:focus {
     color: var(--primary);
     text-decoration: none;
-    background: white;
+    background: var(--highlight);
   }
 }
 
 hr {
   height: 1px;
-  background: var(--black);
+  background: var(--foreground);
   border: 0;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--highlight);
 }
 
 sup {
   font-size: 0.6em;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style-type: none;
+  }
 }

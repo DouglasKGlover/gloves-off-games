@@ -3,14 +3,7 @@
     <b-container>
       <b-row id="system-header">
         <b-col>
-          <p>
-            <img
-              v-if="system.manufacturer.logo"
-              :src="system.manufacturer.logo.image"
-              :alt="system.manufacturer.title"
-            />
-            <span v-else>{{ system.manufacturer.title }}</span>
-          </p>
+          <p>{{ system.manufacturer.title }}</p>
           <h1>{{ system.title }}</h1>
         </b-col>
       </b-row>

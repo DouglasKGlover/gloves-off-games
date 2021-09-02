@@ -4,9 +4,12 @@
       <b-row>
         <b-col>
           <nav>
-            <nuxt-link to="/">Home</nuxt-link>
-            <nuxt-link to="/systems">Systems</nuxt-link>
-            <nuxt-link to="/games">Games</nuxt-link>
+            <div>
+              <nuxt-link to="/">Home</nuxt-link>
+              <nuxt-link to="/systems">Systems</nuxt-link>
+              <nuxt-link to="/games">Games</nuxt-link>
+            </div>
+            <SiteSwitchColorScheme />
           </nav>
         </b-col>
       </b-row>
@@ -20,10 +23,14 @@ export default {};
 
 <style lang="scss" scoped>
 header {
-  border-bottom: 1px solid var(--black);
-  box-shadow: 0 1px 0 white;
+  border-bottom: 1px solid var(--foreground);
+  box-shadow: 0 1px 0 var(--highlight);
 
   nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     a {
       margin-right: 1em;
     }

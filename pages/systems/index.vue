@@ -11,15 +11,17 @@
 
     <b-row>
       <b-col>
-        <div
-          v-for="(system, index) in allSystems"
-          :key="`systems-list-item-${index}`"
-        >
-          <nuxt-link :to="`/systems/${system.slug}`">
-            {{ system.title }}
-            <sup v-if="system.shortName"> [{{ system.shortName }}]</sup>
-          </nuxt-link>
-        </div>
+        <ul>
+          <li
+            v-for="(system, index) in allSystems"
+            :key="`systems-list-item-${index}`"
+          >
+            <nuxt-link :to="`/systems/${system.slug}`">
+              {{ system.title }}
+              <sup v-if="system.shortName"> [{{ system.shortName }}]</sup>
+            </nuxt-link>
+          </li>
+        </ul>
       </b-col>
     </b-row>
   </b-container>

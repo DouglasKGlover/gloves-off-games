@@ -1,0 +1,11 @@
+query latestGames {
+  gameCollection(limit: 3) {
+    items {
+      title
+      system {
+        shortName
+      }
+      slug
+    }
+  }
+}
