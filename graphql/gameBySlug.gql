@@ -1,4 +1,4 @@
-query gameBySlug($slug: String!) {
+query gameBySlugQuery($slug: String!) {
   gameCollection(where: { slug: $slug }, limit: 1) {
     items {
       sys {

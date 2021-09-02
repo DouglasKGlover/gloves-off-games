@@ -10,7 +10,12 @@
                 game.system.title
               }}</nuxt-link>
             </li>
-            <li><strong>Status: </strong> {{ game.playedStatus }}</li>
+            <li>
+              <strong>Status: </strong>
+              <GamePlayedStatusIndicator :status="game.playedStatus" />{{
+                game.playedStatus
+              }}
+            </li>
             <li v-if="game.wtbWts" :class="game.wtbWts.toLowerCase()">
               <strong v-if="game.wtbWts == 'WTS'">For sale!</strong>
             </li>
@@ -22,10 +27,10 @@
 </template>
 
 <script>
-import { gameBySlug } from "~/graphql/gameBySlug.gql";
+import { gameBySlugQuery } from "~/graphql/gameBySlug.gql";
 export default {
   async asyncData({ $graphql, params }) {
-    let game = await $graphql.default.request(gameBySlug, {
+    let game = await $graphql.default.request(gameBySlugQuery, {
       slug: params.pathMatch,
     });
     game = game.gameCollection.items[0];

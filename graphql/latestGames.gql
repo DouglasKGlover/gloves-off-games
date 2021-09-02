@@ -1,6 +1,9 @@
-query latestGames {
+query latestGamesQuery {
   gameCollection(limit: 3) {
     items {
+      sys {
+        firstPublishedAt
+      }
       title
       system {
         shortName

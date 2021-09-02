@@ -1,4 +1,4 @@
-query gamesBySystem($system: String!) {
+query gamesBySystemQuery($system: String!) {
   gameCollection(where: { system: { slug: $system } }, order: [title_ASC]) {
     items {
       sys {
@@ -6,6 +6,7 @@ query gamesBySystem($system: String!) {
       }
       title
       slug
+      playedStatus
     }
   }
 }

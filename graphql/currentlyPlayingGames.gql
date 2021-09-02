@@ -1,0 +1,15 @@
+query currentlyPlayingGamesQuery {
+  gameCollection(where: { currentlyPlaying: true }, order: [title_ASC]) {
+    items {
+      sys {
+        id
+      }
+      title
+      slug
+      system {
+        shortName
+      }
+      playedStatus
+    }
+  }
+}

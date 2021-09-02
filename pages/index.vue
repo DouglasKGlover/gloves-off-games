@@ -9,11 +9,32 @@
         </b-col>
       </b-row>
 
+      <b-row v-if="currentlyPlayingGames.length" class="mb-4">
+        <b-col>
+          <h2>Currently Playing</h2>
+          <ul>
+            <li
+              v-for="(game, index) in currentlyPlayingGames"
+              :key="`new-game-${index}`"
+            >
+              <nuxt-link :to="`/games/${game.slug}`">
+                {{ game.title }}
+                <sup>[{{ game.system.shortName }}]</sup>
+              </nuxt-link>
+            </li>
+          </ul>
+        </b-col>
+      </b-row>
+
       <b-row>
         <b-col>
           <h2>Latest Additions</h2>
           <ul>
-            <li v-for="(game, index) in newGames" :key="`new-game-${index}`">
+            <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
+              <span class="small">{{
+                $dateTranslate(game.sys.firstPublishedAt)
+              }}</span>
+              -
               <nuxt-link :to="`/games/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
@@ -27,14 +48,21 @@
 </template>
 
 <script>
-import { latestGames } from "~/graphql/latestGames.gql";
+import { latestGamesQuery } from "~/graphql/latestGames.gql";
+import { currentlyPlayingGamesQuery } from "~/graphql/currentlyPlayingGames.gql";
 export default {
   async asyncData({ $graphql }) {
-    let newGames = await $graphql.default.request(latestGames);
-    newGames = newGames.gameCollection.items;
+    let latestGames = await $graphql.default.request(latestGamesQuery);
+    latestGames = latestGames.gameCollection.items;
+
+    let currentlyPlayingGames = await $graphql.default.request(
+      currentlyPlayingGamesQuery
+    );
+    currentlyPlayingGames = currentlyPlayingGames.gameCollection.items;
 
     return {
-      newGames,
+      latestGames,
+      currentlyPlayingGames,
     };
   },
 };

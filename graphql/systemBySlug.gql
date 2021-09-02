@@ -1,4 +1,4 @@
-query systemBySlug($slug: String!) {
+query systemBySlugQuery($slug: String!) {
   systemCollection(where: { slug: $slug }, limit: 1) {
     items {
       sys {

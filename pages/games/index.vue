@@ -8,14 +8,7 @@
 
           <hr />
 
-          <div v-for="(game, index) in allGames">
-            <nuxt-link :to="`/games/${game.slug}`"
-              >{{ game.title }}
-              <sup v-if="game.system.shortName">
-                [{{ game.system.shortName }}]</sup
-              ></nuxt-link
-            >
-          </div>
+          <GameListWithFilters :games="allGames" />
         </b-col>
       </b-row>
     </b-container>
