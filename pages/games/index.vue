@@ -3,16 +3,18 @@
     <b-container>
       <b-row>
         <b-col>
-          <h1>Gloves Off Games</h1>
-        </b-col>
-      </b-row>
+          <h1>Games</h1>
+          <p>Like, literally all my games.</p>
 
-      <b-row>
-        <b-col>
-          <h2>Games</h2>
+          <hr />
 
           <div v-for="(game, index) in allGames">
-            <nuxt-link :to="`/games/${game.slug}`">{{ game.title }}</nuxt-link>
+            <nuxt-link :to="`/games/${game.slug}`"
+              >{{ game.title }}
+              <sup v-if="game.system.shortName">
+                [{{ game.system.shortName }}]</sup
+              ></nuxt-link
+            >
           </div>
         </b-col>
       </b-row>

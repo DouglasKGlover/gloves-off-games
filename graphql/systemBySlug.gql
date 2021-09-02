@@ -9,7 +9,7 @@ query systemBySlug($slug: String!) {
       manufacturer {
         title
         logo {
-          image: url(transform: { height: 20, format: PNG })
+          image: url(transform: { width: 75, format: PNG })
         }
       }
     }

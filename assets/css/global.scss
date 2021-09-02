@@ -1,10 +1,13 @@
 :root {
-  --color-primary: red;
+  --black: #333;
+  --grey: #999;
+  --white: #ddd;
+  --primary: red;
 }
 
 body {
-  background: rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.7);
+  background: var(--white);
+  color: var(--black);
   text-shadow: -1px -1px 0 white;
 }
 
@@ -16,12 +19,23 @@ a {
   color: inherit;
   font-weight: bold;
   padding: 0 5px 2px;
-  margin-left: -5px;
+  margin: auto -5px;
 
   &:hover,
   &:focus {
-    color: var(--color-primary);
+    color: var(--primary);
     text-decoration: none;
     background: white;
   }
+}
+
+hr {
+  height: 1px;
+  background: var(--black);
+  border: 0;
+  border-bottom: 1px solid white;
+}
+
+sup {
+  font-size: 0.6em;
 }

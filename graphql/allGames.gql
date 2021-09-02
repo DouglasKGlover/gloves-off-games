@@ -3,6 +3,9 @@ query allGamesQuery {
     items {
       title
       slug
+      system {
+        shortName
+      }
     }
   }
 }
