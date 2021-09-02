@@ -21,13 +21,11 @@ export default {
   mounted() {
     const savedColorScheme = localStorage.getItem("color-scheme");
     if (savedColorScheme) {
-      console.log("found a scheme: " + savedColorScheme);
       this.colorScheme = savedColorScheme;
     }
   },
   watch: {
     colorScheme(e) {
-      console.log("scheme changed to: " + this.colorScheme);
       switch (e) {
         case "dark":
           // Dark Scheme
@@ -73,6 +71,14 @@ button {
     display: inline-block;
     border-radius: 50%;
     background: var(--background);
+    transition: 0.5s ease;
+  }
+
+  &:hover {
+    &::after {
+      content: "";
+      transform: translateX(3px);
+    }
   }
 }
 </style>
