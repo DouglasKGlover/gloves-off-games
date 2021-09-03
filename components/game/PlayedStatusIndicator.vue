@@ -59,6 +59,14 @@ export default {
     }
   }
 
+  &.unfinished {
+    background: orange;
+
+    &::after {
+      content: "Status: Unfinished";
+    }
+  }
+
   &.beaten {
     background: green;
 

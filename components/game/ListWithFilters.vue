@@ -1,17 +1,36 @@
 <template>
   <b-container>
     <b-row>
-      <b-col md="6" order-md="2" v-if="filterStatuses[1].options.length > 1">
+      <b-col
+        md="6"
+        order-md="2"
+        v-if="
+          filterStatuses[1].options.length > 1 || filterWtbWts[1].options.length
+        "
+      >
         <div id="game-filters">
           <h2>Filter</h2>
 
-          <!-- Filter by status -->
-          <b-container v-if="filterStatuses[1].options.length > 1">
+          <b-container>
             <b-row>
-              <b-col md="4" class="pl-0">
+              <!-- Filter by status -->
+              <b-col
+                v-if="filterStatuses[1].options.length > 1"
+                md="4"
+                class="pl-0"
+              >
                 <b-form-select
                   v-model="filters.status"
                   :options="filterStatuses"
+                  class="mb-4"
+                ></b-form-select>
+              </b-col>
+
+              <!-- Filter by WTB/WTS -->
+              <b-col v-if="filterWtbWts[1].options.length" md="4" class="pl-0">
+                <b-form-select
+                  v-model="filters.wtbWts"
+                  :options="filterWtbWts"
                   class="mb-4"
                 ></b-form-select>
               </b-col>
@@ -51,33 +70,82 @@ export default {
           options: [],
         },
       ],
+      filterWtbWts: [
+        {
+          value: null,
+          text: "By WTB/WTS",
+        },
+        {
+          label: "Wanting to:",
+          options: [],
+        },
+      ],
       filters: {
         status: null,
+        wtbWts: null,
       },
     };
   },
+  methods: {
+    sortArray(array) {
+      function compare(a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+      return array.sort(compare);
+    },
+  },
   mounted() {
     const _self = this;
-    var gameArr = [];
-    this.games.filter(function (item) {
-      var i = gameArr.findIndex((x) => x.playedStatus == item.playedStatus);
+
+    // Find all existing statuses and add to filter
+    let gameArr = [];
+    let filterArray = [];
+    this.games.filter(function (game) {
+      var i = gameArr.findIndex((x) => x.playedStatus == game.playedStatus);
       if (i <= -1) {
-        gameArr.push(item);
-        _self.filterStatuses[1].options.push(item.playedStatus);
+        gameArr.push(game);
+        filterArray.push(game.playedStatus);
       }
       return null;
     });
+    _self.filterStatuses[1].options = filterArray.sort();
+
+    // Find any games set to WTB/WTS and add to a filter if found
+    gameArr = [];
+    filterArray = [];
+    this.games.filter(function (game) {
+      var i = gameArr.findIndex((x) => x.wtbWts == game.wtbWts);
+      if (i <= -1 && game.wtbWts !== null) {
+        gameArr.push(game);
+        switch (game.wtbWts) {
+          case "WTB":
+            filterArray.push({ text: "Buy", value: "WTB" });
+            break;
+          case "WTS":
+            filterArray.push({ text: "Sell", value: "WTS" });
+            break;
+        }
+      }
+      return null;
+    });
+    _self.filterWtbWts[1].options = filterArray.sort();
   },
   computed: {
     filteredGames() {
       let filteredGames = this.games;
-      if (this.filters.status == null) {
-        return filteredGames;
-      } else {
-        return filteredGames.filter(
+      if (this.filters.wtbWts) {
+        filteredGames = filteredGames.filter(
+          (game) => game.wtbWts == this.filters.wtbWts
+        );
+      }
+      if (this.filters.status) {
+        filteredGames = filteredGames.filter(
           (game) => game.playedStatus == this.filters.status
         );
       }
+      return filteredGames;
     },
   },
 };
