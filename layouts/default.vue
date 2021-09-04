@@ -1,8 +1,8 @@
 <template>
-  <main>
+  <div class="py-5">
     <SiteHeader />
-    <Nuxt class="my-5" />
-  </main>
+    <Nuxt />
+  </div>
 </template>
 
 <style></style>

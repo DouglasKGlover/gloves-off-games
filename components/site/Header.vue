@@ -23,8 +23,14 @@ export default {};
 
 <style lang="scss" scoped>
 header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-right: 1px solid var(--foreground);
   border-bottom: 1px solid var(--foreground);
   box-shadow: 0 1px 0 var(--highlight);
+  background: var(--background);
+  z-index: 999;
 
   nav {
     display: flex;
