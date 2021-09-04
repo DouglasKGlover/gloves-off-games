@@ -1,5 +1,6 @@
+# TODO: Paginate instead of 999 limit
 query allGamesQuery {
-  gameCollection(order: [title_ASC]) {
+  gameCollection(limit: 999, order: [title_ASC]) {
     items {
       title
       slug
