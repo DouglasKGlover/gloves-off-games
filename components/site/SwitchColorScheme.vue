@@ -31,7 +31,15 @@ export default {
           // Dark Scheme
           console.log("set dark");
           document.documentElement.style.setProperty("--foreground", "#ddd");
+          document.documentElement.style.setProperty(
+            "--foreground-darker",
+            "#eee"
+          );
           document.documentElement.style.setProperty("--background", "#222");
+          document.documentElement.style.setProperty(
+            "--background-lighter",
+            "#111"
+          );
           document.documentElement.style.setProperty("--highlight", "#000");
           localStorage.setItem("color-scheme", this.colorScheme);
           break;
@@ -39,7 +47,15 @@ export default {
           // Light Scheme
           console.log("set light");
           document.documentElement.style.setProperty("--foreground", "#333");
+          document.documentElement.style.setProperty(
+            "--foreground-darker",
+            "#111"
+          );
           document.documentElement.style.setProperty("--background", "#ddd");
+          document.documentElement.style.setProperty(
+            "--background-lighter",
+            "#eee"
+          );
           document.documentElement.style.setProperty("--highlight", "#fff");
           localStorage.setItem("color-scheme", this.colorScheme);
           break;

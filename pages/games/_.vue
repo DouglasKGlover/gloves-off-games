@@ -22,6 +22,22 @@
           </ul>
         </b-col>
       </b-row>
+
+      <b-row v-if="glogs" class="mt-4">
+        <b-col>
+          <h2>
+            Game Log<span v-if="glogs.length > 1">s</span> for {{ game.title }}
+          </h2>
+          <div
+            class="game-log-link"
+            v-for="(glog, index) in glogs"
+            :key="`game-log-${index}`"
+          >
+            {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
+            <nuxt-link :to="`/glog/${glog.slug}`">{{ glog.title }}</nuxt-link>
+          </div>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -33,10 +49,12 @@ export default {
     let game = await $graphql.default.request(gameBySlugQuery, {
       slug: params.pathMatch,
     });
+    let glogs = game.gameLogCollection.items;
     game = game.gameCollection.items[0];
 
     return {
       game,
+      glogs,
     };
   },
 };

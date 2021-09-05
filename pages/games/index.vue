@@ -19,9 +19,7 @@
 import { allGamesQuery } from "~/graphql/allGames.gql";
 export default {
   async asyncData({ $graphql }) {
-    let allGames = await $graphql.default.request(allGamesQuery, {
-      preview: process.env.CTF_PREVIEW,
-    });
+    let allGames = await $graphql.default.request(allGamesQuery);
     allGames = allGames.gameCollection.items;
 
     return {

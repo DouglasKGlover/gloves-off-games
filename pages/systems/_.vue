@@ -1,18 +1,16 @@
 <template>
-  <div>
-    <b-container>
-      <b-row>
-        <b-col>
-          <h1>{{ system.title }}</h1>
-          <p>{{ system.manufacturer.title }}</p>
+  <b-container>
+    <b-row>
+      <b-col>
+        <h1>{{ system.title }}</h1>
+        <p>{{ system.manufacturer.title }}</p>
 
-          <hr />
+        <hr />
 
-          <GameListWithFilters :games="games" />
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
+        <GameListWithFilters :games="games" />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

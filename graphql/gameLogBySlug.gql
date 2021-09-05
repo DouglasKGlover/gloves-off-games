@@ -1,0 +1,18 @@
+query gameLogBySlugQuery($slug: String!) {
+  gameLogCollection(where: { slug: $slug }, limit: 1) {
+    items {
+      sys {
+        id
+        firstPublishedAt
+      }
+      title
+      game {
+        title
+        slug
+      }
+      details {
+        json
+      }
+    }
+  }
+}

@@ -21,4 +21,14 @@ query gameBySlugQuery($slug: String!) {
       wtbWts
     }
   }
+
+  gameLogCollection(where: { game: { slug: $slug } }) {
+    items {
+      sys {
+        firstPublishedAt
+      }
+      title
+      slug
+    }
+  }
 }

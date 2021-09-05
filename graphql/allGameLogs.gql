@@ -1,0 +1,16 @@
+# TODO: Paginate instead of 999 limit
+query allGameLogsQuery {
+  gameLogCollection(limit: 999) {
+    items {
+      sys {
+        firstPublishedAt
+      }
+      title
+      slug
+      game {
+        title
+        slug
+      }
+    }
+  }
+}
