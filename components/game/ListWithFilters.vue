@@ -9,7 +9,16 @@
         "
       >
         <div id="game-filters">
-          <h2>Filter</h2>
+          <b-container>
+            <b-row>
+              <b-col md="3">
+                <h2>Filter</h2>
+              </b-col>
+              <b-col md="2" align-self="end">
+                <p>{{ filteredGames.length }}/{{ games.length }}</p>
+              </b-col>
+            </b-row>
+          </b-container>
 
           <b-container>
             <b-row>
