@@ -1,5 +1,5 @@
 query latestGamesQuery {
-  gameCollection(limit: 3) {
+  gameCollection(limit: 3, order: [sys_firstPublishedAt_DESC]) {
     items {
       sys {
         firstPublishedAt
