@@ -23,7 +23,7 @@
         </b-col>
       </b-row>
 
-      <b-row v-if="glogs" class="mt-4">
+      <b-row v-if="glogs.length" class="mt-4">
         <b-col>
           <h2>
             Game Log<span v-if="glogs.length > 1">s</span> for {{ game.title }}
