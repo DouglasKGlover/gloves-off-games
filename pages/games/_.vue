@@ -18,7 +18,7 @@
             <li v-if="game.wtbWts" :class="game.wtbWts.toLowerCase()">
               <strong v-if="game.wtbWts == 'WTS'">For sale!</strong>
             </li>
-            <li>
+            <li v-if="game.requirementsForCompletion">
               <strong>Requirements for Completion:</strong>
               {{ game.requirementsForCompletion }}
             </li>
