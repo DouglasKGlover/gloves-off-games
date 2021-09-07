@@ -9,16 +9,20 @@
           <hr />
 
           <div
-            class="game-log-link"
+            class="game-log-link mb-4"
             v-for="(glog, index) in allGameLogs"
             :key="`game-log-${index}`"
           >
-            {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
-            <nuxt-link :to="`/games/${glog.game.slug}`">
-              {{ glog.game.title }}
-            </nuxt-link>
+            <span>
+              {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
+              <nuxt-link :to="`/games/${glog.game.slug}`">
+                {{ glog.game.title }}
+              </nuxt-link>
+            </span>
             <br />
-            <nuxt-link :to="`/glog/${glog.slug}`">{{ glog.title }}</nuxt-link>
+            <h2>
+              <nuxt-link :to="`/glog/${glog.slug}`">{{ glog.title }}</nuxt-link>
+            </h2>
           </div>
         </b-col>
       </b-row>

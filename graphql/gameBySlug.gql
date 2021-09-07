@@ -18,6 +18,7 @@ query gameBySlugQuery($slug: String!) {
       }
       region
       playedStatus
+      requirementsForCompletion
       wtbWts
     }
   }

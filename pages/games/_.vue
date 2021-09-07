@@ -6,18 +6,21 @@
           <h1>{{ game.title }}</h1>
           <ul>
             <li>
-              <nuxt-link :to="`/systems/${game.system.slug}`">{{
-                game.system.title
-              }}</nuxt-link>
+              <nuxt-link :to="`/systems/${game.system.slug}`">
+                {{ game.system.title }}
+              </nuxt-link>
             </li>
             <li>
               <strong>Status: </strong>
-              <GamePlayedStatusIndicator :status="game.playedStatus" />{{
-                game.playedStatus
-              }}
+              <GamePlayedStatusIndicator :status="game.playedStatus" />
+              {{ game.playedStatus }}
             </li>
             <li v-if="game.wtbWts" :class="game.wtbWts.toLowerCase()">
               <strong v-if="game.wtbWts == 'WTS'">For sale!</strong>
+            </li>
+            <li>
+              <strong>Requirements for Completion:</strong>
+              {{ game.requirementsForCompletion }}
             </li>
           </ul>
         </b-col>
@@ -34,7 +37,9 @@
             :key="`game-log-${index}`"
           >
             {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
-            <nuxt-link :to="`/glog/${glog.slug}`">{{ glog.title }}</nuxt-link>
+            <nuxt-link :to="`/glog/${glog.slug}`">
+              {{ glog.title }}
+            </nuxt-link>
           </div>
         </b-col>
       </b-row>
