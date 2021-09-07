@@ -28,9 +28,7 @@
 
       <b-row v-if="glogs.length" class="mt-4">
         <b-col>
-          <h2>
-            Game Log<span v-if="glogs.length > 1">s</span> for {{ game.title }}
-          </h2>
+          <h2>Game Log<span v-if="glogs.length > 1">s</span></h2>
           <div
             class="game-log-link"
             v-for="(glog, index) in glogs"
