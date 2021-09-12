@@ -20,6 +20,14 @@ query gameBySlugQuery($slug: String!) {
       playedStatus
       requirementsForCompletion
       wtbWts
+      photosCollection(limit: 10) {
+        items {
+          url
+          thumbnail: url(
+            transform: { width: 300, height: 200, resizeStrategy: FILL }
+          )
+        }
+      }
     }
   }
 

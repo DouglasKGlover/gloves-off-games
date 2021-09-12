@@ -41,6 +41,29 @@
           </div>
         </b-col>
       </b-row>
+
+      <div v-if="game.photosCollection.items.length" class="mt-5">
+        <b-row>
+          <b-col>
+            <h2>Photos</h2>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col
+            md="2"
+            v-for="(photo, index) in game.photosCollection.items"
+            :key="`game-photo-${index}`"
+          >
+            <b-button v-b-modal="`photo-modal-${index}`" class="image-button">
+              <b-img fluid :src="photo.thumbnail" />
+            </b-button>
+
+            <b-modal :id="`photo-modal-${index}`" hide-footer size="xl">
+              <b-img :src="photo.url" fluid />
+            </b-modal>
+          </b-col>
+        </b-row>
+      </div>
     </b-container>
   </div>
 </template>
