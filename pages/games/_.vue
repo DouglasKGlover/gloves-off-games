@@ -34,7 +34,7 @@
         </b-row>
         <b-row>
           <b-col
-            cols="3"
+            cols="4"
             md="2"
             v-for="(photo, index) in game.photosCollection.items"
             :key="`game-photo-${index}`"
