@@ -8,6 +8,11 @@
   --primary: red;
 }
 
+* {
+  box-sizing: border-box;
+  transition: 0.1s ease;
+}
+
 html,
 body {
   height: 100%;
@@ -16,18 +21,15 @@ body {
 body {
   background: var(--background);
   color: var(--foreground);
-  text-shadow: -1px -1px 0 var(--highlight);
   overflow-y: scroll;
+  overflow-x: hidden;
+  transition: 0.2s ease;
 }
 
 #__layout {
   min-height: 100vh;
   border-right: 1px solid var(--foreground);
   padding-bottom: 50px;
-}
-
-* {
-  transition: 0.1s ease;
 }
 
 ::-webkit-scrollbar {
