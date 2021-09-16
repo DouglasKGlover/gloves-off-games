@@ -52,9 +52,11 @@
       <b-col md="6">
         <div v-for="(game, index) in filteredGames">
           <GamePlayedStatusIndicator :status="game.playedStatus" />
-          <nuxt-link :to="`/games/${game.slug}`">
+          <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
             {{ game.title }}
-            <sup v-if="game.system"> [{{ game.system.shortName }}]</sup>
+            <sup v-if="game.system.shortName">
+              [{{ game.system.shortName }}]</sup
+            >
           </nuxt-link>
         </div>
       </b-col>

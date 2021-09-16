@@ -6,7 +6,9 @@
           <h1>{{ glog.title }}</h1>
           <p>
             Game:
-            <nuxt-link :to="`/games/${glog.game.slug}`">
+            <nuxt-link
+              :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
+            >
               {{ glog.game.title }}
             </nuxt-link>
             <br />
