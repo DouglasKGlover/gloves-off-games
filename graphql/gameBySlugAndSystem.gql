@@ -1,0 +1,45 @@
+query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
+  gameCollection(where: { slug: $slug, system: { slug: $system } }, limit: 1) {
+    items {
+      sys {
+        id
+      }
+      title
+      system {
+        title
+        shortName
+        slug
+        manufacturer {
+          title
+          logo {
+            url
+          }
+        }
+      }
+      region
+      playedStatus
+      requirementsForCompletion
+      wtbWts
+      photosCollection(limit: 10) {
+        items {
+          url
+          thumbnail: url(
+            transform: { width: 300, height: 200, resizeStrategy: FILL }
+          )
+        }
+      }
+    }
+  }
+
+  # gameLogCollection(
+  #   where: { game: { slug: $slug, system: { slug: $system } } }
+  # ) {
+  #   items {
+  #     sys {
+  #       firstPublishedAt
+  #     }
+  #     title
+  #     slug
+  #   }
+  # }
+}
