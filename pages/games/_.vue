@@ -80,7 +80,6 @@ export default {
         system: fullPath.substring(0, fullPath.lastIndexOf("/")),
       };
     };
-    console.log(path(params.pathMatch).slug, path(params.pathMatch).system);
     let game = await $graphql.default.request(gameBySlugAndSystemQuery, {
       slug: path(params.pathMatch).slug,
       system: path(params.pathMatch).system,
