@@ -1,18 +1,19 @@
 const dotenv = require("dotenv");
 const contentful = require("contentful-management");
-const ctfSpaceId = process.env.CTF_SPACE_ID;
-const ctfAccessToken = process.env.CTF_CDA_ACCESS_TOKEN;
-const ctfEnv = "slug-system-migration";
 
 // Function to get all games, find those with a slug containing a slash, and update their slug to remove the content before that slash
 async function removeSystemFromGameSlug() {
-  var client = contentful.createClient({
+  const ctfSpaceId = process.env.CTF_SPACE_ID;
+  const ctfAccessToken = process.env.CTF_CDA_ACCESS_TOKEN;
+  const ctfEnv = "slug-system-migration";
+
+  const client = contentful.createClient({
     space: ctfSpaceId,
     accessToken: ctfAccessToken,
     environment: ctfEnv,
   });
 
-  var result = await client
+  const result = await client
     .getSpace(ctfSpaceId)
     .then((space) => space.getEnvironment(ctfEnv))
     .then((environment) =>
