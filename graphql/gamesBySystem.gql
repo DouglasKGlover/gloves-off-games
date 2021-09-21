@@ -8,6 +8,9 @@ query gamesBySystemQuery($system: String!) {
       slug
       playedStatus
       wtbWts
+      system {
+        slug
+      }
     }
   }
 }
