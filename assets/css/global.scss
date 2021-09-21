@@ -8,6 +8,14 @@
   --primary: red;
 }
 
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --foreground: #ddd;
+//     --background: #222;
+//     --highlight: #000;
+//   }
+// }
+
 * {
   box-sizing: border-box;
   transition: 0.1s ease;
@@ -57,12 +65,21 @@ a {
   font-weight: bold;
   padding: 0 5px 2px;
   margin: auto -5px;
+  background: var(--highlight);
+  background: linear-gradient(
+    to right,
+    var(--highlight) 50%,
+    var(--background) 50%
+  );
+  background-size: 201% 100%;
+  background-position: 100% bottom;
+  transition: background-position 0.2s ease;
 
   &:hover,
   &:focus {
     color: var(--primary);
     text-decoration: none;
-    background: var(--highlight);
+    background-position: left bottom;
   }
 }
 
