@@ -15,7 +15,9 @@
           >
             <span>
               {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
-              <nuxt-link :to="`/games/${glog.game.slug}`">
+              <nuxt-link
+                :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
+              >
                 {{ glog.game.title }}
               </nuxt-link>
             </span>

@@ -17,7 +17,7 @@
               v-for="(game, index) in currentlyPlayingGames"
               :key="`new-game-${index}`"
             >
-              <nuxt-link :to="`/games/${game.slug}`">
+              <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
               </nuxt-link>
@@ -35,7 +35,7 @@
                 $dateTranslate(game.sys.firstPublishedAt)
               }}</span>
               -
-              <nuxt-link :to="`/games/${game.slug}`">
+              <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
               </nuxt-link>

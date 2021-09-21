@@ -9,6 +9,9 @@ query gameLogBySlugQuery($slug: String!) {
       game {
         title
         slug
+        system {
+          slug
+        }
       }
       details {
         json

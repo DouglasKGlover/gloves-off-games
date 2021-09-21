@@ -29,7 +29,6 @@ export default {
       switch (e) {
         case "dark":
           // Dark Scheme
-          console.log("set dark");
           document.documentElement.style.setProperty("--foreground", "#ddd");
           document.documentElement.style.setProperty(
             "--foreground-darker",
@@ -45,7 +44,6 @@ export default {
           break;
         case "light":
           // Light Scheme
-          console.log("set light");
           document.documentElement.style.setProperty("--foreground", "#333");
           document.documentElement.style.setProperty(
             "--foreground-darker",

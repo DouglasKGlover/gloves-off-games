@@ -5,6 +5,7 @@ query allGamesQuery {
       title
       slug
       system {
+        slug
         shortName
       }
       playedStatus
