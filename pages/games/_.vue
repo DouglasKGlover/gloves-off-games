@@ -51,7 +51,7 @@
         </b-row>
       </div>
 
-      <!-- <b-row v-if="glogs.length" class="mt-4">
+      <b-row v-if="glogs.length" class="mt-4">
         <b-col>
           <h2>Game Log<span v-if="glogs.length > 1">s</span></h2>
           <div
@@ -65,7 +65,7 @@
             </nuxt-link>
           </div>
         </b-col>
-      </b-row> -->
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -84,12 +84,12 @@ export default {
       slug: path(params.pathMatch).slug,
       system: path(params.pathMatch).system,
     });
-    // let glogs = game.gameLogCollection.items;
+    let glogs = game.gameLogCollection.items;
     game = game.gameCollection.items[0];
 
     return {
       game,
-      // glogs,
+      glogs,
     };
   },
 };
