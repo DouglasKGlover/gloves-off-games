@@ -31,15 +31,13 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
     }
   }
 
-  # gameLogCollection(
-  #   where: { game: { slug: $slug, system: { slug: $system } } }
-  # ) {
-  #   items {
-  #     sys {
-  #       firstPublishedAt
-  #     }
-  #     title
-  #     slug
-  #   }
-  # }
+  gameLogCollection(where: { game: { slug: $slug } }) {
+    items {
+      sys {
+        firstPublishedAt
+      }
+      title
+      slug
+    }
+  }
 }
