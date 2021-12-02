@@ -45,7 +45,7 @@ export default {
         endpoint:
           "https://graphql.contentful.com/content/v1/spaces/" +
           process.env.CTF_SPACE_ID +
-          "/environments/slug-system-migration" +
+          // "/environments/slug-system-migration" +
           "?access_token=" +
           process.env.CTF_CDA_ACCESS_TOKEN,
       },
