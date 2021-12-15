@@ -51,7 +51,7 @@
 
       <!-- List of games -->
       <b-col md="6" class="mobile-no-pad">
-        <div v-for="(game, index) in filteredGames">
+        <div v-for="(game, index) in loadedGames" :key="`game-${index}`">
           <GamePlayedStatusIndicator :status="game.playedStatus" />
           <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
             {{ game.title }}
@@ -59,6 +59,15 @@
               [{{ game.system.shortName }}]</sup
             >
           </nuxt-link>
+        </div>
+
+        <div class="mt-3">
+          <button
+            @click="loadMore()"
+            v-if="loadedGames.length < filteredGames.length"
+          >
+            Load More
+          </button>
         </div>
       </b-col>
     </b-row>
@@ -72,6 +81,7 @@ export default {
   },
   data() {
     return {
+      totalToShow: 25,
       filterStatuses: [
         {
           value: null,
@@ -107,9 +117,13 @@ export default {
       }
       return array.sort(compare);
     },
+    loadMore() {
+      this.totalToShow = this.totalToShow + 25;
+    },
   },
   mounted() {
     const _self = this;
+    this.totalGames = this.games.length;
 
     // Find all existing statuses and add to filter
     let gameArr = [];
@@ -158,6 +172,13 @@ export default {
         );
       }
       return filteredGames;
+    },
+    loadedGames() {
+      let loadedGames = [];
+      this.filteredGames.slice([0], [this.totalToShow]).map((item, i) => {
+        loadedGames.push(item);
+      });
+      return loadedGames;
     },
   },
 };
