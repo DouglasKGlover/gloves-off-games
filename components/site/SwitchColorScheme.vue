@@ -1,5 +1,5 @@
 <template>
-  <button @click="switchColorScheme()"></button>
+  <button @click="switchColorScheme()" name="theme" aria-label="switch light and dark theme"></button>
 </template>
 
 <script>
