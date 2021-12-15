@@ -1,5 +1,5 @@
 <template>
-  <div class="played-status-indicator" :class="statusStyle"></div>
+  <div class="played-status-indicator " :class="statusStyle"></div>
 </template>
 
 <script>
