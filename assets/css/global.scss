@@ -131,6 +131,10 @@ ul {
 }
 
 @media (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+
   p, a {
     font-size: 1em;
   }
