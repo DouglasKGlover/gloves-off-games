@@ -7,14 +7,15 @@
         v-if="
           filterStatuses[1].options.length > 1 || filterWtbWts[1].options.length
         "
+        class="mobile-no-pad"
       >
         <div id="game-filters">
           <b-container>
             <b-row>
-              <b-col md="3">
+              <b-col lg="3" class="mobile-no-pad">
                 <h2>Filter</h2>
               </b-col>
-              <b-col md="2" align-self="end">
+              <b-col lg="2" align-self="end" class="mobile-no-pad">
                 <p>{{ filteredGames.length }}/{{ games.length }}</p>
               </b-col>
             </b-row>
@@ -25,7 +26,7 @@
               <!-- Filter by status -->
               <b-col
                 v-if="filterStatuses[1].options.length > 1"
-                md="4"
+                lg="4"
                 class="pl-0"
               >
                 <b-form-select
@@ -36,7 +37,7 @@
               </b-col>
 
               <!-- Filter by WTB/WTS -->
-              <b-col v-if="filterWtbWts[1].options.length" md="4" class="pl-0">
+              <b-col v-if="filterWtbWts[1].options.length" lg="4" class="pl-0">
                 <b-form-select
                   v-model="filters.wtbWts"
                   :options="filterWtbWts"
@@ -49,7 +50,7 @@
       </b-col>
 
       <!-- List of games -->
-      <b-col md="6">
+      <b-col md="6" class="mobile-no-pad">
         <div v-for="(game, index) in filteredGames">
           <GamePlayedStatusIndicator :status="game.playedStatus" />
           <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
