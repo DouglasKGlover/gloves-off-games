@@ -20,6 +20,7 @@
               <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
+                <sup v-if="game.digital">[Digital]</sup>
               </nuxt-link>
             </li>
           </ul>
@@ -38,6 +39,7 @@
               <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
+                <sup v-if="game.digital">[Digital]</sup>
               </nuxt-link>
             </li>
           </ul>
