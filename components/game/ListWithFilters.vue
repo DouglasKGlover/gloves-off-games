@@ -24,11 +24,7 @@
           <b-container>
             <b-row>
               <!-- Filter by status -->
-              <b-col
-                v-if="filterStatuses[1].options.length > 1"
-                lg="4"
-                class="pl-0"
-              >
+              <b-col v-if="filterStatuses[1].options.length > 1" lg="4">
                 <b-form-select
                   v-model="filters.status"
                   :options="filterStatuses"
@@ -36,13 +32,36 @@
                 ></b-form-select>
               </b-col>
 
+              <!-- Filter by digital -->
+              <b-col v-if="filterDigital[1].options.length > 1" lg="4">
+                <b-form-select
+                  v-model="filters.digital"
+                  :options="filterDigital"
+                  class="mb-4"
+                ></b-form-select>
+              </b-col>
+
               <!-- Filter by WTB/WTS -->
-              <b-col v-if="filterWtbWts[1].options.length" lg="4" class="pl-0">
+              <b-col v-if="filterWtbWts[1].options.length" lg="4">
                 <b-form-select
                   v-model="filters.wtbWts"
                   :options="filterWtbWts"
                   class="mb-4"
                 ></b-form-select>
+              </b-col>
+            </b-row>
+
+            <!-- Remove filters -->
+            <b-row
+              v-if="
+                filters.status ||
+                filters.digital ||
+                filters.digital == false ||
+                filters.wtbWts
+              "
+            >
+              <b-col>
+                <button @click="removeFilters">Remove Filters</button>
               </b-col>
             </b-row>
           </b-container>
@@ -93,6 +112,16 @@ export default {
           options: [],
         },
       ],
+      filterDigital: [
+        {
+          value: null,
+          text: "By Physical/Digital",
+        },
+        {
+          label: "Physical/Digital",
+          options: [],
+        },
+      ],
       filterWtbWts: [
         {
           value: null,
@@ -105,6 +134,7 @@ export default {
       ],
       filters: {
         status: null,
+        digital: null,
         wtbWts: null,
       },
     };
@@ -121,6 +151,13 @@ export default {
     loadMore() {
       this.totalToShow = this.totalToShow + 25;
     },
+    removeFilters() {
+      this.filters = {
+        status: null,
+        digital: null,
+        wtbWts: null,
+      };
+    },
   },
   mounted() {
     const _self = this;
@@ -130,7 +167,7 @@ export default {
     let gameArr = [];
     let filterArray = [];
     this.games.filter(function (game) {
-      var i = gameArr.findIndex((x) => x.playedStatus == game.playedStatus);
+      let i = gameArr.findIndex((x) => x.playedStatus == game.playedStatus);
       if (i <= -1) {
         gameArr.push(game);
         filterArray.push(game.playedStatus);
@@ -139,11 +176,25 @@ export default {
     });
     _self.filterStatuses[1].options = filterArray.sort();
 
+    // Find any digital games and add to filter if found
+    gameArr = [];
+    filterArray = [];
+    this.games.filter(function (game) {
+      let i = gameArr.findIndex((x) => x.digital == game.digital);
+      if (i <= -1 && game.digital) {
+        gameArr.push(game);
+        filterArray.push({ text: "Digital", value: true });
+        filterArray.push({ text: "Physical", value: false });
+      }
+      return null;
+    });
+    _self.filterDigital[1].options = filterArray.sort();
+
     // Find any games set to WTB/WTS and add to a filter if found
     gameArr = [];
     filterArray = [];
     this.games.filter(function (game) {
-      var i = gameArr.findIndex((x) => x.wtbWts == game.wtbWts);
+      let i = gameArr.findIndex((x) => x.wtbWts == game.wtbWts);
       if (i <= -1 && game.wtbWts !== null) {
         gameArr.push(game);
         switch (game.wtbWts) {
@@ -171,6 +222,15 @@ export default {
         filteredGames = filteredGames.filter(
           (game) => game.playedStatus == this.filters.status
         );
+      }
+      if (this.filters.digital !== null) {
+        filteredGames = filteredGames.filter((game) => {
+          if (game.digital && this.filters.digital) {
+            return true;
+          } else if (!game.digital && !this.filters.digital) {
+            return true;
+          }
+        });
       }
       return filteredGames;
     },
