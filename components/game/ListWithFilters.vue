@@ -58,6 +58,7 @@
             <sup v-if="game.system.shortName">
               [{{ game.system.shortName }}]</sup
             >
+            <sup v-if="game.digital"> [Digital]</sup>
           </nuxt-link>
         </div>
 

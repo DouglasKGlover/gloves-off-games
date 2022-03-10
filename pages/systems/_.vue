@@ -3,7 +3,7 @@
     <b-row>
       <b-col>
         <h1>{{ system.title }}</h1>
-        <p>{{ system.manufacturer.title }}</p>
+        <p v-if="system.manufacturer">{{ system.manufacturer.title }}</p>
 
         <hr />
 
