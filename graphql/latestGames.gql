@@ -9,6 +9,7 @@ query latestGamesQuery {
         slug
         shortName
       }
+      digital
       slug
     }
   }
