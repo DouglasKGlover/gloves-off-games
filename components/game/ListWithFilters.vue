@@ -52,14 +52,7 @@
             </b-row>
 
             <!-- Remove filters -->
-            <b-row
-              v-if="
-                filters.status ||
-                filters.digital ||
-                filters.digital == false ||
-                filters.wtbWts
-              "
-            >
+            <b-row v-if="filteredGames.length < games.length">
               <b-col>
                 <button @click="removeFilters">Remove Filters</button>
               </b-col>
@@ -161,7 +154,6 @@ export default {
   },
   mounted() {
     const _self = this;
-    this.totalGames = this.games.length;
 
     // Find all existing statuses and add to filter
     let gameArr = [];
