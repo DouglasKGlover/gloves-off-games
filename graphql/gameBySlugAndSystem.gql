@@ -18,6 +18,7 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
       }
       region
       playedStatus
+      digital
       requirementsForCompletion
       wtbWts
       photosCollection(limit: 10) {

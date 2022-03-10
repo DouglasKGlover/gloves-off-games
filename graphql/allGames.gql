@@ -9,6 +9,7 @@ query allGamesQuery {
         shortName
       }
       playedStatus
+      digital
       wtbWts
     }
   }

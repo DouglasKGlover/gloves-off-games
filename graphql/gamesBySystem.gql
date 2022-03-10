@@ -7,6 +7,7 @@ query gamesBySystemQuery($system: String!) {
       title
       slug
       playedStatus
+      digital
       wtbWts
       system {
         slug
