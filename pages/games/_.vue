@@ -10,14 +10,17 @@
                 {{ game.system.title }}
               </nuxt-link>
             </li>
+
             <li>
               <strong>Status: </strong>
               <GamePlayedStatusIndicator :status="game.playedStatus" />
               {{ game.playedStatus }}
             </li>
+
             <li v-if="game.wtbWts" :class="game.wtbWts.toLowerCase()">
               <strong v-if="game.wtbWts == 'WTS'">For sale!</strong>
             </li>
+
             <li v-if="game.requirementsForCompletion">
               <strong>Requirements for Completion:</strong>
               {{ game.requirementsForCompletion }}
@@ -32,6 +35,7 @@
             <h2>Photos</h2>
           </b-col>
         </b-row>
+
         <b-row>
           <b-col
             cols="4"
@@ -41,7 +45,7 @@
             class="mb-2"
           >
             <b-button v-b-modal="`photo-modal-${index}`" class="image-button">
-              <b-img fluid :src="photo.thumbnail" />
+              <b-img fluid :src="photo.thumbnail" width="300" height="200" />
             </b-button>
 
             <b-modal :id="`photo-modal-${index}`" hide-footer size="xl">
