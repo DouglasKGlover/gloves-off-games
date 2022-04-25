@@ -1,0 +1,16 @@
+query recentlyUpdatedQuery {
+  gameCollection(limit: 3, where: {sys:{publishedVersion_gt:4}}) {
+    items {
+      sys {
+        firstPublishedAt
+      }
+      title
+      system {
+        slug
+        shortName
+      }
+      digital
+      slug
+    }
+  }
+}

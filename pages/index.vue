@@ -27,7 +27,29 @@
         </b-col>
       </b-row>
 
-      <b-row>
+      <b-row class="mb-4">
+        <b-col>
+          <h2>Recently Updated</h2>
+          <ul>
+            <li
+              v-for="(game, index) in recentlyUpdated"
+              :key="`updated-game-${index}`"
+            >
+              <span class="small">{{
+                $dateTranslate(game.sys.firstPublishedAt)
+              }}</span>
+              -
+              <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
+                {{ game.title }}
+                <sup>[{{ game.system.shortName }}]</sup>
+                <sup v-if="game.digital">[Digital]</sup>
+              </nuxt-link>
+            </li>
+          </ul>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-4">
         <b-col>
           <h2>Latest Additions</h2>
           <ul>
@@ -50,10 +72,14 @@
 </template>
 
 <script>
+import { recentlyUpdatedQuery } from "~/graphql/recentlyUpdated.gql";
 import { latestGamesQuery } from "~/graphql/latestGames.gql";
 import { currentlyPlayingGamesQuery } from "~/graphql/currentlyPlayingGames.gql";
 export default {
   async asyncData({ $graphql }) {
+    let recentlyUpdated = await $graphql.default.request(recentlyUpdatedQuery);
+    recentlyUpdated = recentlyUpdated.gameCollection.items;
+
     let latestGames = await $graphql.default.request(latestGamesQuery);
     latestGames = latestGames.gameCollection.items;
 
@@ -63,6 +89,7 @@ export default {
     currentlyPlayingGames = currentlyPlayingGames.gameCollection.items;
 
     return {
+      recentlyUpdated,
       latestGames,
       currentlyPlayingGames,
     };
