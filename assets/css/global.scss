@@ -44,6 +44,7 @@ body {
   width: 10px;
   cursor: pointer;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
 
@@ -51,6 +52,7 @@ body {
     background: var(--highlight);
   }
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--foreground);
   transition: 0.3s ease;
@@ -66,11 +68,9 @@ a {
   padding: 0 5px 2px;
   margin: auto -5px;
   background: var(--highlight);
-  background: linear-gradient(
-    to right,
-    var(--highlight) 50%,
-    var(--background) 50%
-  );
+  background: linear-gradient(to right,
+      var(--highlight) 50%,
+      var(--background) 50%);
   background-size: 201% 100%;
   background-position: 100% bottom;
   transition: background-position 0.2s ease;
@@ -118,9 +118,13 @@ ul {
   border-radius: 0;
   border: 1px solid var(--foreground);
 }
+
 .modal-body {
   padding: 0;
+  text-align: center;
+  background: black;
 }
+
 .modal-header {
   padding: 0.5rem;
   background: var(--background);
@@ -141,11 +145,13 @@ ul {
     font-size: 18px;
   }
 
-  p, a {
+  p,
+  a {
     font-size: 1em;
   }
 
-  .small, sup {
+  .small,
+  sup {
     font-size: .9em;
   }
 
