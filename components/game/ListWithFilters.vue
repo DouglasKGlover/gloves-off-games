@@ -94,7 +94,7 @@ export default {
   },
   data() {
     return {
-      totalToShow: 25,
+      totalToShow: 999,
       filterStatuses: [
         {
           value: null,
