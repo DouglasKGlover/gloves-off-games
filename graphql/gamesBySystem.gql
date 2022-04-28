@@ -1,5 +1,5 @@
 query gamesBySystemQuery($system: String!) {
-  gameCollection(where: { system: { slug: $system } }, order: [title_ASC]) {
+  gameCollection(limit: 999, where: { system: { slug: $system } }, order: [title_ASC]) {
     items {
       sys {
         id
