@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container>
+    <b-container v-if="game">
       <b-row>
         <b-col>
           <h1>{{ game.title }}</h1>
@@ -26,6 +26,14 @@
               {{ game.requirementsForCompletion }}
             </li>
           </ul>
+        </b-col>
+      </b-row>
+
+      <b-row v-if="gameData" class="mt-3">
+        <b-col>
+          <div v-for="(game, index) in gameData" :key="`game-data-${index}`">
+            <p v-html="game.summary"></p>
+          </div>
         </b-col>
       </b-row>
 
@@ -75,9 +83,13 @@
 </template>
 
 <script>
-import Axios from "axios";
 import { gameBySlugAndSystemQuery } from "~/graphql/gameBySlugAndSystem.gql";
 export default {
+  data() {
+    return {
+      gameData: null,
+    };
+  },
   async asyncData({ $graphql, params }) {
     const path = (fullPath) => {
       return {
@@ -98,11 +110,20 @@ export default {
     };
   },
   mounted() {
-    const result = await Axios.post("/.netlify/functions/query-igdb", request, {
-      data: "naught",
-    }).then((res) => {
-      console.log(res);
-    });
+    let xhr = new XMLHttpRequest();
+    const params = {
+      test: 123,
+    };
+    xhr.open(
+      "POST",
+      `/.netlify/functions/query-igdb?title=${encodeURI(
+        JSON.stringify(this.game.title)
+      )}`
+    );
+    xhr.onload = () => {
+      this.gameData = JSON.parse(xhr.response);
+    };
+    xhr.send();
   },
 };
 </script>

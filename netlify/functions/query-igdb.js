@@ -1,18 +1,32 @@
 const axios = require('axios');
 
-const data = {
-    "Client-ID": process.env.IGDB_CLIENT_ID,
-    "Authorization": "Bearer " + process.env.IGDB_AUTHORIZATION
+const config = {
+    headers: {
+        "Client-ID": process.env.IGDB_CLIENT_ID,
+        "Authorization": "Bearer " + process.env.IGDB_AUTHORIZATION,
+    }
 };
 
-console.log("Attempt to run function");
-console.log(data);
-console.log(axios);
+exports.handler = async function (event, context) {
+    let returnData = null;
+    const requestParams = `fields summary; search ${event.queryStringParameters.title}; where version_parent = null; limit 1;`;
 
-// axios.post('https://reqres.in/api/users', data)
-//     .then((res) => {
-//         console.log(`Status: ${res.status}`);
-//         console.log('Body: ', res.data);
-//     }).catch((err) => {
-//         console.error(err);
-//     });
+    let reqInstance = axios.create({
+        headers: {
+            "Client-ID": process.env.IGDB_CLIENT_ID,
+            Authorization: `Bearer ${process.env.IGDB_AUTHORIZATION}`
+        }
+    });
+
+    await reqInstance.post("https://api.igdb.com/v4/games", requestParams, config)
+        .then((res) => {
+            returnData = res.data;
+        }).catch((err) => {
+            console.error(err);
+        });
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(returnData),
+    };
+};
