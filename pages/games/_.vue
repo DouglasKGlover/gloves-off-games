@@ -29,10 +29,11 @@
         </b-col>
       </b-row>
 
-      <b-row v-if="gameData" class="mt-3">
+      <b-row v-if="gameData">
         <b-col>
           <div v-for="(game, index) in gameData" :key="`game-data-${index}`">
-            <p v-html="game.summary"></p>
+            <img v-if="game.cover" :src="game.cover" class="mt-3" />
+            <p v-if="game.summary" v-html="game.summary" class="mt-3"></p>
           </div>
         </b-col>
       </b-row>
@@ -111,14 +112,11 @@ export default {
   },
   mounted() {
     let xhr = new XMLHttpRequest();
-    const params = {
-      test: 123,
-    };
     xhr.open(
       "POST",
       `/.netlify/functions/query-igdb?title=${encodeURI(
         JSON.stringify(this.game.title)
-      )}`
+      )}&platform=${encodeURI(JSON.stringify(this.game.system.title))}`
     );
     xhr.onload = () => {
       this.gameData = JSON.parse(xhr.response);
