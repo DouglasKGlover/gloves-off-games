@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import Axios from "axios";
 import { gameBySlugAndSystemQuery } from "~/graphql/gameBySlugAndSystem.gql";
 export default {
   async asyncData({ $graphql, params }) {
@@ -95,6 +96,13 @@ export default {
       game,
       glogs,
     };
+  },
+  mounted() {
+    const result = await Axios.post("/.netlify/functions/query-igdb", request, {
+      data: "naught",
+    }).then((res) => {
+      console.log(res);
+    });
   },
 };
 </script>
