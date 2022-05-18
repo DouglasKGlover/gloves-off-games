@@ -15,18 +15,24 @@ async function apiCall(endpoint, data) {
 
 exports.handler = async function (event, context) {
     let returnData = [{}];
+    console.log("~~~~~");
+    console.log("Serverless Function GO!");
 
     // Get the ID of the platform
     const platform = await apiCall(
         "platforms",
         `fields name; search ${event.queryStringParameters.platform}; limit 1;`
     );
+    console.log("Platform:");
+    console.log(platform);
 
     // Find the game based on the name and platform ID
     const game = await apiCall(
         "games",
         `fields summary, cover, platforms; search ${event.queryStringParameters.title}; where version_parent = null & release_dates.platform = ${platform.data[0].id}; limit 1;`
     );
+    console.log("Game:");
+    console.log(game);
 
     // Update the return data based on details found about the game
     if (game.data.length) {
@@ -39,9 +45,13 @@ exports.handler = async function (event, context) {
             );
             if (cover.data.length) {
                 returnData[0].cover = cover.data[0].url;
+                console.log("Cover:");
+                console.log(cover);
             }
         }
     }
+
+    console.log("~~~~~");
 
     return {
         statusCode: 200,
