@@ -24,7 +24,7 @@ exports.handler = async function (event, context) {
         `fields name; search ${event.queryStringParameters.platform}; limit 1;`
     );
     console.log("Platform:");
-    console.log(platform);
+    console.log(platform.data);
 
     // Find the game based on the name and platform ID
     const game = await apiCall(
@@ -32,7 +32,7 @@ exports.handler = async function (event, context) {
         `fields summary, cover, platforms; search ${event.queryStringParameters.title}; where version_parent = null & release_dates.platform = ${platform.data[0].id}; limit 1;`
     );
     console.log("Game:");
-    console.log(game);
+    console.log(game.data);
 
     // Update the return data based on details found about the game
     if (game.data.length) {
@@ -46,7 +46,7 @@ exports.handler = async function (event, context) {
             if (cover.data.length) {
                 returnData[0].cover = cover.data[0].url;
                 console.log("Cover:");
-                console.log(cover);
+                console.log(cover.data);
             }
         }
     }
