@@ -36,7 +36,7 @@
               :key="`updated-game-${index}`"
             >
               <span class="small">{{
-                $dateTranslate(game.sys.firstPublishedAt)
+                $dateTranslate(game.sys.publishedAt).short
               }}</span>
               -
               <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
@@ -55,7 +55,7 @@
           <ul>
             <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
               <span class="small">{{
-                $dateTranslate(game.sys.firstPublishedAt)
+                $dateTranslate(game.sys.firstPublishedAt).short
               }}</span>
               -
               <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">

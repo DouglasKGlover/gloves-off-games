@@ -14,7 +14,7 @@
             :key="`game-log-${index}`"
           >
             <span>
-              {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
+              {{ $dateTranslate(glog.sys.firstPublishedAt).long }} -
               <nuxt-link
                 :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
               >

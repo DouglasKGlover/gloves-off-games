@@ -12,7 +12,7 @@
               {{ glog.game.title }}
             </nuxt-link>
             <br />
-            Published on {{ $dateTranslate(glog.sys.firstPublishedAt) }}
+            Published on {{ $dateTranslate(glog.sys.firstPublishedAt).long }}
           </p>
         </b-col>
       </b-row>

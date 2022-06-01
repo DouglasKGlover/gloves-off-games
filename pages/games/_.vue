@@ -12,6 +12,11 @@
             </li>
 
             <li>
+              <strong>Added: </strong>
+              {{ $dateTranslate(game.sys.firstPublishedAt).long }}
+            </li>
+
+            <li>
               <strong>Status: </strong>
               <GamePlayedStatusIndicator :status="game.playedStatus" />
               {{ game.playedStatus }}
@@ -72,7 +77,7 @@
             v-for="(glog, index) in glogs"
             :key="`game-log-${index}`"
           >
-            {{ $dateTranslate(glog.sys.firstPublishedAt) }} -
+            {{ $dateTranslate(glog.sys.firstPublishedAt).short }} -
             <nuxt-link :to="`/glog/${glog.slug}`">
               {{ glog.title }}
             </nuxt-link>
