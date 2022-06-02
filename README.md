@@ -10,6 +10,7 @@ I've built this tracking web app for my video game collection, as existing tools
 - Bootstrap ([docs](https://bootstrap-vue.org/docs))
 - Contenful GraphQL API ([docs](https://www.contentful.com/developers/docs/references/graphql/))
 - Netlify ([docs](https://docs.netlify.com/))
+- IGDB ([docs](https://api-docs.igdb.com/#about))
 
 ## Local Development Commands
 
