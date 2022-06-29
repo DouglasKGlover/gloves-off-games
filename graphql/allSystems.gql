@@ -4,6 +4,11 @@ query allSystemsQuery {
       title
       shortName
       slug
+      linkedFrom {
+        gameCollection {
+          total
+        }
+      }
     }
   }
 }

@@ -18,7 +18,8 @@
           >
             <nuxt-link :to="`/systems/${system.slug}`">
               {{ system.title }}
-              <sup v-if="system.shortName"> [{{ system.shortName }}]</sup>
+              <sup> [{{ system.linkedFrom.gameCollection.total }}]</sup>
+              <!-- <sup v-if="system.shortName"> [{{ system.shortName }}]</sup> -->
             </nuxt-link>
           </li>
         </ul>
