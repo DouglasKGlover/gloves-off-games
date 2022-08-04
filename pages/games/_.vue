@@ -116,17 +116,17 @@ export default {
     };
   },
   mounted() {
-    let xhr = new XMLHttpRequest();
-    xhr.open(
-      "POST",
-      `/.netlify/functions/query-igdb?title=${encodeURI(
-        JSON.stringify(this.game.title)
-      )}&platform=${encodeURI(JSON.stringify(this.game.system.title))}`
-    );
-    xhr.onload = () => {
-      this.gameData = JSON.parse(xhr.response);
-    };
-    xhr.send();
+    // let xhr = new XMLHttpRequest();
+    // xhr.open(
+    //   "POST",
+    //   `/.netlify/functions/query-igdb?title=${encodeURI(
+    //     JSON.stringify(this.game.title)
+    //   )}&platform=${encodeURI(JSON.stringify(this.game.system.title))}`
+    // );
+    // xhr.onload = () => {
+    //   this.gameData = JSON.parse(xhr.response);
+    // };
+    // xhr.send();
   },
 };
 </script>
