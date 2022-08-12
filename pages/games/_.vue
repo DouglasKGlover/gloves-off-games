@@ -134,10 +134,13 @@ export default {
   },
   computed: {
     ebayLink() {
-      const title = this.game.title.replaceAll(" ", "+");
-      const systemTitle = this.game.system.title.replaceAll(" ", "+");
-      let searchTerm = `https://www.ebay.ca/sch/i.html?_nkw=${title}+${systemTitle}&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_stpos=M4V+2E9&_sargn=-1%26saslc%3D1&_salic=2&_sop=12&_dmd=1&_ipg=60&LH_Complete=1&_fosrp=1`;
-      return searchTerm;
+      const concat = `${this.game.title}+${this.game.system.title}`;
+      const searchTerm = concat
+        .replaceAll("&", "%26")
+        .replaceAll(" ", "+")
+        .replaceAll(":", "");
+      let ebayUrl = `https://www.ebay.ca/sch/i.html?_nkw=${searchTerm}&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_stpos=M4V+2E9&_sargn=-1%26saslc%3D1&_salic=2&_sop=12&_dmd=1&_ipg=60&LH_Complete=1&_fosrp=1`;
+      return ebayUrl;
     },
   },
 };
