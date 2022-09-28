@@ -12,6 +12,7 @@ query gameLogBySlugQuery($slug: String!) {
         system {
           slug
         }
+        region
       }
       details {
         json
