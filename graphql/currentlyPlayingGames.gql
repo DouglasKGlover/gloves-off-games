@@ -12,6 +12,7 @@ query currentlyPlayingGamesQuery {
       }
       playedStatus
       digital
+      region
     }
   }
 }

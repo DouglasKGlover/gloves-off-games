@@ -9,6 +9,8 @@
               <nuxt-link :to="`/systems/${game.system.slug}`">
                 {{ game.system.title }}
               </nuxt-link>
+
+              <GameRegionIndicator :region="game.region" />
             </li>
 
             <li>

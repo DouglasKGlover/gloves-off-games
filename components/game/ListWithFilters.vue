@@ -67,6 +67,7 @@
           <GamePlayedStatusIndicator :status="game.playedStatus" />
           <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
             {{ game.title }}
+            <GameRegionIndicator :region="game.region" />
             <sup v-if="game.system.shortName">
               [{{ game.system.shortName }}]</sup
             >

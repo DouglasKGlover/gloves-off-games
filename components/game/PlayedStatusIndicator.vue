@@ -1,5 +1,5 @@
 <template>
-  <div class="played-status-indicator " :class="statusStyle"></div>
+  <div class="played-status-indicator" :class="statusClass"></div>
 </template>
 
 <script>
@@ -8,10 +8,8 @@ export default {
     status: String,
   },
   computed: {
-    statusStyle() {
-      let styleClass = this.status;
-      styleClass = styleClass.toLowerCase();
-      return styleClass;
+    statusClass() {
+      return this.status.toLowerCase();
     },
   },
 };
