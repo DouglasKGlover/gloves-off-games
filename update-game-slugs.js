@@ -46,7 +46,7 @@ async function removeSystemFromGameSlug() {
       });
     })
     .catch((error) => {
-      console.log("Error!", error);
+      console.log("Error:", error);
     });
 
   return result;
