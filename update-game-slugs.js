@@ -38,7 +38,7 @@ async function removeSystemFromGameSlug() {
           // Update the existing game to have the new slug
           game.fields.slug["en-US"] = newSlug;
           console.log(game);
-          console.log("-----");
+          console.log("------");
 
           // Send the new data to the CMS
           return game.update();
