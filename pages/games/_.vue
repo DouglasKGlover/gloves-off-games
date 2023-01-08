@@ -19,6 +19,11 @@
             </li>
 
             <li>
+              <strong>Updated: </strong>
+              {{ $dateTranslate(game.sys.publishedAt).long }}
+            </li>
+
+            <li>
               <strong>Status: </strong>
               <GamePlayedStatusIndicator :status="game.playedStatus" />
               {{ game.playedStatus }}
@@ -34,7 +39,7 @@
             </li>
 
             <li>
-              <a :href="ebayLink" target="_blank">Price Check</a>
+              <a :href="ebayLink" target="_blank">&#128184; Price Check</a>
             </li>
           </ul>
         </b-col>
@@ -141,7 +146,7 @@ export default {
         .replaceAll("&", "%26")
         .replaceAll(" ", "+")
         .replaceAll(":", "");
-      let ebayUrl = `https://www.ebay.ca/sch/i.html?_nkw=${searchTerm}&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_stpos=M4V+2E9&_sargn=-1%26saslc%3D1&_salic=2&_sop=12&_dmd=1&_ipg=60&LH_Complete=1&_fosrp=1`;
+      let ebayUrl = `https://www.ebay.com/sch/i.html?_nkw=${searchTerm}&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_stpos=M4V+2E9&_sargn=-1%26saslc%3D1&_salic=2&_sop=12&_dmd=1&_ipg=60&LH_Complete=1&_fosrp=1`;
       return ebayUrl;
     },
   },
