@@ -4,6 +4,7 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
       sys {
         id
         firstPublishedAt
+        publishedAt
       }
       title
       system {
