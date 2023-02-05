@@ -25,7 +25,7 @@ export default {
   // Netlify
   generate: {
     fallback: true,
-    interval: 100  // Contentful API = 50/s
+    interval: 100, // Contentful API = 50/s
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
