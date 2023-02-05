@@ -34,7 +34,7 @@ import { gameLogBySlugQuery } from "~/graphql/gameLogBySlug.gql";
 export default {
   async asyncData({ $graphql, params }) {
     let glog = await $graphql.default.request(gameLogBySlugQuery, {
-      slug: params.pathMatch,
+      slug: params.slug,
     });
     glog = glog.gameLogCollection.items[0];
 

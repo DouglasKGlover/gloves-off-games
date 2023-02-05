@@ -1,0 +1,19 @@
+query paginatedGameLogsQuery($skip: Int!) {
+  gameLogCollection(limit: 10, skip: $skip, order: sys_firstPublishedAt_DESC) {
+    items {
+      sys {
+        firstPublishedAt
+      }
+      title
+      slug
+      game {
+        title
+        slug
+        system {
+          slug
+        }
+        region
+      }
+    }
+  }
+}
