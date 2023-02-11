@@ -32,6 +32,11 @@
 <script>
 import { gameLogBySlugQuery } from "~/graphql/gameLogBySlug.gql";
 export default {
+  head() {
+    return {
+      title: `Gloves Off Games - ${this.glog.title}`,
+    };
+  },
   async asyncData({ $graphql, params }) {
     let glog = await $graphql.default.request(gameLogBySlugQuery, {
       slug: params.slug,
