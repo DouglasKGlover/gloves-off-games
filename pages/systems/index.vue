@@ -31,6 +31,11 @@
 <script>
 import { allSystemsQuery } from "~/graphql/allSystems.gql";
 export default {
+  head() {
+    return {
+      title: "Gloves Off Games - Systems",
+    };
+  },
   async asyncData({ $graphql }) {
     let allSystems = await $graphql.default.request(allSystemsQuery, {
       preview: process.env.CTF_PREVIEW,

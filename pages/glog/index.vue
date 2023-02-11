@@ -35,6 +35,11 @@
 <script>
 import { allGameLogsQuery } from "~/graphql/allGameLogs.gql";
 export default {
+  head() {
+    return {
+      title: "Gloves Off Games - Glog",
+    };
+  },
   async asyncData({ $graphql }) {
     let allGameLogs = await $graphql.default.request(allGameLogsQuery);
     allGameLogs = allGameLogs.gameLogCollection.items;

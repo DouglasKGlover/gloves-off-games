@@ -18,6 +18,11 @@
 <script>
 import { allGamesQuery } from "~/graphql/allGames.gql";
 export default {
+  head() {
+    return {
+      title: "Gloves Off Games - Games",
+    };
+  },
   async asyncData({ $graphql }) {
     let allGames = await $graphql.default.request(allGamesQuery);
     allGames = allGames.gameCollection.items;

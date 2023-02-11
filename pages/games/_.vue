@@ -102,6 +102,11 @@
 <script>
 import { gameBySlugAndSystemQuery } from "~/graphql/gameBySlugAndSystem.gql";
 export default {
+  head() {
+    return {
+      title: `Gloves Off Games - ${this.game.title}`,
+    };
+  },
   data() {
     return {
       gameData: null,

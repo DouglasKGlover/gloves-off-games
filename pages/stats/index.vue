@@ -28,6 +28,11 @@
 import Highcharts from "highcharts";
 import { statistics } from "~/graphql/statistics.gql";
 export default {
+  head() {
+    return {
+      title: "Gloves Off Games - Stats",
+    };
+  },
   async asyncData({ $graphql, params }) {
     let stats = await $graphql.default.request(statistics);
 
