@@ -17,6 +17,11 @@
 import { systemBySlugQuery } from "~/graphql/systemBySlug.gql";
 import { gamesBySystemQuery } from "~/graphql/gamesBySystem.gql";
 export default {
+  head() {
+    return {
+      title: `Gloves Off Games - ${this.system.title}`,
+    };
+  },
   async asyncData({ $graphql, params }) {
     let system = await $graphql.default.request(systemBySlugQuery, {
       slug: params.pathMatch,
