@@ -104,7 +104,7 @@ import { gameBySlugAndSystemQuery } from "~/graphql/gameBySlugAndSystem.gql";
 export default {
   head() {
     return {
-      title: `Gloves Off Games - ${this.game.title}`,
+      title: `Gloves Off Games - ${this.game.title} (${this.game.system.title})`,
     };
   },
   data() {
