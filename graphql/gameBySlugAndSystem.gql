@@ -31,6 +31,12 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
           )
         }
       }
+      igdbReleaseDate
+      igdbDevelopers
+      igdbGenres
+      igdbSummary
+      igdbStoryline
+      igdbThemes
     }
   }
 

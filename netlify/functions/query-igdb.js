@@ -1,60 +1,60 @@
-const axios = require('axios');
+const axios = require("axios");
 const headers = {
-    "Client-ID": process.env.IGDB_CLIENT_ID,
-    "Authorization": "Bearer " + process.env.IGDB_AUTHORIZATION,
+  "Client-ID": process.env.IGDB_CLIENT_ID,
+  Authorization: "Bearer " + process.env.IGDB_AUTHORIZATION,
 };
 
 async function apiCall(endpoint, data) {
-    return axios({
-        url: `https://api.igdb.com/v4/${endpoint}`,
-        method: 'POST',
-        headers: headers,
-        data: data
-    });
+  return axios({
+    url: `https://api.igdb.com/v4/${endpoint}`,
+    method: "POST",
+    headers: headers,
+    data: data,
+  });
 }
 
 exports.handler = async function (event, context) {
-    let returnData = [{}];
-    console.log("~~~~~");
-    console.log("Serverless Function GO!");
+  let returnData = [{}];
+  console.log("~~~~~");
+  console.log("Serverless Function GO!");
 
-    // Get the ID of the platform
-    const platform = await apiCall(
-        "platforms",
-        `fields name; search ${event.queryStringParameters.platform}; limit 1;`
-    );
-    console.log("Platform:");
-    console.log(platform.data);
+  // Get the ID of the platform
+  const platform = await apiCall(
+    "platforms",
+    `fields name; search ${event.queryStringParameters.platform}; limit 1;`
+  );
+  console.log("Platform:");
+  console.log(platform.data);
 
-    // Find the game based on the name and platform ID
-    const game = await apiCall(
-        "games",
-        `fields summary, cover, platforms; search ${event.queryStringParameters.title}; where version_parent = null & release_dates.platform = ${platform.data[0].id}; limit 1;`
-    );
-    console.log("Game:");
-    console.log(game.data);
+  // Find the game based on the name and platform ID
+  const game = await apiCall(
+    "games",
+    `fields summary, cover, platforms; search ${event.queryStringParameters.title}; where version_parent = null & release_dates.platform = ${platform.data[0].id}; limit 1;`
+  );
+  console.log("Game:");
+  console.log(game.data);
 
-    // Update the return data based on details found about the game
-    if (game.data.length) {
-        returnData[0].summary = game.data[0].summary;
+  // Update the return data based on details found about the game
+  if (game.data.length) {
+    returnData[0].summary = game.data[0].summary;
 
-        if (game.data[0].cover) {
-            const cover = await apiCall(
-                "covers",
-                `fields url, height; where id = ${game.data[0].cover};`
-            );
-            if (cover.data.length) {
-                returnData[0].cover = cover.data[0].url;
-                console.log("Cover:");
-                console.log(cover.data);
-            }
-        }
+    if (game.data[0].cover) {
+      const cover = await apiCall(
+        "covers",
+        `fields url, height; where id = ${game.data[0].cover};`
+      );
+      if (cover.data.length) {
+        returnData[0].cover = cover.data[0].url;
+        console.log("Cover:");
+        console.log(cover.data);
+      }
     }
+  }
 
-    console.log("~~~~~");
+  console.log("~~~~~");
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify(returnData)
-    };
+  return {
+    statusCode: 200,
+    body: JSON.stringify(returnData),
+  };
 };

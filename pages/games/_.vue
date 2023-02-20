@@ -3,95 +3,163 @@
     <b-container v-if="game">
       <b-row>
         <b-col>
+          <!-- Title -->
           <h1>{{ game.title }}</h1>
-          <ul>
-            <li>
-              <nuxt-link :to="`/systems/${game.system.slug}`">
-                {{ game.system.title }}
-              </nuxt-link>
 
-              <GameRegionIndicator :region="game.region" />
-            </li>
-
-            <li>
-              <strong>Added: </strong>
-              {{ $dateTranslate(game.sys.firstPublishedAt).long }}
-            </li>
-
-            <li>
-              <strong>Updated: </strong>
-              {{ $dateTranslate(game.sys.publishedAt).long }}
-            </li>
-
-            <li>
-              <strong>Status: </strong>
-              <GamePlayedStatusIndicator :status="game.playedStatus" />
-              {{ game.playedStatus }}
-            </li>
-
-            <li v-if="game.wtbWts" :class="game.wtbWts.toLowerCase()">
-              <strong v-if="game.wtbWts == 'WTS'">For sale!</strong>
-            </li>
-
-            <li v-if="game.requirementsForCompletion">
-              <strong>Requirements for Completion:</strong>
-              {{ game.requirementsForCompletion }}
-            </li>
-
-            <li>
-              <a :href="ebayLink" target="_blank">&#128184; Price Check</a>
-            </li>
-          </ul>
-        </b-col>
-      </b-row>
-
-      <!-- <b-row v-if="gameData">
-        <b-col>
-          <div v-for="(game, index) in gameData" :key="`game-data-${index}`">
-            <img v-if="game.cover" :src="game.cover" class="mt-3" />
-            <p v-if="game.summary" v-html="game.summary" class="mt-3"></p>
-          </div>
-        </b-col>
-      </b-row> -->
-
-      <div v-if="game.photosCollection.items.length" class="mt-5">
-        <b-row>
-          <b-col>
-            <h2>Photos</h2>
-          </b-col>
-        </b-row>
-
-        <b-row>
-          <b-col
-            cols="4"
-            md="2"
-            v-for="(photo, index) in game.photosCollection.items"
-            :key="`game-photo-${index}`"
-            class="mb-2"
-          >
-            <b-button v-b-modal="`photo-modal-${index}`" class="image-button">
-              <b-img fluid :src="photo.thumbnail" width="300" height="200" />
-            </b-button>
-
-            <b-modal :id="`photo-modal-${index}`" hide-footer size="xl">
-              <b-img :src="photo.url" fluid />
-            </b-modal>
-          </b-col>
-        </b-row>
-      </div>
-
-      <b-row v-if="glogs.length" class="mt-4">
-        <b-col>
-          <h2>Game Log<span v-if="glogs.length > 1">s</span></h2>
-          <div
-            class="game-log-link"
-            v-for="(glog, index) in glogs"
-            :key="`game-log-${index}`"
-          >
-            {{ $dateTranslate(glog.sys.firstPublishedAt).short }} -
-            <nuxt-link :to="`/glog/${glog.slug}`">
-              {{ glog.title }}
+          <!-- Platform -->
+          <h2>
+            <nuxt-link :to="`/systems/${game.system.slug}`">
+              {{ game.system.title }}
             </nuxt-link>
+          </h2>
+
+          <!-- Overview -->
+          <div class="mt-4">
+            <h3>Overview</h3>
+
+            <ul>
+              <li>
+                <GameRegionIndicator :region="game.region" />
+              </li>
+              <li>
+                <strong>Requirements for Completion:</strong>
+                {{ game.requirementsForCompletion }}
+              </li>
+
+              <li>
+                <strong>Played Status: </strong>
+                <GamePlayedStatusIndicator :status="game.playedStatus" />{{
+                  game.playedStatus
+                }}
+              </li>
+
+              <li>
+                <a :href="ebayLink" target="_blank">&#128184; Price Check</a>
+              </li>
+
+              <li v-if="game.wtbWts" :class="game.wtbWts.toLowerCase()">
+                <strong v-if="game.wtbWts == 'WTS'">For sale!</strong>
+              </li>
+            </ul>
+
+            <p></p>
+          </div>
+
+          <!-- Photos -->
+          <div v-if="game.photosCollection.items.length" class="mt-4">
+            <h3>Photos</h3>
+
+            <b-row>
+              <b-col
+                cols="4"
+                md="2"
+                v-for="(photo, index) in game.photosCollection.items"
+                :key="`game-photo-${index}`"
+                class="mb-2"
+              >
+                <b-button
+                  v-b-modal="`photo-modal-${index}`"
+                  class="image-button"
+                >
+                  <b-img
+                    fluid
+                    :src="photo.thumbnail"
+                    width="300"
+                    height="200"
+                  />
+                </b-button>
+
+                <b-modal :id="`photo-modal-${index}`" hide-footer size="xl">
+                  <b-img :src="photo.url" fluid />
+                </b-modal>
+              </b-col>
+            </b-row>
+          </div>
+
+          <!-- Game Logs -->
+          <div v-if="glogs.length" class="mt-4">
+            <h3>Game Log<span v-if="glogs.length > 1">s</span></h3>
+            <div
+              class="game-log-link"
+              v-for="(glog, index) in glogs"
+              :key="`game-log-${index}`"
+            >
+              {{ $dateTranslate(glog.sys.firstPublishedAt).short }} -
+              <nuxt-link :to="`/glog/${glog.slug}`">
+                {{ glog.title }}
+              </nuxt-link>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="mt-4">
+            <h3>Details</h3>
+
+            <ul>
+              <li v-if="game.igdbReleaseDate">
+                <strong>Released: </strong>
+                {{ $dateTranslate(game.igdbReleaseDate).long }}
+              </li>
+
+              <li>
+                <strong>Added: </strong>
+                {{ $dateTranslate(game.sys.firstPublishedAt).long }}
+              </li>
+
+              <li>
+                <strong>Updated: </strong>
+                {{ $dateTranslate(game.sys.publishedAt).long }}
+              </li>
+
+              <li v-if="game.igdbGenres">
+                <strong>Genres: </strong>
+                <span
+                  v-for="(genre, index) in game.igdbGenres"
+                  :key="`genre-${index}`"
+                >
+                  {{ genre
+                  }}<span v-if="index < game.igdbGenres.length - 1">, </span>
+                </span>
+              </li>
+
+              <li v-if="game.igdbThemes">
+                <strong>Themes: </strong>
+                <span
+                  v-for="(theme, index) in game.igdbThemes"
+                  :key="`theme-${index}`"
+                >
+                  {{ theme
+                  }}<span v-if="index < game.igdbThemes.length - 1">, </span>
+                </span>
+              </li>
+
+              <li v-if="game.igdbDevelopers">
+                <strong>Companies Involved: </strong>
+                <span
+                  v-for="(developer, index) in game.igdbDevelopers"
+                  :key="`developer-${index}`"
+                >
+                  {{ developer
+                  }}<span v-if="index < game.igdbDevelopers.length - 1"
+                    >,
+                  </span>
+                </span>
+              </li>
+
+              <li class="mt-4" v-if="game.igdbSummary">
+                <h4>Summary:</h4>
+                <p>
+                  {{ game.igdbSummary }}
+                </p>
+              </li>
+
+              <li class="mt-2" v-if="game.igdbStoryline">
+                <h4>Storyline:</h4>
+                <p>
+                  {{ game.igdbStoryline }}
+                </p>
+              </li>
+            </ul>
           </div>
         </b-col>
       </b-row>
@@ -130,19 +198,6 @@ export default {
       game,
       glogs,
     };
-  },
-  mounted() {
-    // let xhr = new XMLHttpRequest();
-    // xhr.open(
-    //   "POST",
-    //   `/.netlify/functions/query-igdb?title=${encodeURI(
-    //     JSON.stringify(this.game.title)
-    //   )}&platform=${encodeURI(JSON.stringify(this.game.system.title))}`
-    // );
-    // xhr.onload = () => {
-    //   this.gameData = JSON.parse(xhr.response);
-    // };
-    // xhr.send();
   },
   computed: {
     ebayLink() {
