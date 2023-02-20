@@ -62,15 +62,30 @@ body {
   }
 }
 
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
 a {
   color: inherit;
   font-weight: bold;
   padding: 0 5px 2px;
   margin: auto -5px;
   background: var(--highlight);
-  background: linear-gradient(to right,
-      var(--highlight) 50%,
-      var(--background) 50%);
+  background: linear-gradient(
+    to right,
+    var(--highlight) 50%,
+    var(--background) 50%
+  );
   background-size: 201% 100%;
   background-position: 100% bottom;
   transition: background-position 0.2s ease;
@@ -152,7 +167,7 @@ ul {
 
   .small,
   sup {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   h1 {
