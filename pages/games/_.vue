@@ -180,6 +180,9 @@ export default {
       gameData: null,
     };
   },
+  mounted() {
+    console.log(game.igdbStoryline);
+  },
   async asyncData({ $graphql, params }) {
     const path = (fullPath) => {
       return {

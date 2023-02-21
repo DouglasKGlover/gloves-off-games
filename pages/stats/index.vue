@@ -20,6 +20,13 @@
           <div id="systems-totals-chart"></div>
         </b-col>
       </b-row>
+
+      <b-row>
+        <b-col>
+          <h2>Genres</h2>
+          <div id="genres-chart"></div>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -27,6 +34,7 @@
 <script>
 import Highcharts from "highcharts";
 import { statistics } from "~/graphql/statistics.gql";
+import { statisticsGenres } from "~/graphql/statistics-genres.gql";
 export default {
   head() {
     return {
@@ -35,13 +43,39 @@ export default {
   },
   async asyncData({ $graphql, params }) {
     let stats = await $graphql.default.request(statistics);
+    let statsGenres = await $graphql.default.request(statisticsGenres);
+    let genresCollection = [];
+    let genreCount = {};
+
+    statsGenres.genres.items.forEach((genreCollection) => {
+      if (genreCollection.igdbGenres) {
+        genreCollection.igdbGenres.forEach((genre) => {
+          genresCollection.push(genre);
+        });
+      }
+    });
+
+    // Count the total number of instances of each genre
+    genresCollection.forEach((genre) => {
+      genreCount[genre] = (genreCount[genre] || 0) + 1;
+    });
+
+    // Create a series for HighCharts using the genre data
+    let genresSeries = [];
+    for (let genre in genreCount) {
+      genresSeries.push({
+        name: genre,
+        y: genreCount[genre],
+      });
+    }
 
     return {
       stats,
+      genresSeries,
     };
   },
   methods: {
-    gameStatusPieChart() {
+    gameStatusChart() {
       Highcharts.chart("games-played-status-chart", {
         chart: {
           backgroundColor: "transparent",
@@ -102,7 +136,7 @@ export default {
         ],
       });
     },
-    systemTotalGamesPieChart() {
+    systemTotalGamesChart() {
       // Get all the systems and their total games
       let systemsSeries = [];
       this.stats.systems.items.forEach((system) => {
@@ -161,10 +195,51 @@ export default {
         ],
       });
     },
+    genresChart() {
+      Highcharts.chart("genres-chart", {
+        chart: {
+          backgroundColor: "transparent",
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: "pie",
+        },
+        title: {
+          text: null,
+        },
+        tooltip: {
+          pointFormat: "Games: <b>{point.y}</b>",
+        },
+        accessibility: {
+          point: {
+            valueSuffix: "%",
+          },
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            dataLabels: {
+              enabled: true,
+              format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+            },
+          },
+        },
+        series: [
+          {
+            name: "Genres",
+            colorByPoint: true,
+            animation: false,
+            data: this.genresSeries,
+          },
+        ],
+      });
+    },
   },
   mounted() {
-    this.gameStatusPieChart();
-    this.systemTotalGamesPieChart();
+    this.gameStatusChart();
+    this.systemTotalGamesChart();
+    this.genresChart();
   },
 };
 </script>
