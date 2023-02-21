@@ -38,7 +38,6 @@ async function igdbCall(endpoint, data) {
   });
 }
 
-// Function to get all games, find those with a slug containing a slash, and update their slug to remove the content before that slash
 async function getGame() {
   const ctfSpaceId = process.env.CTF_SPACE_ID;
   const ctfAccessToken = process.env.CTF_CMA_ACCESS_TOKEN;
