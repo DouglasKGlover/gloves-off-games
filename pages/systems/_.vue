@@ -10,7 +10,7 @@
         <b-row>
           <b-col md="3">
             <h2>Status Overview</h2>
-            <p><b>Total Games:</b> 123</p>
+            <p><b>Total Games:</b> {{ games.length }}</p>
           </b-col>
 
           <b-col md="6">
