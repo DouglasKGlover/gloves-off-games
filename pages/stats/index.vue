@@ -119,7 +119,7 @@ export default {
               {
                 name: "Unfinished",
                 y: this.stats.gamesUnfinished.total,
-                color: "#FCD581",
+                color: "#FFB940",
               },
               {
                 name: "Beaten",
@@ -129,7 +129,7 @@ export default {
               {
                 name: "Completed",
                 y: this.stats.gamesCompleted.total,
-                color: "#FFB940",
+                color: "#FCD581",
               },
             ],
           },

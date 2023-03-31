@@ -63,11 +63,11 @@ export default {
       if (gameStatus == "Untouched") {
         color = "#DB4C40";
       } else if (gameStatus == "Unfinished") {
-        color = "#FCD581";
+        color = "#FFB940";
       } else if (gameStatus == "Beaten") {
         color = "#4B8F8C";
       } else if (gameStatus == "Completed") {
-        color = "#FFB940";
+        color = "#FCD581";
       }
 
       gameStatusSeries.push({
