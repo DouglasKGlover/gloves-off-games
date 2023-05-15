@@ -21,7 +21,7 @@
               <li>
                 <GameRegionIndicator :region="game.region" />
               </li>
-              <li>
+              <li v-if="game.requirementsForCompletion">
                 <strong>Requirements for Completion:</strong>
                 {{ game.requirementsForCompletion }}
               </li>
