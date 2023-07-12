@@ -5,6 +5,8 @@ export default {
   env: {
     CTF_HOST: process.env.CTF_HOST,
     CTF_PREVIEW: process.env.CTF_HOST == "preview.contentful.com", // true/false based on whether we're on a preview site
+    IGDB_CLIENT_ID: process.env.IGDB_CLIENT_ID,
+    IGDB_AUTHORIZATION: process.env.IGDB_AUTHORIZATION,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
