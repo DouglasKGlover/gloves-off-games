@@ -2,29 +2,29 @@ const dotenv = require("dotenv");
 const contentful = require("contentful-management");
 const axios = require("axios");
 
-// const consoles = [
-//   { name: "PlayStation 5", id: "2gfu6mTOkS5Mod5Gqy9ODN" },
-//   { name: "PC (Microsoft Windows)", id: "6vKctDGACAs1oZz0TMUkSe" },
-//   { name: "PlayStation 2", id: "6fkH7tigKfZtC2NPRt2iwP" },
-//   { name: "PlayStation 3", id: "1uEj3rEsJSAPIse2z8uK7q" },
-//   { name: "PlayStation 4", id: "5Ee9gBQkAhV1GuzPXlIuRw" },
-//   { name: "PlayStation", id: "6ASEJghfW4ZloAIYUvInER" },
-//   { name: "PlayStation Portable", id: "4feB1lSYlvkS4ppmHyfGde" },
-//   { name: "PlayStation Vita", id: "7KEao5XTVW0qKqHJjAlnVm" },
-//   { name: "Wii", id: "7Lk9CPGOy7yQ9wev862O5E" },
-//   { name: "Wii U", id: "5TZNzfE1yhijCjKfFwW1tW" },
-//   { name: "Switch", id: "6YVCTCDFTK8X91rpKBFvL5" },
-//   { name: "Sega Mega Drive/Genesis", id: "6ih9rBvmwWAuaAunllHeli" },
-//   { name: "Nintendo 3DS", id: "5IrdhdD30Myjewg7JzyNal" },
-//   { name: "Nintendo DS", id: "74BJMZafQMgQZnX219AbOm" },
-//   { name: "Game Boy Advance", id: "327Da1VPnc0XRy1s38qUzK" },
-//   { name: "Game Boy Color", id: "2FsVNAiFlbWIo7mnrMoukX" },
-//   { name: "GameCube", id: "2Et5X44yantK60iDixPsto" },
-//   { name: "Nintendo 64", id: "3dTvnRQCvD1iXIuWk61Adi" },
-//   { name: "Game Boy", id: "5AMUCTBTDts3rcPriFt3So" },
-//   { name: "Super Nintendo Entertainment System", id: "6EcLJAF1TLPczf8HwvhhSr" },
-//   { name: "Nintendo Entertainment System", id: "LNKQ5B8fRu1BMfIa1nnrK" },
-// ];
+const consoles = [
+  { name: "PlayStation 5", id: "2gfu6mTOkS5Mod5Gqy9ODN" },
+  { name: "PC (Microsoft Windows)", id: "6vKctDGACAs1oZz0TMUkSe" },
+  { name: "PlayStation 2", id: "6fkH7tigKfZtC2NPRt2iwP" },
+  { name: "PlayStation 3", id: "1uEj3rEsJSAPIse2z8uK7q" },
+  { name: "PlayStation 4", id: "5Ee9gBQkAhV1GuzPXlIuRw" },
+  { name: "PlayStation", id: "6ASEJghfW4ZloAIYUvInER" },
+  { name: "PlayStation Portable", id: "4feB1lSYlvkS4ppmHyfGde" },
+  { name: "PlayStation Vita", id: "7KEao5XTVW0qKqHJjAlnVm" },
+  { name: "Wii", id: "7Lk9CPGOy7yQ9wev862O5E" },
+  { name: "Wii U", id: "5TZNzfE1yhijCjKfFwW1tW" },
+  { name: "Switch", id: "6YVCTCDFTK8X91rpKBFvL5" },
+  { name: "Sega Mega Drive/Genesis", id: "6ih9rBvmwWAuaAunllHeli" },
+  { name: "Nintendo 3DS", id: "5IrdhdD30Myjewg7JzyNal" },
+  { name: "Nintendo DS", id: "74BJMZafQMgQZnX219AbOm" },
+  { name: "Game Boy Advance", id: "327Da1VPnc0XRy1s38qUzK" },
+  { name: "Game Boy Color", id: "2FsVNAiFlbWIo7mnrMoukX" },
+  { name: "GameCube", id: "2Et5X44yantK60iDixPsto" },
+  { name: "Nintendo 64", id: "3dTvnRQCvD1iXIuWk61Adi" },
+  { name: "Game Boy", id: "5AMUCTBTDts3rcPriFt3So" },
+  { name: "Super Nintendo Entertainment System", id: "6EcLJAF1TLPczf8HwvhhSr" },
+  { name: "Nintendo Entertainment System", id: "LNKQ5B8fRu1BMfIa1nnrK" },
+];
 
 async function igdbCall(endpoint, data) {
   return axios({
@@ -43,7 +43,7 @@ async function getGame() {
   const ctfAccessToken = process.env.CTF_CMA_ACCESS_TOKEN;
   const ctfEnv = "master";
   let ctfGamesList = [];
-  const platformToSearch = consoles[0];
+  const platformToSearch = consoles[3];
 
   const client = contentful.createClient({
     space: ctfSpaceId,

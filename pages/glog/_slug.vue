@@ -7,6 +7,7 @@
           <p>
             Game:
             <nuxt-link
+              v-if="glog.game"
               :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
             >
               {{ glog.game.title }}
