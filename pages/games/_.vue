@@ -23,7 +23,9 @@
               </li>
               <li v-if="game.requirementsForCompletion">
                 <strong>Requirements for Completion:</strong>
-                {{ game.requirementsForCompletion }}
+                <span
+                  v-html="$translateLongText(game.requirementsForCompletion)"
+                />
               </li>
 
               <li>
@@ -179,9 +181,6 @@ export default {
     return {
       gameData: null,
     };
-  },
-  mounted() {
-    console.log(game.igdbStoryline);
   },
   async asyncData({ $graphql, params }) {
     const path = (fullPath) => {

@@ -6,12 +6,13 @@ export default (context, inject) => {
     const options = {
       renderNode: {
         [INLINES.HYPERLINK]: (node, next) => {
-          return `<a href="${node.data.uri}"${!node.data.uri.includes(".") ? "" : ' target="_blank"'
-            }>${next(node.content)}</a>`;
+          return `<a href="${node.data.uri}"${
+            !node.data.uri.includes(".") ? "" : ' target="_blank"'
+          }>${next(node.content)}</a>`;
         },
         [BLOCKS.PARAGRAPH]: (node, next) => {
-          return `<p>${next(node.content).replace("&amp;nbsp;", "&nbsp;")}</p>`
-        }
+          return `<p>${next(node.content).replace("&amp;nbsp;", "&nbsp;")}</p>`;
+        },
       },
     };
     return documentToHtmlString(richText, options);
