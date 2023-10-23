@@ -7,7 +7,10 @@ export default (context, inject) => {
       .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>") // bold text
       .replace(/\*(.*)\*/gim, "<i>$1</i>") // italic text
       .replace(/\r\n|\r|\n/gim, "<br>") // linebreaks
-      .replace(/\[([^\[]+)\](\(([^)]*))\)/gim, '<a href="$3">$1</a>');
+      .replace(
+        /\[([^\[]+)\](\(([^)]*))\)/gim,
+        '<a href="$3" target="_blank">$1</a>'
+      );
     return newText;
   };
   inject("translateLongText", translateLongText);
