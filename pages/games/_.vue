@@ -35,6 +35,11 @@
                 }}
               </li>
 
+              <li v-if="game.highScore">
+                <strong>High Score: </strong>
+                {{ game.highScore }}
+              </li>
+
               <li>
                 <a :href="ebayLink" target="_blank">&#128184; Price Check</a>
               </li>
