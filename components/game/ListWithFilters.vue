@@ -63,7 +63,11 @@
 
       <!-- List of games -->
       <b-col md="6" class="mobile-no-pad">
-        <div v-for="(game, index) in loadedGames" :key="`game-${index}`">
+        <div
+          v-for="(game, index) in loadedGames"
+          :key="`game-${index}`"
+          :class="game.playedStatus"
+        >
           <GamePlayedStatusIndicator :status="game.playedStatus" />
           <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
             {{ game.title }}
@@ -238,4 +242,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.Abandoned a {
+  text-decoration: line-through;
+}
+</style>

@@ -114,7 +114,7 @@ export default {
               {
                 name: "Untouched",
                 y: this.stats.gamesUntouched.total,
-                color: "#DB4C40",
+                color: "#AAAAAA",
               },
               {
                 name: "Unfinished",
@@ -130,6 +130,11 @@ export default {
                 name: "Completed",
                 y: this.stats.gamesCompleted.total,
                 color: "#FCD581",
+              },
+              {
+                name: "Abandoned",
+                y: this.stats.gamesAbandoned.total,
+                color: "#DB4C40",
               },
             ],
           },

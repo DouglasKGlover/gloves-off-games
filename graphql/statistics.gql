@@ -14,6 +14,9 @@ query statistics {
   gamesUntouched: gameCollection(where: { playedStatus: "Untouched" }) {
     total
   }
+  gamesAbandoned: gameCollection(where: { playedStatus: "Abandoned" }) {
+    total
+  }
   systems: systemCollection(order: [title_ASC]) {
     total
     items {

@@ -35,10 +35,11 @@ export default {
     position: absolute;
     bottom: 150%;
     left: 0;
-    padding: 0.1em 1em 0.2em;
+    padding: 0.2em 0.5em 0.4em;
     background: var(--highlight);
     border: 1px solid var(--foreground);
     font-size: 0.6em;
+    width: 200px;
   }
 
   &:hover {
@@ -50,10 +51,10 @@ export default {
   }
 
   &.untouched {
-    background: red;
+    background: grey;
 
     &::after {
-      content: "Status: Untouched";
+      content: "I've never played this game, or at least not this specific copy of this game.";
     }
   }
 
@@ -61,7 +62,7 @@ export default {
     background: orange;
 
     &::after {
-      content: "Status: Unfinished";
+      content: "I've started playing this game, but I haven't finished it yet.";
     }
   }
 
@@ -69,7 +70,7 @@ export default {
     background: green;
 
     &::after {
-      content: "Status: Beaten";
+      content: "I've beaten this game, but I haven't 100% completed it yet.";
     }
   }
 
@@ -77,7 +78,15 @@ export default {
     background: gold;
 
     &::after {
-      content: "Status: Completed";
+      content: "I've beaten this game and 100% completed it. The requirements for this are listed on the game page.";
+    }
+  }
+
+  &.abandoned {
+    background: red;
+
+    &::after {
+      content: "I've started playing this game, but I've abandoned it for one reason or another, and I don't plan on finishing it.";
     }
   }
 }
