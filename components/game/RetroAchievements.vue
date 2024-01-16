@@ -29,7 +29,7 @@ export default {
   },
   mounted() {
     // Get game data from netlify function
-    this.getGame();
+    // this.getGame();
   },
 };
 </script>
