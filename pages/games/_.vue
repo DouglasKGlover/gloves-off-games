@@ -6,6 +6,9 @@
           <!-- Title -->
           <h1>{{ game.title }}</h1>
 
+          <!-- Game Info -->
+          <!-- <GameRetroAchievements v-if="game.raId" :raId="game.raId" /> -->
+
           <!-- Platform -->
           <h2>
             <nuxt-link :to="`/systems/${game.system.slug}`">
@@ -38,6 +41,16 @@
               <li v-if="game.highScore">
                 <strong>High Score: </strong>
                 {{ game.highScore }}
+              </li>
+
+              <li>
+                <strong>Added: </strong>
+                {{ $dateTranslate(game.sys.firstPublishedAt).long }}
+              </li>
+
+              <li>
+                <strong>Updated: </strong>
+                {{ $dateTranslate(game.sys.publishedAt).long }}
               </li>
 
               <li>
@@ -97,77 +110,6 @@
               </nuxt-link>
             </div>
           </div>
-
-          <!-- Details -->
-          <div class="mt-4">
-            <h3>Details</h3>
-
-            <ul>
-              <li v-if="game.igdbReleaseDate">
-                <strong>Released: </strong>
-                {{ $dateTranslate(game.igdbReleaseDate).long }}
-              </li>
-
-              <li>
-                <strong>Added: </strong>
-                {{ $dateTranslate(game.sys.firstPublishedAt).long }}
-              </li>
-
-              <li>
-                <strong>Updated: </strong>
-                {{ $dateTranslate(game.sys.publishedAt).long }}
-              </li>
-
-              <li v-if="game.igdbGenres">
-                <strong>Genres: </strong>
-                <span
-                  v-for="(genre, index) in game.igdbGenres"
-                  :key="`genre-${index}`"
-                >
-                  {{ genre
-                  }}<span v-if="index < game.igdbGenres.length - 1">, </span>
-                </span>
-              </li>
-
-              <li v-if="game.igdbThemes">
-                <strong>Themes: </strong>
-                <span
-                  v-for="(theme, index) in game.igdbThemes"
-                  :key="`theme-${index}`"
-                >
-                  {{ theme
-                  }}<span v-if="index < game.igdbThemes.length - 1">, </span>
-                </span>
-              </li>
-
-              <li v-if="game.igdbDevelopers">
-                <strong>Companies Involved: </strong>
-                <span
-                  v-for="(developer, index) in game.igdbDevelopers"
-                  :key="`developer-${index}`"
-                >
-                  {{ developer
-                  }}<span v-if="index < game.igdbDevelopers.length - 1"
-                    >,
-                  </span>
-                </span>
-              </li>
-
-              <li class="mt-4" v-if="game.igdbSummary">
-                <h4>Summary:</h4>
-                <p>
-                  {{ game.igdbSummary }}
-                </p>
-              </li>
-
-              <li class="mt-2" v-if="game.igdbStoryline">
-                <h4>Storyline:</h4>
-                <p>
-                  {{ game.igdbStoryline }}
-                </p>
-              </li>
-            </ul>
-          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -175,6 +117,7 @@
 </template>
 
 <script>
+import RetroAchievements from "~/components/game/RetroAchievements.vue";
 import { gameBySlugAndSystemQuery } from "~/graphql/gameBySlugAndSystem.gql";
 export default {
   head() {
@@ -200,7 +143,6 @@ export default {
     });
     let glogs = game.gameLogCollection.items;
     game = game.gameCollection.items[0];
-
     return {
       game,
       glogs,
@@ -210,13 +152,14 @@ export default {
     ebayLink() {
       const concat = `${this.game.title}+${this.game.system.title}`;
       const searchTerm = concat
-        .replaceAll("&", "%26")
+        .replaceAll("&", "&")
         .replaceAll(" ", "+")
         .replaceAll(":", "");
-      let ebayUrl = `https://www.ebay.ca/sch/i.html?_nkw=${searchTerm}&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_stpos=M4V+2E9&_sargn=-1%26saslc%3D1&_salic=2&_sop=12&_dmd=1&_ipg=60&LH_Complete=1&_fosrp=1`;
+      let ebayUrl = `https://www.ebay.ca/sch/i.html?_nkw=${searchTerm}&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_stpos=M4V+2E9&_sargn=-1&saslc=1&_salic=2&_sop=12&_dmd=1&_ipg=60&LH_Complete=1&_fosrp=1`;
       return ebayUrl;
     },
   },
+  components: { RetroAchievements },
 };
 </script>
 

@@ -1,7 +1,0 @@
-query statisticsGenres {
-  genres: gameCollection(limit: 999) {
-    items {
-      igdbGenres
-    }
-  }
-}

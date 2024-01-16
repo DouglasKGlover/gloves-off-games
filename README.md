@@ -10,7 +10,6 @@ I've built this tracking web app for my video game collection, as existing tools
 - Bootstrap ([docs](https://bootstrap-vue.org/docs))
 - Contenful GraphQL API ([docs](https://www.contentful.com/developers/docs/references/graphql/))
 - Netlify ([docs](https://docs.netlify.com/))
-- IGDB ([docs](https://api-docs.igdb.com/#about))
 
 ## Local Development Commands
 
@@ -34,10 +33,6 @@ CTF_HOST=<Contentful Host; either cdn or preview.contentful.com>
 CTF_SPACE_ID=<ID of the Contentful Space>
 CTF_CDA_ACCESS_TOKEN=<CDA token from Contentful>
 CTF_CMA_ACCESS_TOKEN=<CMA token from Contentful>
-IGDB_CLIENT_ID=<Client ID for IGDB>
-IGDB_AUTHORIZATION=<Auth code for IGDB>
 ```
-
-The IGDB docs walk you through generating their required auth codes, which requires a Twitch account.
 
 The CMA token isn't currently used, but if I decide in the future to create my own interface for adding content it'll be required.
