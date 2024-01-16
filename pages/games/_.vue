@@ -6,8 +6,8 @@
           <!-- Title -->
           <h1>{{ game.title }}</h1>
 
-          <!-- Game Info -->
-          <!-- <GameRetroAchievements v-if="game.raId" :raId="game.raId" /> -->
+          <!-- RetroAchievements (RA) -->
+          <GameRetroAchievements v-if="game.raId" :raId="game.raId" />
 
           <!-- Platform -->
           <h2>
