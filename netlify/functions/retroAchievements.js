@@ -10,23 +10,10 @@ exports.handler = async function (event, context) {
     webApiKey: webApiKey,
   });
 
-  function getProgress(offset) {
-    const progress = getUserCompletionProgress(authorization, {
-      userName: userName,
-      offset: offset,
-    });
-    return progress;
-  }
-
-  // Get progress for as long as there are more achievements to fetch
-  let progress = [];
-  let offset = 0;
-  let response = getProgress(offset);
-  // while (response.results.length > 0) {
-  progress = progress.concat(response.results);
-  //   offset += response.results.length;
-  //   response = getProgress(offset);
-  // }
+  const progress = await getUserCompletionProgress(authorization, {
+    userName: userName,
+  });
+  console.log(progress);
 
   return {
     statusCode: 200,
