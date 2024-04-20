@@ -12,6 +12,7 @@ exports.handler = async function (event, context) {
 
   const progress = await getUserCompletionProgress(authorization, {
     userName: userName,
+    offset: 100,
   });
   console.log(progress);
 
