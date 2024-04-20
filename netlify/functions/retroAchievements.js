@@ -1,5 +1,5 @@
 import { buildAuthorization } from "@retroachievements/api";
-import { getGame } from "@retroachievements/api";
+import { getUserCompletionProgress } from "@retroachievements/api";
 
 exports.handler = async function (event, context) {
   const userName = "Gloves";
@@ -9,10 +9,9 @@ exports.handler = async function (event, context) {
     userName: userName,
     webApiKey: webApiKey,
   });
-  this.getGame(authorization, this.raId);
 
-  const raGame = await getGame(authorization, { gameId: raId });
-  console.log(raGame);
+  const progress = await getUserCompletionProgress(authorization);
+  console.log(progress);
 
   return {
     statusCode: 200,
