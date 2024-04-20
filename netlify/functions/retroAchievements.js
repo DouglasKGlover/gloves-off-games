@@ -22,11 +22,11 @@ exports.handler = async function (event, context) {
   let progress = [];
   let offset = 0;
   let response = getProgress(offset);
-  while (response.results.length > 0) {
-    progress = progress.concat(response.data);
-    offset += response.results.length;
-    response = getProgress(offset);
-  }
+  // while (response.results.length > 0) {
+  progress = progress.concat(response.results);
+  //   offset += response.results.length;
+  //   response = getProgress(offset);
+  // }
 
   return {
     statusCode: 200,
