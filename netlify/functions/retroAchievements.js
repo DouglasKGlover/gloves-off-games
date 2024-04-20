@@ -10,7 +10,9 @@ exports.handler = async function (event, context) {
     webApiKey: webApiKey,
   });
 
-  const progress = await getUserCompletionProgress(authorization);
+  const progress = await getUserCompletionProgress(authorization, {
+    userName: userName,
+  });
   console.log(progress);
 
   return {
