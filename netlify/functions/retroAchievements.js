@@ -24,7 +24,7 @@ exports.handler = async function (event, context) {
   let response = getProgress(offset);
   while (response.results.length > 0) {
     progress = progress.concat(response.data);
-    offset += response.data.length;
+    offset += response.results.length;
     response = getProgress(offset);
   }
 
