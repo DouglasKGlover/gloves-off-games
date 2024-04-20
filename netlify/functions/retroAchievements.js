@@ -10,14 +10,37 @@ exports.handler = async function (event, context) {
     webApiKey: webApiKey,
   });
 
-  const progress = await getUserCompletionProgress(authorization, {
-    userName: userName,
-    offset: 100,
-  });
-  console.log(progress);
+  // const progress = await getUserCompletionProgress(authorization, {
+  //   userName: userName,
+  //   offset: 100,
+  // });
+  // console.log(progress);
+
+  let gameIdArray = [];
+  let offset = 0;
+  function getProgress() {
+    // Get the list of games
+    const progress = await getUserCompletionProgress(authorization, {
+      userName: userName,
+      offset: offset,
+    });
+
+    // Check if the game has been completed and add to the array if not
+    progress.results.forEach((game) => {
+      if (game.maxPossible !== game.numAwardedHardcore) {
+        gameIdArray.push(game.GameId);
+      }
+    });
+
+    // If there are more games to check, get the next 100
+    if (progress.results.length = 100) {
+      offset += 100;
+      getProgress();
+    }
+  }
 
   return {
     statusCode: 200,
-    body: JSON.stringify(progress),
+    body: JSON.stringify({gameIdArray}),
   };
 };
