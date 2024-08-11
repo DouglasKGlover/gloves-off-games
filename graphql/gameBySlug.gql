@@ -11,9 +11,6 @@ query gameBySlugQuery($slug: String!) {
         slug
         manufacturer {
           title
-          logo {
-            url
-          }
         }
       }
       region

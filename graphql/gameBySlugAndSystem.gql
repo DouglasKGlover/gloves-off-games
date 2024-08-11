@@ -13,9 +13,6 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
         slug
         manufacturer {
           title
-          logo {
-            url
-          }
         }
       }
       region
