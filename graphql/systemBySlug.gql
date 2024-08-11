@@ -8,9 +8,6 @@ query systemBySlugQuery($slug: String!) {
       shortName
       manufacturer {
         title
-        logo {
-          image: url(transform: { width: 75, format: PNG })
-        }
       }
     }
   }
