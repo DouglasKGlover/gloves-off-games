@@ -135,7 +135,7 @@ header {
       display: flex;
       justify-content: right;
       align-items: end;
-      padding-bottom: 2em;
+      padding-bottom: calc(2em + 100px);
       opacity: 0;
       pointer-events: none;
       transition: 0.5s ease;
