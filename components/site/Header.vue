@@ -75,6 +75,8 @@ header {
       }
 
       .toggle {
+        pointer-events: all;
+
         &:after {
           content: "";
           position: absolute;
