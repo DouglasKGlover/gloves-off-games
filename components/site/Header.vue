@@ -5,12 +5,12 @@
         <b-col>
           <nav>
             <div>
-              <nuxt-link @click="toggle" to="/">Home</nuxt-link>
-              <nuxt-link @click="toggle" to="/systems/">Systems</nuxt-link>
-              <nuxt-link @click="toggle" to="/games/">Games</nuxt-link>
-              <nuxt-link @click="toggle" to="/stats/">Stats</nuxt-link>
-              <nuxt-link @click="toggle" to="/gallery/">Gallery</nuxt-link>
-              <nuxt-link @click="toggle" to="/glog/">Glog</nuxt-link>
+              <nuxt-link to="/">Home</nuxt-link>
+              <nuxt-link to="/systems/">Systems</nuxt-link>
+              <nuxt-link to="/games/">Games</nuxt-link>
+              <nuxt-link to="/stats/">Stats</nuxt-link>
+              <nuxt-link to="/gallery/">Gallery</nuxt-link>
+              <nuxt-link to="/glog/">Glog</nuxt-link>
             </div>
             <SiteSwitchColorScheme />
           </nav>
@@ -30,8 +30,17 @@ export default {
     };
   },
   methods: {
-    toggle() {
+    toggle(state) {
+      if (state === "off") {
+        this.active = false;
+        return;
+      }
       this.active = !this.active;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      this.toggle("off");
     },
   },
 };
