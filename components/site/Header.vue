@@ -5,12 +5,12 @@
         <b-col>
           <nav>
             <div>
-              <nuxt-link to="/">Home</nuxt-link>
-              <nuxt-link to="/systems/">Systems</nuxt-link>
-              <nuxt-link to="/games/">Games</nuxt-link>
-              <nuxt-link to="/stats/">Stats</nuxt-link>
-              <nuxt-link to="/gallery/">Gallery</nuxt-link>
-              <nuxt-link to="/glog/">Glog</nuxt-link>
+              <nuxt-link @click="toggle" to="/">Home</nuxt-link>
+              <nuxt-link @click="toggle" to="/systems/">Systems</nuxt-link>
+              <nuxt-link @click="toggle" to="/games/">Games</nuxt-link>
+              <nuxt-link @click="toggle" to="/stats/">Stats</nuxt-link>
+              <nuxt-link @click="toggle" to="/gallery/">Gallery</nuxt-link>
+              <nuxt-link @click="toggle" to="/glog/">Glog</nuxt-link>
             </div>
             <SiteSwitchColorScheme />
           </nav>
@@ -32,11 +32,6 @@ export default {
   methods: {
     toggle() {
       this.active = !this.active;
-    },
-  },
-  watch: {
-    $route(to, from) {
-      this.toggle();
     },
   },
 };
@@ -69,8 +64,11 @@ header {
   @media (max-width: 768px) {
     width: 100vw;
     height: 100vh;
+    pointer-events: none;
 
     &.active {
+      pointer-events: all;
+
       .container {
         opacity: 1;
         pointer-events: all;
@@ -137,7 +135,6 @@ header {
       align-items: end;
       padding-bottom: calc(2em + 100px);
       opacity: 0;
-      pointer-events: none;
       transition: 0.5s ease;
 
       nav {
