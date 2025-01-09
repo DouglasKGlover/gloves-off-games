@@ -75,8 +75,6 @@ header {
       }
 
       .toggle {
-        pointer-events: all;
-
         &:after {
           content: "";
           position: absolute;
@@ -99,6 +97,7 @@ header {
     }
 
     .toggle {
+      pointer-events: all;
       position: fixed;
       top: calc(100vh - 50px - 1em - 100px);
       left: calc(100vw - 50px - 1em);
