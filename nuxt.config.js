@@ -66,6 +66,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
+    "@nuxtjs/sitemap",
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
