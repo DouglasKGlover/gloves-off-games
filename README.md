@@ -1,5 +1,7 @@
 # Personal Collection Tracker & Gaming Blog
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/171aebf2-e82a-44e8-a43b-304532f5e693/deploy-status)](https://app.netlify.com/sites/glovesoffgames/deploys)
+
 https://glovesoff.games
 
 I've built this tracking web app for my video game collection, as existing tools are in my experience too rigid. Building my own allows me to rapidly add new functionalities as I see fit. Also to more closely hold the data within without fear of the tool or service someone else is maintaining suddenly becoming defunct or changing direction in some way I don't like.
