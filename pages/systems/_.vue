@@ -27,13 +27,17 @@
 </template>
 
 <script>
-import Highcharts from "highcharts";
 import { systemBySlugQuery } from "~/graphql/systemBySlug.gql";
 import { gamesBySystemQuery } from "~/graphql/gamesBySystem.gql";
 export default {
   head() {
     return {
       title: `Gloves Off Games - ${this.system.title}`,
+    };
+  },
+  data() {
+    return {
+      highcharts: null,
     };
   },
   async asyncData({ $graphql, params }) {
@@ -85,7 +89,7 @@ export default {
   },
   methods: {
     statusChart() {
-      Highcharts.chart("games-status-chart", {
+      this.highcharts.chart("games-status-chart", {
         chart: {
           backgroundColor: "transparent",
           plotBackgroundColor: null,
@@ -125,7 +129,9 @@ export default {
       });
     },
   },
-  mounted() {
+  async mounted() {
+    const Highcharts = await import("highcharts");
+    this.highcharts = Highcharts.default;
     this.statusChart();
   },
 };

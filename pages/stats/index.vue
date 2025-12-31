@@ -25,12 +25,16 @@
 </template>
 
 <script>
-import Highcharts from "highcharts";
 import { statistics } from "~/graphql/statistics.gql";
 export default {
   head() {
     return {
       title: "Gloves Off Games - Stats",
+    };
+  },
+  data() {
+    return {
+      highcharts: null,
     };
   },
   async asyncData({ $graphql, params }) {
@@ -42,7 +46,7 @@ export default {
   },
   methods: {
     gameStatusChart() {
-      Highcharts.chart("games-played-status-chart", {
+      this.highcharts.chart("games-played-status-chart", {
         chart: {
           backgroundColor: "transparent",
           plotBackgroundColor: null,
@@ -167,7 +171,10 @@ export default {
       });
     },
   },
-  mounted() {
+  async mounted() {
+    const Highcharts = await import("highcharts");
+    this.highcharts = Highcharts.default;
+
     this.gameStatusChart();
     this.systemTotalGamesChart();
   },
