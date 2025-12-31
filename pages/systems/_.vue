@@ -130,9 +130,15 @@ export default {
     },
   },
   async mounted() {
-    const Highcharts = await import("highcharts");
-    this.highcharts = Highcharts.default;
-    this.statusChart();
+    if (process.client) {
+      const HC = await import("highcharts/highcharts");
+      this.highcharts = HC.default;
+
+      const Accessibility = await import("highcharts/modules/accessibility");
+      Accessibility.default(this.highcharts);
+
+      this.statusChart();
+    }
   },
 };
 </script>

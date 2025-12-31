@@ -172,11 +172,16 @@ export default {
     },
   },
   async mounted() {
-    const Highcharts = await import("highcharts");
-    this.highcharts = Highcharts.default;
+    if (process.client) {
+      const HC = await import("highcharts/highcharts");
+      this.highcharts = HC.default;
 
-    this.gameStatusChart();
-    this.systemTotalGamesChart();
+      const Accessibility = await import("highcharts/modules/accessibility");
+      Accessibility.default(this.highcharts);
+
+      this.gameStatusChart();
+      this.systemTotalGamesChart();
+    }
   },
 };
 </script>
