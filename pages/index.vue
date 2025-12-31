@@ -76,6 +76,19 @@ import { recentlyUpdatedQuery } from "~/graphql/recentlyUpdated.gql";
 import { latestGamesQuery } from "~/graphql/latestGames.gql";
 import { currentlyPlayingGamesQuery } from "~/graphql/currentlyPlayingGames.gql";
 export default {
+  head() {
+    return {
+      title: "Gloves Off Games",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "My personal collection tracking site with game collection management, stats, and gameplay logs.",
+        },
+      ],
+    };
+  },
   async asyncData({ $graphql }) {
     let recentlyUpdated = await $graphql.default.request(recentlyUpdatedQuery);
     recentlyUpdated = recentlyUpdated.gameCollection.items;
