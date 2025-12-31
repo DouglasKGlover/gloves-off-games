@@ -23,7 +23,8 @@
               </li>
               <li v-if="game.requirementsForCompletion">
                 <strong>Requirements for Completion:</strong>
-                <span
+                <div
+                  class="d-inline"
                   v-html="$translateLongText(game.requirementsForCompletion)"
                 />
               </li>
