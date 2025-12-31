@@ -155,7 +155,6 @@ export default {
       return ebayUrl;
     },
   },
-  components: { RetroAchievements },
 };
 </script>
 
