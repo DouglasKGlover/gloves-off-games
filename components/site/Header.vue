@@ -21,7 +21,7 @@
     <button
       class="d-md-none toggle"
       @click="toggle"
-      name="Navigation Toggle"
+      aria-label="Navigation Toggle"
     ></button>
   </header>
 </template>
