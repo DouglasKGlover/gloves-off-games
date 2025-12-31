@@ -18,7 +18,11 @@
       </b-row>
     </b-container>
 
-    <button class="d-md-none toggle" @click="toggle"></button>
+    <button
+      class="d-md-none toggle"
+      @click="toggle"
+      name="Navigation Toggle"
+    ></button>
   </header>
 </template>
 
