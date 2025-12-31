@@ -29,7 +29,6 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
           )
         }
       }
-      raId
     }
   }
 

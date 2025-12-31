@@ -6,9 +6,6 @@
           <!-- Title -->
           <h1>{{ game.title }}</h1>
 
-          <!-- RetroAchievements (RA) -->
-          <GameRetroAchievements v-if="game.raId" :raId="game.raId" />
-
           <!-- Platform -->
           <h2>
             <nuxt-link :to="`/systems/${game.system.slug}`">
@@ -117,7 +114,6 @@
 </template>
 
 <script>
-import RetroAchievements from "~/components/game/RetroAchievements.vue";
 import { gameBySlugAndSystemQuery } from "~/graphql/gameBySlugAndSystem.gql";
 export default {
   head() {
