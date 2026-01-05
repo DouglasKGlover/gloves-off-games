@@ -132,7 +132,7 @@ export default {
       });
 
       // Create the chart
-      Highcharts.chart("systems-totals-chart", {
+      this.highcharts.chart("systems-totals-chart", {
         chart: {
           backgroundColor: "transparent",
           plotBackgroundColor: null,
