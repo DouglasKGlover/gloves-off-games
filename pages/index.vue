@@ -1,73 +1,65 @@
 <template>
   <main>
-    <b-container>
-      <b-row>
-        <b-col>
-          <h1>Gloves Off Games</h1>
-          <p>My personal collection tracking site.</p>
-          <hr />
-        </b-col>
-      </b-row>
+    <div class="container">
+      <div>
+        <h1>Gloves Off Games</h1>
+        <p>My personal collection tracking site.</p>
+        <hr />
+      </div>
 
-      <b-row v-if="currentlyPlayingGames.length" class="mb-4">
-        <b-col>
-          <h2>Currently Playing</h2>
-          <ul>
-            <li
-              v-for="(game, index) in currentlyPlayingGames"
-              :key="`new-game-${index}`"
-            >
-              <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-                {{ game.title }}
-                <sup>[{{ game.system.shortName }}]</sup>
-                <sup v-if="game.digital">[Digital]</sup>
-              </NuxtLink>
-            </li>
-          </ul>
-        </b-col>
-      </b-row>
+      <div v-if="currentlyPlayingGames.length" class="section">
+        <h2>Currently Playing</h2>
+        <ul>
+          <li
+            v-for="(game, index) in currentlyPlayingGames"
+            :key="`new-game-${index}`"
+          >
+            <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
+              {{ game.title }}
+              <sup>[{{ game.system.shortName }}]</sup>
+              <sup v-if="game.digital">[Digital]</sup>
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
 
-      <b-row class="mb-4">
-        <b-col>
-          <h2>Recently Updated</h2>
-          <ul>
-            <li
-              v-for="(game, index) in recentlyUpdated"
-              :key="`updated-game-${index}`"
-            >
-              <span class="small">{{
-                $dateTranslate(game.sys.publishedAt).short
-              }}</span>
-              -
-              <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-                {{ game.title }}
-                <sup>[{{ game.system.shortName }}]</sup>
-                <sup v-if="game.digital">[Digital]</sup>
-              </NuxtLink>
-            </li>
-          </ul>
-        </b-col>
-      </b-row>
+      <div class="section">
+        <h2>Recently Updated</h2>
+        <ul>
+          <li
+            v-for="(game, index) in recentlyUpdated"
+            :key="`updated-game-${index}`"
+          >
+            <span class="small">{{
+              $dateTranslate(game.sys.publishedAt).short
+            }}</span>
+            -
+            <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
+              {{ game.title }}
+              <sup>[{{ game.system.shortName }}]</sup>
+              <sup v-if="game.digital">[Digital]</sup>
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
 
-      <b-row class="mb-4">
-        <b-col>
-          <h2>Latest Additions</h2>
-          <ul>
-            <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
-              <span class="small">{{
-                $dateTranslate(game.sys.firstPublishedAt).short
-              }}</span>
-              -
-              <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-                {{ game.title }}
-                <sup>[{{ game.system.shortName }}]</sup>
-                <sup v-if="game.digital">[Digital]</sup>
-              </NuxtLink>
-            </li>
-          </ul>
-        </b-col>
-      </b-row>
-    </b-container>
+      <div class="section">
+        <h2>Latest Additions</h2>
+        <ul>
+          <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
+            <span class="small">{{
+              $dateTranslate(game.sys.firstPublishedAt).short
+            }}</span>
+            -
+            <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
+              {{ game.title }}
+              <sup>[{{ game.system.shortName }}]</sup>
+              <sup v-if="game.digital">[Digital]</sup>
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
   </main>
 </template>
 

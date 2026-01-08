@@ -1,17 +1,17 @@
 <template>
   <main>
-    <b-container>
-      <b-row>
-        <b-col>
+    <div class="container">
+      <div>
+        <div>
           <h1>Games</h1>
           <p>Like, literally all my games.</p>
 
           <hr />
 
           <GameListWithFilters :games="allGames" />
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 

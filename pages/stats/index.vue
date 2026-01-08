@@ -1,26 +1,26 @@
 <template>
   <div>
-    <b-container>
-      <b-row>
-        <b-col>
+    <div class="container">
+      <div>
+        <div>
           <h1>Stats</h1>
-        </b-col>
-      </b-row>
+        </div>
+      </div>
 
-      <b-row>
-        <b-col md="6">
+      <div>
+        <div>
           <h2>Games</h2>
           <p><b>Total:</b> {{ stats.games.total }}</p>
           <div id="games-played-status-chart"></div>
-        </b-col>
+        </div>
 
-        <b-col md="6">
+        <div>
           <h2>Systems</h2>
           <p><b>Total:</b> {{ stats.systems.total }}</p>
           <div id="systems-totals-chart"></div>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -153,9 +153,3 @@ onMounted(async () => {
   systemTotalGamesChart();
 });
 </script>
-
-<style>
-.highcharts-credits {
-  display: none;
-}
-</style>

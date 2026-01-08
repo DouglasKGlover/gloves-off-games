@@ -1,15 +1,15 @@
 <template>
   <main>
-    <b-container>
-      <b-row>
-        <b-col>
+    <div class="container">
+      <div>
+        <div>
           <h1>Glog</h1>
           <p>Game log. <em>Eh?</em></p>
 
           <hr />
 
           <div
-            class="game-log-link mb-4"
+            class="game-log-link section"
             v-for="(glog, index) in allGameLogs"
             :key="`game-log-${index}`"
           >
@@ -28,9 +28,9 @@
               <NuxtLink :to="`/glog/${glog.slug}`">{{ glog.title }}</NuxtLink>
             </h2>
           </div>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-container v-if="game.title">
-      <b-row>
-        <b-col>
+    <div class="container" v-if="game.title">
+      <div>
+        <div>
           <!-- Title -->
           <h1>{{ game.title }}</h1>
 
@@ -14,7 +14,7 @@
           </h2>
 
           <!-- Overview -->
-          <div class="mt-4">
+          <div class="section">
             <h3>Overview</h3>
 
             <ul>
@@ -24,7 +24,6 @@
               <li v-if="game.requirementsForCompletion">
                 <strong>Requirements for Completion:</strong>
                 <div
-                  class="d-inline"
                   v-html="$translateLongText(game.requirementsForCompletion)"
                 />
               </li>
@@ -64,38 +63,30 @@
           </div>
 
           <!-- Photos -->
-          <div v-if="photosList.length" class="mt-4">
+          <div v-if="photosList.length" class="section">
             <h3>Photos</h3>
 
-            <b-row>
-              <b-col
-                cols="4"
-                md="2"
+            <div>
+              <div
                 v-for="(photo, index) in photosList"
                 :key="`game-photo-${index}`"
-                class="mb-2"
               >
-                <b-button
-                  v-b-modal="`photo-modal-${index}`"
+                <button
+                  @click="openModal(`photo-modal-${index}`)"
                   class="image-button"
                 >
-                  <b-img
-                    fluid
-                    :src="photo.thumbnail"
-                    width="300"
-                    height="200"
-                  />
-                </b-button>
+                  <img :src="photo.thumbnail" width="300" height="200" />
+                </button>
 
-                <b-modal :id="`photo-modal-${index}`" hide-footer size="xl">
-                  <b-img :src="photo.url" fluid />
-                </b-modal>
-              </b-col>
-            </b-row>
+                <dialog :id="`photo-modal-${index}`">
+                  <img :src="photo.url" />
+                </dialog>
+              </div>
+            </div>
           </div>
 
           <!-- Game Logs -->
-          <div v-if="glogs.length" class="mt-4">
+          <div v-if="glogs.length" class="section">
             <h3>Game Log<span v-if="glogs.length > 1">s</span></h3>
             <div
               class="game-log-link"
@@ -108,9 +99,9 @@
               </NuxtLink>
             </div>
           </div>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -157,11 +148,3 @@ useHead({
   ),
 });
 </script>
-
-<style lang="scss" scoped>
-.wts {
-  strong {
-    border-bottom: 2px solid var(--primary);
-  }
-}
-</style>

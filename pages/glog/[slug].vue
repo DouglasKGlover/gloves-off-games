@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-container>
-      <b-row>
-        <b-col>
+    <div class="container">
+      <div>
+        <div>
           <h1>{{ glog.title }}</h1>
           <p>
             Game:
@@ -15,18 +15,18 @@
             <br />
             Published on {{ $dateTranslate(glog.sys.firstPublishedAt).long }}
           </p>
-        </b-col>
-      </b-row>
+        </div>
+      </div>
 
-      <b-row>
-        <b-col>
+      <div>
+        <div>
           <div
             id="glog-details"
             v-html="$translateRichText(glog.details.json)"
           ></div>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,13 +55,3 @@ useHead({
   ),
 });
 </script>
-
-<style lang="scss" scoped>
-#glog-details {
-  font-family: Helvetica, sans-serif;
-  text-shadow: none;
-  background: var(--background-lighter);
-  color: var(--foreground-darker);
-  padding: 30px;
-}
-</style>

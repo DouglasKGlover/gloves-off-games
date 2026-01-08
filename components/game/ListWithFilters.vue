@@ -1,68 +1,114 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col
-        md="6"
-        order-md="2"
+  <div class="container">
+    <div class="game-list-wrapper">
+      <div
         v-if="
           filterStatuses[1].options.length > 1 || filterWtbWts[1].options.length
         "
-        class="mobile-no-pad"
+        class="mobile-no-pad filters-column"
       >
         <div id="game-filters">
-          <b-container>
-            <b-row>
-              <b-col lg="3" class="mobile-no-pad">
+          <div class="container">
+            <div class="filter-header">
+              <div class="mobile-no-pad">
                 <h2>Filter</h2>
-              </b-col>
-              <b-col lg="2" align-self="end" class="mobile-no-pad">
+              </div>
+              <div class="mobile-no-pad filter-count">
                 <p>{{ filteredGames.length }}/{{ games.length }}</p>
-              </b-col>
-            </b-row>
-          </b-container>
+              </div>
+            </div>
+          </div>
 
-          <b-container>
-            <b-row>
+          <div class="container">
+            <div class="filter-options">
               <!-- Filter by status -->
-              <b-col v-if="filterStatuses[1].options.length > 1" lg="4">
-                <b-form-select
-                  v-model="filters.status"
-                  :options="filterStatuses"
-                  class="mb-4"
-                ></b-form-select>
-              </b-col>
+              <div
+                v-if="filterStatuses[1].options.length > 1"
+                class="filter-item"
+              >
+                <select v-model="filters.status" class="filter-select">
+                  <optgroup
+                    v-for="(group, index) in filterStatuses"
+                    :key="index"
+                    :label="group.label"
+                  >
+                    <option v-if="!group.label" :value="group.value">
+                      {{ group.text }}
+                    </option>
+                    <option
+                      v-for="(option, optIndex) in group.options"
+                      :key="optIndex"
+                      :value="option"
+                    >
+                      {{ option }}
+                    </option>
+                  </optgroup>
+                </select>
+              </div>
 
               <!-- Filter by digital -->
-              <b-col v-if="filterDigital[1].options.length > 1" lg="4">
-                <b-form-select
-                  v-model="filters.digital"
-                  :options="filterDigital"
-                  class="mb-4"
-                ></b-form-select>
-              </b-col>
+              <div
+                v-if="filterDigital[1].options.length > 1"
+                class="filter-item"
+              >
+                <select v-model="filters.digital" class="filter-select">
+                  <optgroup
+                    v-for="(group, index) in filterDigital"
+                    :key="index"
+                    :label="group.label"
+                  >
+                    <option v-if="!group.label" :value="group.value">
+                      {{ group.text }}
+                    </option>
+                    <option
+                      v-for="(option, optIndex) in group.options"
+                      :key="optIndex"
+                      :value="option.value"
+                    >
+                      {{ option.text }}
+                    </option>
+                  </optgroup>
+                </select>
+              </div>
 
               <!-- Filter by WTB/WTS -->
-              <b-col v-if="filterWtbWts[1].options.length" lg="4">
-                <b-form-select
-                  v-model="filters.wtbWts"
-                  :options="filterWtbWts"
-                  class="mb-4"
-                ></b-form-select>
-              </b-col>
-            </b-row>
+              <div v-if="filterWtbWts[1].options.length" class="filter-item">
+                <select v-model="filters.wtbWts" class="filter-select">
+                  <optgroup
+                    v-for="(group, index) in filterWtbWts"
+                    :key="index"
+                    :label="group.label"
+                  >
+                    <option v-if="!group.label" :value="group.value">
+                      {{ group.text }}
+                    </option>
+                    <option
+                      v-for="(option, optIndex) in group.options"
+                      :key="optIndex"
+                      :value="option.value"
+                    >
+                      {{ option.text }}
+                    </option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
 
             <!-- Remove filters -->
-            <b-row v-if="filteredGames.length < games.length">
-              <b-col>
+            <div
+              v-if="filteredGames.length < games.length"
+              class="filter-reset"
+            >
+              <div>
                 <button @click="removeFilters">Remove Filters</button>
-              </b-col>
-            </b-row>
-          </b-container>
+              </div>
+            </div>
+          </div>
         </div>
-      </b-col>
+      </div>
 
       <!-- List of games -->
-      <b-col md="6" class="mobile-no-pad">
+      <div class="mobile-no-pad games-column">
         <div
           v-for="(game, index) in loadedGames"
           :key="`game-${index}`"
@@ -79,7 +125,7 @@
           </NuxtLink>
         </div>
 
-        <div class="mt-3">
+        <div class="load-more">
           <button
             @click="loadMore()"
             v-if="loadedGames.length < filteredGames.length"
@@ -87,9 +133,9 @@
             Load More
           </button>
         </div>
-      </b-col>
-    </b-row>
-  </b-container>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -233,9 +279,3 @@ onMounted(() => {
   filterWtbWts.value[1].options = filterArray.sort();
 });
 </script>
-
-<style lang="scss">
-.Abandoned a {
-  text-decoration: line-through;
-}
-</style>

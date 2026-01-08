@@ -1,29 +1,29 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col>
+  <div class="container">
+    <div>
+      <div>
         <h1>{{ system.title }}</h1>
         <p v-if="system.manufacturer">{{ system.manufacturer.title }}</p>
 
         <hr />
 
-        <b-row>
-          <b-col md="3">
+        <div>
+          <div>
             <h2>Status Overview</h2>
             <p><b>Total Games:</b> {{ games.length }}</p>
-          </b-col>
+          </div>
 
-          <b-col md="6">
+          <div>
             <div id="games-status-chart"></div>
-          </b-col>
-        </b-row>
+          </div>
+        </div>
 
         <hr />
 
         <GameListWithFilters :games="games" />
-      </b-col>
-    </b-row>
-  </b-container>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -144,15 +144,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style lang="scss">
-#system-header {
-  p {
-    margin: 0;
-  }
-}
-
-#games-status-chart {
-  height: 150px;
-}
-</style>

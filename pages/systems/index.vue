@@ -1,16 +1,16 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col>
+  <div class="container">
+    <div>
+      <div>
         <h1>Systems</h1>
         <p>Every single one of them.</p>
 
         <hr />
-      </b-col>
-    </b-row>
+      </div>
+    </div>
 
-    <b-row>
-      <b-col>
+    <div>
+      <div>
         <ul>
           <li
             v-for="(system, index) in allSystems"
@@ -23,9 +23,9 @@
             </NuxtLink>
           </li>
         </ul>
-      </b-col>
-    </b-row>
-  </b-container>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -44,5 +44,3 @@ const allSystems = computed(
   () => allSystemsData.value?.systemCollection?.items || [],
 );
 </script>
-
-<style></style>
