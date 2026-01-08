@@ -3,30 +3,35 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt dev",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "preview": "nuxt preview",
+    "generate": "nuxt generate",
+    "sst:dev": "sst dev",
+    "sst:deploy": "sst deploy --stage production",
+    "sst:remove": "sst remove"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^15.2.0",
     "@contentful/rich-text-types": "^15.1.0",
-    "axios": "^0.27.2",
-    "bootstrap": "^4.6.0",
-    "bootstrap-vue": "^2.21.2",
+    "bootstrap": "^5.3.0",
+    "bootstrap-vue-next": "^0.21.0",
     "contentful-management": "^7.39.1",
-    "core-js": "^3.15.1",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.3.1",
+    "graphql": "^16.8.1",
+    "graphql-request": "^6.0.0",
     "graphql-tag": "^2.12.5",
-    "highcharts": "^10.3.3",
-    "nuxt": "^2.15.7"
+    "highcharts": "^11.4.3",
+    "nuxt": "^3.8.2",
+    "nuxt-graphql-request": "^6.0.0"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.3.0",
-    "graphql": "^15.5.1",
-    "nuxt-graphql-request": "^4.1.0",
-    "prettier": "^2.3.2",
-    "sass": "1.32.13",
-    "sass-loader": "^10.2.0"
+    "@rollup/plugin-graphql": "^2.0.5",
+    "aws-cdk-lib": "^2.233.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.1.0",
+    "sass": "^1.69.5",
+    "sst": "^3.17.25",
+    "typescript": "^5.3.3"
   }
 }

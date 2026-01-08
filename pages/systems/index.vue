@@ -16,11 +16,11 @@
             v-for="(system, index) in allSystems"
             :key="`systems-list-item-${index}`"
           >
-            <nuxt-link :to="`/systems/${system.slug}`">
+            <NuxtLink :to="`/systems/${system.slug}`">
               {{ system.title }}
               <sup> [{{ system.linkedFrom.gameCollection.total }}]</sup>
               <!-- <sup v-if="system.shortName"> [{{ system.shortName }}]</sup> -->
-            </nuxt-link>
+            </NuxtLink>
           </li>
         </ul>
       </b-col>
@@ -28,25 +28,21 @@
   </b-container>
 </template>
 
-<script>
-import { allSystemsQuery } from "~/graphql/allSystems.gql";
-export default {
-  head() {
-    return {
-      title: "Gloves Off Games - Systems",
-    };
-  },
-  async asyncData({ $graphql }) {
-    let allSystems = await $graphql.default.request(allSystemsQuery, {
-      preview: process.env.CTF_PREVIEW,
-    });
-    allSystems = allSystems.systemCollection.items;
+<script setup>
+import allSystemsQuery from "~/graphql/allSystems.gql";
 
-    return {
-      allSystems,
-    };
-  },
-};
+useHead({
+  title: "Gloves Off Games - Systems",
+});
+
+const { $graphql } = useNuxtApp();
+
+const { data: allSystemsData } = await useAsyncData("allSystems", () =>
+  $graphql.request(allSystemsQuery),
+);
+const allSystems = computed(
+  () => allSystemsData.value?.systemCollection?.items || [],
+);
 </script>
 
 <style></style>

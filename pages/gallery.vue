@@ -10,7 +10,7 @@
             <b-col
               cols="4"
               md="3"
-              v-for="(photo, index) in allImages.assetCollection.items"
+              v-for="(photo, index) in images"
               :key="`game-photo-${index}`"
               class="mb-4"
             >
@@ -29,15 +29,16 @@
   </main>
 </template>
 
-<script>
-import { allImagesQuery } from "~/graphql/allImages.gql";
-export default {
-  async asyncData({ $graphql }) {
-    let allImages = await $graphql.default.request(allImagesQuery);
+<script setup>
+import allImagesQuery from "~/graphql/allImages.gql";
 
-    return {
-      allImages,
-    };
-  },
-};
+const { $graphql } = useNuxtApp();
+
+const { data: allImagesData } = await useAsyncData("allImages", () =>
+  $graphql.request(allImagesQuery),
+);
+
+const images = computed(
+  () => allImagesData.value?.assetCollection?.items || [],
+);
 </script>

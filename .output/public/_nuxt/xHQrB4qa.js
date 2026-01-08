@@ -1,0 +1,21 @@
+import{_ as E}from"./BT_t_JTR.js";import{u as G,e as L,f as A,g as x,c,b as f,w as d,r as _,o as m,a as o,d as v,F as C,k as O,j as P,i as b,h as V,t as y}from"./Bw4UYVbR.js";import{u as R}from"./Q9jVvtBV.js";var g={kind:"Document",definitions:[{kind:"OperationDefinition",operation:"query",name:{kind:"Name",value:"allGameLogsQuery"},variableDefinitions:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"gameLogCollection"},arguments:[{kind:"Argument",name:{kind:"Name",value:"limit"},value:{kind:"IntValue",value:"999"}},{kind:"Argument",name:{kind:"Name",value:"order"},value:{kind:"EnumValue",value:"sys_firstPublishedAt_DESC"}}],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"items"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"sys"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"firstPublishedAt"},arguments:[],directives:[]}]}},{kind:"Field",name:{kind:"Name",value:"title"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"slug"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"game"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"title"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"slug"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"system"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"slug"},arguments:[],directives:[]}]}},{kind:"Field",name:{kind:"Name",value:"region"},arguments:[],directives:[]}]}}]}}]}}]}}],loc:{start:0,end:348}};g.loc.source={body:`# TODO: Paginate instead of 999 limit\r
+query allGameLogsQuery {\r
+  gameLogCollection(limit: 999, order: sys_firstPublishedAt_DESC) {\r
+    items {\r
+      sys {\r
+        firstPublishedAt\r
+      }\r
+      title\r
+      slug\r
+      game {\r
+        title\r
+        slug\r
+        system {\r
+          slug\r
+        }\r
+        region\r
+      }\r
+    }\r
+  }\r
+}\r
+`,name:"GraphQL request",locationOffset:{line:1,column:1}};function k(e,n){if(e.kind==="FragmentSpread")n.add(e.name.value);else if(e.kind==="VariableDefinition"){var i=e.type;i.kind==="NamedType"&&n.add(i.name.value)}e.selectionSet&&e.selectionSet.selections.forEach(function(a){k(a,n)}),e.variableDefinitions&&e.variableDefinitions.forEach(function(a){k(a,n)}),e.definitions&&e.definitions.forEach(function(a){k(a,n)})}var h={};(function(){g.definitions.forEach(function(n){if(n.name){var i=new Set;k(n,i),h[n.name.value]=i}})})();function N(e,n){for(var i=0;i<e.definitions.length;i++){var a=e.definitions[i];if(a.name&&a.name.value==n)return a}}function $(e,n){var i={kind:e.kind,definitions:[N(e,n)]};e.hasOwnProperty("loc")&&(i.loc=e.loc);var a=h[n]||new Set,u=new Set,s=new Set;for(a.forEach(function(t){s.add(t)});s.size>0;){var p=s;s=new Set,p.forEach(function(t){if(!u.has(t)){u.add(t);var r=h[t]||new Set;r.forEach(function(S){s.add(S)})}})}return u.forEach(function(t){var r=N(e,t);r&&i.definitions.push(r)}),i}$(g,"allGameLogsQuery");const q={key:0},j={__name:"index",async setup(e){let n,i;G({title:"Gloves Off Games - Glog"});const{$graphql:a}=L(),{data:u}=([n,i]=A(()=>R("allGameLogs",()=>a.request(g))),n=await n,i(),n),s=x(()=>u.value?.gameLogCollection?.items||[]);return(p,t)=>{const r=E,S=_("b-col"),w=_("b-row"),F=_("b-container");return m(),c("main",null,[f(F,null,{default:d(()=>[f(w,null,{default:d(()=>[f(S,null,{default:d(()=>[t[1]||(t[1]=o("h1",null,"Glog",-1)),t[2]||(t[2]=o("p",null,[v("Game log. "),o("em",null,"Eh?")],-1)),t[3]||(t[3]=o("hr",null,null,-1)),(m(!0),c(C,null,O(P(s),(l,D)=>(m(),c("div",{class:"game-log-link mb-4",key:`game-log-${D}`},[o("span",null,[v(y(p.$dateTranslate(l.sys.firstPublishedAt).long)+" ",1),l.game?(m(),c("span",q," - ")):b("",!0),l.game?(m(),V(r,{key:1,to:`/games/${l.game.system.slug}/${l.game.slug}`},{default:d(()=>[v(y(l.game.title),1)]),_:2},1032,["to"])):b("",!0)]),t[0]||(t[0]=o("br",null,null,-1)),o("h2",null,[f(r,{to:`/glog/${l.slug}`},{default:d(()=>[v(y(l.title),1)]),_:2},1032,["to"])])]))),128))]),_:1})]),_:1})]),_:1})])}}};export{j as default};

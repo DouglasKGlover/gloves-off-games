@@ -69,14 +69,14 @@
           :class="game.playedStatus"
         >
           <GamePlayedStatusIndicator :status="game.playedStatus" />
-          <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
+          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
             {{ game.title }}
             <GameRegionIndicator :region="game.region" />
             <sup v-if="game.system.shortName">
               [{{ game.system.shortName }}]</sup
             >
             <sup v-if="game.digital"> [Digital]</sup>
-          </nuxt-link>
+          </NuxtLink>
         </div>
 
         <div class="mt-3">
@@ -92,154 +92,146 @@
   </b-container>
 </template>
 
-<script>
-export default {
-  props: {
-    games: Array,
+<script setup>
+const props = defineProps({
+  games: {
+    type: Array,
+    required: true,
   },
-  data() {
-    return {
-      totalToShow: 999,
-      filterStatuses: [
-        {
-          value: null,
-          text: "By Status",
-        },
-        {
-          label: "Statuses",
-          options: [],
-        },
-      ],
-      filterDigital: [
-        {
-          value: null,
-          text: "By Physical/Digital",
-        },
-        {
-          label: "Physical/Digital",
-          options: [],
-        },
-      ],
-      filterWtbWts: [
-        {
-          value: null,
-          text: "By WTB/WTS",
-        },
-        {
-          label: "Wanting to:",
-          options: [],
-        },
-      ],
-      filters: {
-        status: null,
-        digital: null,
-        wtbWts: null,
-      },
-    };
-  },
-  methods: {
-    sortArray(array) {
-      function compare(a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      }
-      return array.sort(compare);
-    },
-    loadMore() {
-      this.totalToShow = this.totalToShow + 25;
-    },
-    removeFilters() {
-      this.filters = {
-        status: null,
-        digital: null,
-        wtbWts: null,
-      };
-    },
-  },
-  mounted() {
-    const _self = this;
+});
 
-    // Find all existing statuses and add to filter
-    let gameArr = [];
-    let filterArray = [];
-    this.games.filter(function (game) {
-      let i = gameArr.findIndex((x) => x.playedStatus == game.playedStatus);
-      if (i <= -1) {
-        gameArr.push(game);
-        filterArray.push(game.playedStatus);
-      }
-      return null;
-    });
-    _self.filterStatuses[1].options = filterArray.sort();
-
-    // Find any digital games and add to filter if found
-    gameArr = [];
-    filterArray = [];
-    this.games.filter(function (game) {
-      let i = gameArr.findIndex((x) => x.digital == game.digital);
-      if (i <= -1 && game.digital) {
-        gameArr.push(game);
-        filterArray.push({ text: "Digital", value: true });
-        filterArray.push({ text: "Physical", value: false });
-      }
-      return null;
-    });
-    _self.filterDigital[1].options = filterArray.sort();
-
-    // Find any games set to WTB/WTS and add to a filter if found
-    gameArr = [];
-    filterArray = [];
-    this.games.filter(function (game) {
-      let i = gameArr.findIndex((x) => x.wtbWts == game.wtbWts);
-      if (i <= -1 && game.wtbWts !== null) {
-        gameArr.push(game);
-        switch (game.wtbWts) {
-          case "WTB":
-            filterArray.push({ text: "Buy", value: "WTB" });
-            break;
-          case "WTS":
-            filterArray.push({ text: "Sell", value: "WTS" });
-            break;
-        }
-      }
-      return null;
-    });
-    _self.filterWtbWts[1].options = filterArray.sort();
+const totalToShow = ref(999);
+const filterStatuses = ref([
+  {
+    value: null,
+    text: "By Status",
   },
-  computed: {
-    filteredGames() {
-      let filteredGames = this.games;
-      if (this.filters.wtbWts) {
-        filteredGames = filteredGames.filter(
-          (game) => game.wtbWts == this.filters.wtbWts
-        );
-      }
-      if (this.filters.status) {
-        filteredGames = filteredGames.filter(
-          (game) => game.playedStatus == this.filters.status
-        );
-      }
-      if (this.filters.digital !== null) {
-        filteredGames = filteredGames.filter((game) => {
-          if (game.digital && this.filters.digital) {
-            return true;
-          } else if (!game.digital && !this.filters.digital) {
-            return true;
-          }
-        });
-      }
-      return filteredGames;
-    },
-    loadedGames() {
-      let loadedGames = [];
-      this.filteredGames.slice([0], [this.totalToShow]).map((item, i) => {
-        loadedGames.push(item);
-      });
-      return loadedGames;
-    },
+  {
+    label: "Statuses",
+    options: [],
   },
+]);
+const filterDigital = ref([
+  {
+    value: null,
+    text: "By Physical/Digital",
+  },
+  {
+    label: "Physical/Digital",
+    options: [],
+  },
+]);
+const filterWtbWts = ref([
+  {
+    value: null,
+    text: "By WTB/WTS",
+  },
+  {
+    label: "Wanting to:",
+    options: [],
+  },
+]);
+const filters = ref({
+  status: null,
+  digital: null,
+  wtbWts: null,
+});
+
+const sortArray = (array) => {
+  function compare(a, b) {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  }
+  return array.sort(compare);
 };
+
+const loadMore = () => {
+  totalToShow.value = totalToShow.value + 25;
+};
+
+const removeFilters = () => {
+  filters.value = {
+    status: null,
+    digital: null,
+    wtbWts: null,
+  };
+};
+
+const filteredGames = computed(() => {
+  let filtered = props.games;
+  if (filters.value.wtbWts) {
+    filtered = filtered.filter((game) => game.wtbWts == filters.value.wtbWts);
+  }
+  if (filters.value.status) {
+    filtered = filtered.filter(
+      (game) => game.playedStatus == filters.value.status,
+    );
+  }
+  if (filters.value.digital !== null) {
+    filtered = filtered.filter((game) => {
+      if (game.digital && filters.value.digital) {
+        return true;
+      } else if (!game.digital && !filters.value.digital) {
+        return true;
+      }
+    });
+  }
+  return filtered;
+});
+
+const loadedGames = computed(() => {
+  return filteredGames.value.slice(0, totalToShow.value);
+});
+
+onMounted(() => {
+  // Find all existing statuses and add to filter
+  let gameArr = [];
+  let filterArray = [];
+  props.games.filter(function (game) {
+    let i = gameArr.findIndex((x) => x.playedStatus == game.playedStatus);
+    if (i <= -1) {
+      gameArr.push(game);
+      filterArray.push(game.playedStatus);
+    }
+    return null;
+  });
+  filterStatuses.value[1].options = filterArray.sort();
+
+  // Find any digital games and add to filter if found
+  gameArr = [];
+  filterArray = [];
+  props.games.filter(function (game) {
+    let i = gameArr.findIndex((x) => x.digital == game.digital);
+    if (i <= -1 && game.digital) {
+      gameArr.push(game);
+      filterArray.push({ text: "Digital", value: true });
+      filterArray.push({ text: "Physical", value: false });
+    }
+    return null;
+  });
+  filterDigital.value[1].options = filterArray.sort();
+
+  // Find any games set to WTB/WTS and add to a filter if found
+  gameArr = [];
+  filterArray = [];
+  props.games.filter(function (game) {
+    let i = gameArr.findIndex((x) => x.wtbWts == game.wtbWts);
+    if (i <= -1 && game.wtbWts !== null) {
+      gameArr.push(game);
+      switch (game.wtbWts) {
+        case "WTB":
+          filterArray.push({ text: "Buy", value: "WTB" });
+          break;
+        case "WTS":
+          filterArray.push({ text: "Sell", value: "WTS" });
+          break;
+      }
+    }
+    return null;
+  });
+  filterWtbWts.value[1].options = filterArray.sort();
+});
 </script>
 
 <style lang="scss">

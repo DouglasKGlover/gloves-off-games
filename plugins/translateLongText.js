@@ -1,17 +1,22 @@
-export default (context, inject) => {
+export default defineNuxtPlugin(() => {
   const translateLongText = (longText) => {
-    let newText = longText
-      .replace(/^### (.*$)/gim, "<h3>$1</h3>") // h3 tag
-      .replace(/^## (.*$)/gim, "<h2>$1</h2>") // h2 tag
-      .replace(/^# (.*$)/gim, "<h1>$1</h1>") // h1 tag
-      .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>") // bold text
-      .replace(/\*(.*)\*/gim, "<i>$1</i>") // italic text
-      .replace(/\r\n|\r|\n/gim, "<br>") // linebreaks
+    const newText = longText
+      .replace(/^### (.*$)/gim, "<h3>$1</h3>")
+      .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+      .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+      .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>")
+      .replace(/\*(.*)\*/gim, "<i>$1</i>")
+      .replace(/\r\n|\r|\n/gim, "<br>")
       .replace(
         /\[([^\[]+)\](\(([^)]*))\)/gim,
-        '<a href="$3" target="_blank">$1</a>'
+        '<a href="$3" target="_blank">$1</a>',
       );
     return newText;
   };
-  inject("translateLongText", translateLongText);
-};
+
+  return {
+    provide: {
+      translateLongText,
+    },
+  };
+});

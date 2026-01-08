@@ -16,16 +16,16 @@
             <span>
               {{ $dateTranslate(glog.sys.firstPublishedAt).long }}
               <span v-if="glog.game"> - </span>
-              <nuxt-link
+              <NuxtLink
                 v-if="glog.game"
                 :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
               >
                 {{ glog.game.title }}
-              </nuxt-link>
+              </NuxtLink>
             </span>
             <br />
             <h2>
-              <nuxt-link :to="`/glog/${glog.slug}`">{{ glog.title }}</nuxt-link>
+              <NuxtLink :to="`/glog/${glog.slug}`">{{ glog.title }}</NuxtLink>
             </h2>
           </div>
         </b-col>
@@ -34,21 +34,19 @@
   </main>
 </template>
 
-<script>
-import { allGameLogsQuery } from "~/graphql/allGameLogs.gql";
-export default {
-  head() {
-    return {
-      title: "Gloves Off Games - Glog",
-    };
-  },
-  async asyncData({ $graphql }) {
-    let allGameLogs = await $graphql.default.request(allGameLogsQuery);
-    allGameLogs = allGameLogs.gameLogCollection.items;
+<script setup>
+import allGameLogsQuery from "~/graphql/allGameLogs.gql";
 
-    return {
-      allGameLogs,
-    };
-  },
-};
+useHead({
+  title: "Gloves Off Games - Glog",
+});
+
+const { $graphql } = useNuxtApp();
+
+const { data: allGameLogsData } = await useAsyncData("allGameLogs", () =>
+  $graphql.request(allGameLogsQuery),
+);
+const allGameLogs = computed(
+  () => allGameLogsData.value?.gameLogCollection?.items || [],
+);
 </script>

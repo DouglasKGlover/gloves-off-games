@@ -17,11 +17,11 @@
               v-for="(game, index) in currentlyPlayingGames"
               :key="`new-game-${index}`"
             >
-              <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
+              <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
                 <sup v-if="game.digital">[Digital]</sup>
-              </nuxt-link>
+              </NuxtLink>
             </li>
           </ul>
         </b-col>
@@ -39,11 +39,11 @@
                 $dateTranslate(game.sys.publishedAt).short
               }}</span>
               -
-              <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
+              <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
                 <sup v-if="game.digital">[Digital]</sup>
-              </nuxt-link>
+              </NuxtLink>
             </li>
           </ul>
         </b-col>
@@ -58,11 +58,11 @@
                 $dateTranslate(game.sys.firstPublishedAt).short
               }}</span>
               -
-              <nuxt-link :to="`/games/${game.system.slug}/${game.slug}`">
+              <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
                 {{ game.title }}
                 <sup>[{{ game.system.shortName }}]</sup>
                 <sup v-if="game.digital">[Digital]</sup>
-              </nuxt-link>
+              </NuxtLink>
             </li>
           </ul>
         </b-col>
@@ -71,41 +71,45 @@
   </main>
 </template>
 
-<script>
-import { recentlyUpdatedQuery } from "~/graphql/recentlyUpdated.gql";
-import { latestGamesQuery } from "~/graphql/latestGames.gql";
-import { currentlyPlayingGamesQuery } from "~/graphql/currentlyPlayingGames.gql";
-export default {
-  head() {
-    return {
-      title: "Gloves Off Games",
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content:
-            "My personal collection tracking site with game collection management, stats, and gameplay logs.",
-        },
-      ],
-    };
-  },
-  async asyncData({ $graphql }) {
-    let recentlyUpdated = await $graphql.default.request(recentlyUpdatedQuery);
-    recentlyUpdated = recentlyUpdated.gameCollection.items;
+<script setup>
+import recentlyUpdatedQuery from "~/graphql/recentlyUpdated.gql";
+import latestGamesQuery from "~/graphql/latestGames.gql";
+import currentlyPlayingGamesQuery from "~/graphql/currentlyPlayingGames.gql";
 
-    let latestGames = await $graphql.default.request(latestGamesQuery);
-    latestGames = latestGames.gameCollection.items;
+useHead({
+  title: "Gloves Off Games",
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content:
+        "My personal collection tracking site with game collection management, stats, and gameplay logs.",
+    },
+  ],
+});
 
-    let currentlyPlayingGames = await $graphql.default.request(
-      currentlyPlayingGamesQuery
-    );
-    currentlyPlayingGames = currentlyPlayingGames.gameCollection.items;
+const { $graphql } = useNuxtApp();
 
-    return {
-      recentlyUpdated,
-      latestGames,
-      currentlyPlayingGames,
-    };
-  },
-};
+const { data: recentlyUpdatedData } = await useAsyncData(
+  "recentlyUpdated",
+  () => $graphql.request(recentlyUpdatedQuery),
+);
+const recentlyUpdated = computed(
+  () => recentlyUpdatedData.value?.gameCollection?.items || [],
+);
+
+const { data: latestGamesData } = await useAsyncData("latestGames", () =>
+  $graphql.request(latestGamesQuery),
+);
+const latestGames = computed(
+  () => latestGamesData.value?.gameCollection?.items || [],
+);
+
+const { data: currentlyPlayingGamesData } = await useAsyncData(
+  "currentlyPlayingGames",
+  () => $graphql.request(currentlyPlayingGamesQuery),
+);
+const currentlyPlayingGames = computed(
+  () => currentlyPlayingGamesData.value?.gameCollection?.items || [],
+);
 </script>

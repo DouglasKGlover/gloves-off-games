@@ -1,66 +1,57 @@
 <template>
-  <button @click="switchColorScheme()" name="theme" aria-label="switch light and dark theme"></button>
+  <button
+    @click="switchColorScheme()"
+    name="theme"
+    aria-label="switch light and dark theme"
+  ></button>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      colorScheme: "light",
-    };
-  },
-  methods: {
-    switchColorScheme() {
-      if (this.colorScheme == "light") {
-        this.colorScheme = "dark";
-      } else {
-        this.colorScheme = "light";
-      }
-    },
-  },
-  mounted() {
-    const savedColorScheme = localStorage.getItem("color-scheme");
-    if (savedColorScheme) {
-      this.colorScheme = savedColorScheme;
-    }
-  },
-  watch: {
-    colorScheme(e) {
-      switch (e) {
-        case "dark":
-          // Dark Scheme
-          document.documentElement.style.setProperty("--foreground", "#ddd");
-          document.documentElement.style.setProperty(
-            "--foreground-darker",
-            "#eee"
-          );
-          document.documentElement.style.setProperty("--background", "#222");
-          document.documentElement.style.setProperty(
-            "--background-lighter",
-            "#111"
-          );
-          document.documentElement.style.setProperty("--highlight", "#000");
-          localStorage.setItem("color-scheme", this.colorScheme);
-          break;
-        case "light":
-          // Light Scheme
-          document.documentElement.style.setProperty("--foreground", "#333");
-          document.documentElement.style.setProperty(
-            "--foreground-darker",
-            "#111"
-          );
-          document.documentElement.style.setProperty("--background", "#ddd");
-          document.documentElement.style.setProperty(
-            "--background-lighter",
-            "#eee"
-          );
-          document.documentElement.style.setProperty("--highlight", "#fff");
-          localStorage.setItem("color-scheme", this.colorScheme);
-          break;
-      }
-    },
-  },
+<script setup>
+const colorScheme = ref("light");
+
+const switchColorScheme = () => {
+  if (colorScheme.value == "light") {
+    colorScheme.value = "dark";
+  } else {
+    colorScheme.value = "light";
+  }
 };
+
+onMounted(() => {
+  const savedColorScheme = localStorage.getItem("color-scheme");
+  if (savedColorScheme) {
+    colorScheme.value = savedColorScheme;
+  }
+});
+
+watch(colorScheme, (newScheme) => {
+  switch (newScheme) {
+    case "dark":
+      // Dark Scheme
+      document.documentElement.style.setProperty("--foreground", "#ddd");
+      document.documentElement.style.setProperty("--foreground-darker", "#eee");
+      document.documentElement.style.setProperty("--background", "#222");
+      document.documentElement.style.setProperty(
+        "--background-lighter",
+        "#111",
+      );
+      document.documentElement.style.setProperty("--highlight", "#000");
+      localStorage.setItem("color-scheme", newScheme);
+      break;
+    case "light":
+      // Light Scheme
+      document.documentElement.style.setProperty("--foreground", "#333");
+      document.documentElement.style.setProperty("--foreground-darker", "#111");
+      document.documentElement.style.setProperty("--background", "#ddd");
+      document.documentElement.style.setProperty(
+        "--background-lighter",
+        "#eee",
+      );
+      document.documentElement.style.setProperty("--highlight", "#fff");
+      localStorage.setItem("color-scheme", newScheme);
+      break;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

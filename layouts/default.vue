@@ -1,9 +1,7 @@
 <template>
   <div class="py-5">
     <SiteHeader />
-    <transition name="slide-fade">
-      <Nuxt />
-    </transition>
+    <NuxtPage />
   </div>
 </template>
 

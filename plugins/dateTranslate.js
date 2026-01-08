@@ -1,12 +1,15 @@
-export default (context, inject) => {
+export default defineNuxtPlugin(() => {
   const dateTranslate = (dateSubmitted) => {
-    let newDate = new Date(dateSubmitted);
-    newDate = {
-      short: `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear() - 2000
-        }`,
-      long: newDate.toDateString()
+    const parsedDate = new Date(dateSubmitted);
+    return {
+      short: `${parsedDate.getDate()}/${parsedDate.getMonth() + 1}/${parsedDate.getFullYear() - 2000}`,
+      long: parsedDate.toDateString(),
     };
-    return newDate;
   };
-  inject("dateTranslate", dateTranslate);
-};
+
+  return {
+    provide: {
+      dateTranslate,
+    },
+  };
+});

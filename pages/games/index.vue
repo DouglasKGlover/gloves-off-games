@@ -15,21 +15,17 @@
   </main>
 </template>
 
-<script>
-import { allGamesQuery } from "~/graphql/allGames.gql";
-export default {
-  head() {
-    return {
-      title: "Gloves Off Games - Games",
-    };
-  },
-  async asyncData({ $graphql }) {
-    let allGames = await $graphql.default.request(allGamesQuery);
-    allGames = allGames.gameCollection.items;
+<script setup>
+import allGamesQuery from "~/graphql/allGames.gql";
 
-    return {
-      allGames,
-    };
-  },
-};
+useHead({ title: "Gloves Off Games - Games" });
+
+const { $graphql } = useNuxtApp();
+
+const { data: allGamesData } = await useAsyncData("allGames", () =>
+  $graphql.request(allGamesQuery),
+);
+const allGames = computed(
+  () => allGamesData.value?.gameCollection?.items || [],
+);
 </script>

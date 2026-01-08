@@ -1,7 +1,7 @@
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
-export default (context, inject) => {
+export default defineNuxtPlugin(() => {
   const translateRichText = (richText) => {
     const options = {
       renderNode: {
@@ -17,5 +17,10 @@ export default (context, inject) => {
     };
     return documentToHtmlString(richText, options);
   };
-  inject("translateRichText", translateRichText);
-};
+
+  return {
+    provide: {
+      translateRichText,
+    },
+  };
+});

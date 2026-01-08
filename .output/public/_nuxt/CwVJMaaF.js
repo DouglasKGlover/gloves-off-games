@@ -1,0 +1,18 @@
+import{_ as w}from"./DY9rp1b1.js";import{u as y,e as h,f as N,g as b,c as F,b as o,w as c,r as f,o as G,a as v,j as D}from"./Bw4UYVbR.js";import{u as E}from"./Q9jVvtBV.js";import"./CQ4thxpi.js";import"./BT_t_JTR.js";var m={kind:"Document",definitions:[{kind:"OperationDefinition",operation:"query",name:{kind:"Name",value:"allGamesQuery"},variableDefinitions:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"gameCollection"},arguments:[{kind:"Argument",name:{kind:"Name",value:"limit"},value:{kind:"IntValue",value:"999"}},{kind:"Argument",name:{kind:"Name",value:"order"},value:{kind:"ListValue",values:[{kind:"EnumValue",value:"title_ASC"}]}}],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"items"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"title"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"slug"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"system"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"slug"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"shortName"},arguments:[],directives:[]}]}},{kind:"Field",name:{kind:"Name",value:"playedStatus"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"digital"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"wtbWts"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"region"},arguments:[],directives:[]}]}}]}}]}}],loc:{start:0,end:288}};m.loc.source={body:`# TODO: Paginate instead of 999 limit\r
+query allGamesQuery {\r
+  gameCollection(limit: 999, order: [title_ASC]) {\r
+    items {\r
+      title\r
+      slug\r
+      system {\r
+        slug\r
+        shortName\r
+      }\r
+      playedStatus\r
+      digital\r
+      wtbWts\r
+      region\r
+    }\r
+  }\r
+}\r
+`,name:"GraphQL request",locationOffset:{line:1,column:1}};function u(e,n){if(e.kind==="FragmentSpread")n.add(e.name.value);else if(e.kind==="VariableDefinition"){var i=e.type;i.kind==="NamedType"&&n.add(i.name.value)}e.selectionSet&&e.selectionSet.selections.forEach(function(t){u(t,n)}),e.variableDefinitions&&e.variableDefinitions.forEach(function(t){u(t,n)}),e.definitions&&e.definitions.forEach(function(t){u(t,n)})}var k={};(function(){m.definitions.forEach(function(n){if(n.name){var i=new Set;u(n,i),k[n.name.value]=i}})})();function p(e,n){for(var i=0;i<e.definitions.length;i++){var t=e.definitions[i];if(t.name&&t.name.value==n)return t}}function C(e,n){var i={kind:e.kind,definitions:[p(e,n)]};e.hasOwnProperty("loc")&&(i.loc=e.loc);var t=k[n]||new Set,r=new Set,l=new Set;for(t.forEach(function(a){l.add(a)});l.size>0;){var g=l;l=new Set,g.forEach(function(a){if(!r.has(a)){r.add(a);var s=k[a]||new Set;s.forEach(function(d){l.add(d)})}})}return r.forEach(function(a){var s=p(e,a);s&&i.definitions.push(s)}),i}C(m,"allGamesQuery");const q={__name:"index",async setup(e){let n,i;y({title:"Gloves Off Games - Games"});const{$graphql:t}=h(),{data:r}=([n,i]=N(()=>E("allGames",()=>t.request(m))),n=await n,i(),n),l=b(()=>r.value?.gameCollection?.items||[]);return(g,a)=>{const s=w,d=f("b-col"),S=f("b-row"),_=f("b-container");return G(),F("main",null,[o(_,null,{default:c(()=>[o(S,null,{default:c(()=>[o(d,null,{default:c(()=>[a[0]||(a[0]=v("h1",null,"Games",-1)),a[1]||(a[1]=v("p",null,"Like, literally all my games.",-1)),a[2]||(a[2]=v("hr",null,null,-1)),o(s,{games:D(l)},null,8,["games"])]),_:1})]),_:1})]),_:1})])}}};export{q as default};
