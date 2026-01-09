@@ -21,9 +21,11 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
+        working-directory: ./site/gloves-off-games
         run: npm ci
 
       - name: Deploy with SST
+        working-directory: ./site/gloves-off-games
         run: npm run sst:deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
