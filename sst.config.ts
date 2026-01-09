@@ -9,7 +9,12 @@ export default $config({
     };
   },
   async run() {
-    const site = new sst.aws.Nuxt("GlovesOffGames", {
+    const site = new sst.aws.StaticSite("GlovesOffGames", {
+      path: ".",
+      build: {
+        command: "npm run generate",
+        output: ".output/public",
+      },
       domain: "gog.douglasglover.ca",
       environment: {
         CTF_HOST: process.env.CTF_HOST || "cdn.contentful.com",

@@ -1,69 +1,70 @@
 <template>
   <main>
-    <div class="container">
-      <div>
-        <h1>Gloves Off Games</h1>
-        <p>My personal collection tracking site.</p>
-        <hr />
+    <section class="container grid">
+      <div
+        class="col-span-12 col-span-md-6 col-start-md-4 col-end-md-10 text-center"
+      >
+        <img class="" :src="logoImage" alt="Gloves Off Games Logo" />
       </div>
+    </section>
 
-      <div v-if="currentlyPlayingGames.length" class="section">
-        <h2>Currently Playing</h2>
-        <ul>
-          <li
-            v-for="(game, index) in currentlyPlayingGames"
-            :key="`new-game-${index}`"
-          >
-            <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-              {{ game.title }}
-              <sup>[{{ game.system.shortName }}]</sup>
-              <sup v-if="game.digital">[Digital]</sup>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
+    <section class="container" v-if="currentlyPlayingGames.length">
+      <h2>Currently Playing</h2>
+      <ul>
+        <li
+          v-for="(game, index) in currentlyPlayingGames"
+          :key="`new-game-${index}`"
+        >
+          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
+            {{ game.title }}
+            <sup>[{{ game.system.shortName }}]</sup>
+            <sup v-if="game.digital">[Digital]</sup>
+          </NuxtLink>
+        </li>
+      </ul>
+    </section>
 
-      <div class="section">
-        <h2>Recently Updated</h2>
-        <ul>
-          <li
-            v-for="(game, index) in recentlyUpdated"
-            :key="`updated-game-${index}`"
-          >
-            <span class="small">{{
-              $dateTranslate(game.sys.publishedAt).short
-            }}</span>
-            -
-            <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-              {{ game.title }}
-              <sup>[{{ game.system.shortName }}]</sup>
-              <sup v-if="game.digital">[Digital]</sup>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
+    <section class="container">
+      <h2>Recently Updated</h2>
+      <ul>
+        <li
+          v-for="(game, index) in recentlyUpdated"
+          :key="`updated-game-${index}`"
+        >
+          <span class="small">{{
+            $dateTranslate(game.sys.publishedAt).short
+          }}</span>
+          -
+          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
+            {{ game.title }}
+            <sup>[{{ game.system.shortName }}]</sup>
+            <sup v-if="game.digital">[Digital]</sup>
+          </NuxtLink>
+        </li>
+      </ul>
+    </section>
 
-      <div class="section">
-        <h2>Latest Additions</h2>
-        <ul>
-          <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
-            <span class="small">{{
-              $dateTranslate(game.sys.firstPublishedAt).short
-            }}</span>
-            -
-            <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-              {{ game.title }}
-              <sup>[{{ game.system.shortName }}]</sup>
-              <sup v-if="game.digital">[Digital]</sup>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <section class="container">
+      <h2>Latest Additions</h2>
+      <ul>
+        <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
+          <span class="small">{{
+            $dateTranslate(game.sys.firstPublishedAt).short
+          }}</span>
+          -
+          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
+            {{ game.title }}
+            <sup>[{{ game.system.shortName }}]</sup>
+            <sup v-if="game.digital">[Digital]</sup>
+          </NuxtLink>
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 
 <script setup>
+import logoImage from "~/assets/images/logo.png";
 import recentlyUpdatedQuery from "~/graphql/recentlyUpdated.gql";
 import latestGamesQuery from "~/graphql/latestGames.gql";
 import currentlyPlayingGamesQuery from "~/graphql/currentlyPlayingGames.gql";

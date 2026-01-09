@@ -33,6 +33,21 @@ export default defineNuxtConfig({
 
   modules: [],
 
+  ssr: true,
+
+  features: {
+    inlineStyles: true,
+  },
+
+  routeRules: {
+    "/": { prerender: true },
+    "/games/**": { prerender: true },
+    "/glog/**": { prerender: true },
+    "/systems/**": { prerender: true },
+    "/stats/**": { prerender: true },
+    "/gallery/**": { prerender: true },
+  },
+
   runtimeConfig: {
     CTF_HOST: process.env.CTF_HOST,
     public: {
@@ -64,5 +79,20 @@ export default defineNuxtConfig({
   },
   vite: {
     plugins: [graphql()],
+    optimizeDeps: {
+      include: [
+        "graphql",
+        "graphql-request",
+        "graphql-tag",
+        "@contentful/rich-text-html-renderer",
+        "@contentful/rich-text-types",
+      ],
+    },
+  },
+
+  devtools: { enabled: false },
+
+  typescript: {
+    typeCheck: false,
   },
 });

@@ -1,0 +1,172 @@
+@use "sass:map";
+@use "breakpoints" as *;
+
+// Container
+.container {
+  width: 100%;
+  padding: 0 10%;
+  margin: 0 auto;
+}
+
+// Grid
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+// Column span utilities (mobile-first)
+@for $i from 1 through 12 {
+  .col-span-#{$i} {
+    grid-column: span #{$i};
+  }
+}
+
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
+// Column start utilities
+@for $i from 1 through 13 {
+  .col-start-#{$i} {
+    grid-column-start: #{$i};
+  }
+}
+
+.col-start-auto {
+  grid-column-start: auto;
+}
+
+// Column end utilities
+@for $i from 1 through 14 {
+  .col-end-#{$i} {
+    grid-column-end: #{$i};
+  }
+}
+
+.col-end-auto {
+  grid-column-end: auto;
+}
+
+// Row span utilities
+@for $i from 1 through 6 {
+  .row-span-#{$i} {
+    grid-row: span #{$i};
+  }
+}
+
+.row-span-full {
+  grid-row: 1 / -1;
+}
+
+// Responsive grid utilities
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    // Grid columns
+    .grid-cols-#{$breakpoint}-1 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-6 {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-12 {
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .grid-cols-#{$breakpoint}-none {
+      grid-template-columns: none;
+    }
+
+    // Column span
+    @for $i from 1 through 12 {
+      .col-span-#{$breakpoint}-#{$i} {
+        grid-column: span #{$i};
+      }
+    }
+
+    .col-span-#{$breakpoint}-full {
+      grid-column: 1 / -1;
+    }
+
+    // Column start
+    @for $i from 1 through 13 {
+      .col-start-#{$breakpoint}-#{$i} {
+        grid-column-start: #{$i};
+      }
+    }
+
+    .col-start-#{$breakpoint}-auto {
+      grid-column-start: auto;
+    }
+
+    // Column end
+    @for $i from 1 through 14 {
+      .col-end-#{$breakpoint}-#{$i} {
+        grid-column-end: #{$i};
+      }
+    }
+
+    .col-end-#{$breakpoint}-auto {
+      grid-column-end: auto;
+    }
+
+    // Row span
+    @for $i from 1 through 6 {
+      .row-span-#{$breakpoint}-#{$i} {
+        grid-row: span #{$i};
+      }
+    }
+
+    .row-span-#{$breakpoint}-full {
+      grid-row: 1 / -1;
+    }
+  }
+}
+
+// Utility classes
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-grid {
+  display: grid;
+}
+
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    .d-#{$breakpoint}-none {
+      display: none;
+    }
+
+    .d-#{$breakpoint}-block {
+      display: block;
+    }
+
+    .d-#{$breakpoint}-flex {
+      display: flex;
+    }
+
+    .d-#{$breakpoint}-grid {
+      display: grid;
+    }
+  }
+}

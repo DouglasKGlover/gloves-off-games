@@ -1,10 +1,9 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineComponent, hasInjectionContext, inject, ref, h, Suspense, getCurrentInstance, provide, shallowReactive, Fragment, createElementBlock, shallowRef, cloneVNode, defineAsyncComponent, computed, unref, createApp, toRef, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, isReadonly, isRef, isShallow, isReactive, toRaw, mergeProps, getCurrentScope, withCtx, nextTick, useSSRContext } from 'vue';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineComponent, hasInjectionContext, inject, ref, h, Suspense, getCurrentInstance, provide, shallowReactive, Fragment, defineAsyncComponent, computed, unref, shallowRef, createElementBlock, createApp, toRef, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, isReadonly, isRef, isShallow, isReactive, toRaw, mergeProps, getCurrentScope, withCtx, nextTick, useSSRContext } from 'vue';
 import { h as createError$1, k as hasProtocol, l as isScriptProtocol, m as joinURL, w as withQuery, n as sanitizeStatusCode, o as getContext, $ as $fetch, p as createHooks, q as executeAsync, r as toRouteMatcher, v as createRouter$1, x as defu } from '../_/nitro.mjs';
 import { b as baseURL } from '../routes/renderer.mjs';
 import { RouterView, useRoute as useRoute$1, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import createBootstrap from 'bootstrap-vue-next';
 import { GraphQLClient } from 'graphql-request';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode } from 'vue/server-renderer';
 import 'node:http';
@@ -392,47 +391,47 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-BVBGWZxr.mjs')
+    component: () => import('./index-B7cCcg_l.mjs')
   },
   {
     name: "gallery",
     path: "/gallery",
-    component: () => import('./gallery-IckItPu7.mjs')
+    component: () => import('./gallery-B5ZlEyRg.mjs')
   },
   {
     name: "glog",
     path: "/glog",
-    component: () => import('./index-n2zUOXjS.mjs')
+    component: () => import('./index-DlinhjEr.mjs')
   },
   {
     name: "games",
     path: "/games",
-    component: () => import('./index-pOAh7_IS.mjs')
+    component: () => import('./index-Z4S8fzu5.mjs')
   },
   {
     name: "glog-slug",
     path: "/glog/:slug()",
-    component: () => import('./_slug_-CrC_BICE.mjs')
+    component: () => import('./_slug_-DCMLi6Km.mjs')
   },
   {
     name: "stats",
     path: "/stats",
-    component: () => import('./index-BqWJrVrm.mjs')
+    component: () => import('./index-dbYi-P-P.mjs')
   },
   {
     name: "systems",
     path: "/systems",
-    component: () => import('./index-Cwgd0x20.mjs')
+    component: () => import('./index-BaYX7zHx.mjs')
   },
   {
     name: "systems-slug",
     path: "/systems/:slug()",
-    component: () => import('./_slug_-BDa4CB0U.mjs')
+    component: () => import('./_slug_-CfGPB07Z.mjs')
   },
   {
     name: "games-pathMatch",
     path: "/games/:pathMatch(.*)*",
-    component: () => import('./_...pathMatch_-D0_i5UdT.mjs')
+    component: () => import('./_...pathMatch_-BNKRkLiu.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -821,51 +820,6 @@ const translateRichText__t7CXND3sY5GUrJQaDZEoswKOZ7ryZBeo0fca85SbUQ = /* @__PURE
     }
   };
 });
-const __nuxt_component_1$1 = defineComponent({
-  name: "ServerPlaceholder",
-  render() {
-    return createElementBlock("div");
-  }
-});
-const clientOnlySymbol = /* @__PURE__ */ Symbol.for("nuxt:client-only");
-defineComponent({
-  name: "ClientOnly",
-  inheritAttrs: false,
-  props: ["fallback", "placeholder", "placeholderTag", "fallbackTag"],
-  ...false,
-  setup(props, { slots, attrs }) {
-    const mounted = shallowRef(false);
-    const vm = getCurrentInstance();
-    if (vm) {
-      vm._nuxtClientOnly = true;
-    }
-    provide(clientOnlySymbol, true);
-    return () => {
-      if (mounted.value) {
-        const vnodes = slots.default?.();
-        if (vnodes && vnodes.length === 1) {
-          return [cloneVNode(vnodes[0], attrs)];
-        }
-        return vnodes;
-      }
-      const slot = slots.fallback || slots.placeholder;
-      if (slot) {
-        return h(slot);
-      }
-      const fallbackStr = props.fallback || props.placeholder || "";
-      const fallbackTag = props.fallbackTag || props.placeholderTag || "span";
-      return createElementBlock(fallbackTag, attrs, fallbackStr);
-    };
-  }
-});
-const bootstrap_vue_next_n0naUU4QaM2QEsgct7_j06gnnU09LLomZjte5P2_mjs = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(
-    createBootstrap({
-      components: true,
-      directives: true
-    })
-  );
-});
 const graphql_DqujVTHoXGrs5_jYCAzlKGd69xeNMC00sUTxuD_it7c = /* @__PURE__ */ defineNuxtPlugin(() => {
   const config = /* @__PURE__ */ useRuntimeConfig();
   const endpoint = `https://graphql.contentful.com/content/v1/spaces/${config.public.CTF_SPACE_ID}?access_token=${config.public.CTF_CDA_ACCESS_TOKEN}`;
@@ -889,12 +843,11 @@ const plugins = [
   dateTranslate_smh9jnmMBrXjv9uJrz79SvINQAyvHawE5IBmM1Nyc8A,
   translateLongText_G9fzjXZgDBM_h9Ts_ZLwYcU_z8t97dl4juqqzKyOC7A,
   translateRichText__t7CXND3sY5GUrJQaDZEoswKOZ7ryZBeo0fca85SbUQ,
-  bootstrap_vue_next_n0naUU4QaM2QEsgct7_j06gnnU09LLomZjte5P2_mjs,
   graphql_DqujVTHoXGrs5_jYCAzlKGd69xeNMC00sUTxuD_it7c,
   prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk
 ];
 const layouts = {
-  default: defineAsyncComponent(() => import('./default-CdZ9i-vK.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-BQXFT6nD.mjs').then((m) => m.default || m))
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
@@ -1023,6 +976,12 @@ const LayoutProvider = defineComponent({
     };
   }
 });
+const ServerPlaceholder = defineComponent({
+  name: "ServerPlaceholder",
+  render() {
+    return createElementBlock("div");
+  }
+});
 const defineRouteProvider = (name = "RouteProvider") => defineComponent({
   name,
   props: {
@@ -1116,7 +1075,7 @@ const _export_sfc = (sfc, props) => {
 const _sfc_main$2 = {};
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
   const _component_NuxtLayout = __nuxt_component_0;
-  const _component_NuxtRouteAnnouncer = __nuxt_component_1$1;
+  const _component_NuxtRouteAnnouncer = ServerPlaceholder;
   const _component_NuxtPage = __nuxt_component_1;
   _push(ssrRenderComponent(_component_NuxtLayout, _attrs, {
     default: withCtx((_, _push2, _parent2, _scopeId) => {
@@ -1154,8 +1113,8 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-BXikvr4K.mjs'));
-    const _Error = defineAsyncComponent(() => import('./error-500-yC5IKSCh.mjs'));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-DuMy6WzS.mjs'));
+    const _Error = defineAsyncComponent(() => import('./error-500-CGuLAJGK.mjs'));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ statusCode: unref(statusCode), statusMessage: unref(statusMessage), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
