@@ -31,3 +31,5 @@ jobs:
           CTF_HOST: ${{ secrets.CTF_HOST }}
           CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
           CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
+          PULUMI_SKIP_UPDATE_CHECK: "true"
+          CI: "true"
