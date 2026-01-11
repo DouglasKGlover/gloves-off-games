@@ -29,12 +29,12 @@
   opacity: 0.28;
   mix-blend-mode: screen;
   transform: translate3d(0, 0, 0);
-  animation: drift 40s ease-in-out infinite alternate;
 
   @media (min-width: 768px) {
     width: 70vw;
     height: 70vw;
     filter: blur(140px);
+    animation: drift 40s ease-in-out infinite alternate;
   }
 }
 

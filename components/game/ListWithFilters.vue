@@ -30,7 +30,7 @@
         <div v-if="filteredGames.length < games.length" class="filter-reset">
           <div>
             <button class="secondary" @click="removeFilters">
-              Remove Filters
+              Remove Filter
             </button>
           </div>
         </div>
@@ -215,6 +215,30 @@ onBeforeUnmount(() => {
 </script>
 <style scoped lang="scss">
 @use "~/assets/css/breakpoints" as *;
+
+#game-filters {
+  flex-wrap: wrap;
+  column-gap: $spacing-default;
+  row-gap: 0;
+}
+
+.filter-reset {
+  width: 100%;
+  margin-top: $spacing-small;
+  margin-bottom: $spacing-large;
+}
+
+@media (min-width: map-get($breakpoints, md)) {
+  #game-filters {
+    flex-wrap: nowrap;
+  }
+
+  .filter-reset {
+    width: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
 
 .games-grid {
   display: grid;

@@ -175,6 +175,7 @@ useHead({
   justify-content: center;
   margin-bottom: $spacing-large;
   padding-top: $spacing-large;
+  z-index: var(--z-default);
 }
 
 .banner-overlay {
