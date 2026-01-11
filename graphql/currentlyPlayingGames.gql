@@ -14,8 +14,7 @@ query currentlyPlayingGamesQuery {
       digital
       region
       cover {
-        thumbnail: url(transform: { width: 400 })
-        load: url(transform: { width: 100, quality: 5 })
+        thumbnail: url(transform: { width: 400, format: WEBP })
         title
       }
     }

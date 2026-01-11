@@ -11,13 +11,13 @@
         <div>
           <h2>Games</h2>
           <p><b>Total:</b> {{ stats.games.total }}</p>
-          <div id="games-played-status-chart"></div>
+          <div id="games-played-status-chart" class="chart-panel"></div>
         </div>
 
         <div>
           <h2>Systems</h2>
           <p><b>Total:</b> {{ stats.systems.total }}</p>
-          <div id="systems-totals-chart"></div>
+          <div id="systems-totals-chart" class="chart-panel"></div>
         </div>
       </div>
     </div>

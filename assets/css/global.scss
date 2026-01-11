@@ -3,6 +3,8 @@
 @use "./grid";
 @use "./buttons";
 @use "./forms";
+@use "./charts";
+@use "./breakpoints" as *;
 
 /* Global CSS Variables */
 :root {
@@ -43,4 +45,13 @@ a {
 
 img {
   max-width: 100%;
+}
+
+ul {
+  margin: 0;
+}
+
+hr {
+  margin-top: $spacing-large;
+  margin-bottom: $spacing-large;
 }

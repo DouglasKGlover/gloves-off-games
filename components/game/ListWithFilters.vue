@@ -200,6 +200,10 @@ onMounted(() => {
   }
 });
 
+defineExpose({
+  filters,
+});
+
 onBeforeUnmount(() => {
   if (observer && loadMoreSentinel.value) {
     observer.unobserve(loadMoreSentinel.value);
@@ -210,6 +214,8 @@ onBeforeUnmount(() => {
 });
 </script>
 <style scoped lang="scss">
+@use "~/assets/css/breakpoints" as *;
+
 .games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -220,5 +226,9 @@ onBeforeUnmount(() => {
 .load-more-sentinel {
   width: 100%;
   height: 1px;
+}
+
+.load-more {
+  margin-top: $spacing-large;
 }
 </style>

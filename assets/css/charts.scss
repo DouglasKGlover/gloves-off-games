@@ -1,0 +1,17 @@
+@use "breakpoints" as *;
+
+.chart-panel {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  border: 0.2rem solid rgba(255, 255, 255, 0.08);
+  padding: $spacing-default;
+  box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.25);
+}
+
+.chart-wrapper {
+  margin-top: 1.2rem;
+  height: 32rem;
+  max-height: 32rem;
+  overflow: hidden;
+}

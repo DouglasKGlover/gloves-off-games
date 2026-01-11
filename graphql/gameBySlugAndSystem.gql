@@ -21,14 +21,12 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
       digital
       requirementsForCompletion
       cover {
-        full: url
+        full: url(transform: { format: WEBP })
       }
       photosCollection(limit: 10) {
         items {
           url
-          thumbnail: url(
-            transform: { width: 300, height: 200, resizeStrategy: FILL }
-          )
+          thumbnail: url(transform: { width: 300 })
         }
       }
     }

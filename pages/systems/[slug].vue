@@ -1,28 +1,17 @@
 <template>
   <div class="container">
-    <div>
-      <div>
-        <h1>{{ system.title }}</h1>
-        <p v-if="system.manufacturer">{{ system.manufacturer.title }}</p>
+    <h1>{{ system.title }}</h1>
+    <p v-if="system.manufacturer">{{ system.manufacturer.title }}</p>
 
-        <hr />
+    <hr />
 
-        <div>
-          <div>
-            <h2>Status Overview</h2>
-            <p><b>Total Games:</b> {{ games.length }}</p>
-          </div>
+    <section class="chart-wrapper chart-panel">
+      <div id="games-status-chart"></div>
+    </section>
 
-          <div>
-            <div id="games-status-chart"></div>
-          </div>
-        </div>
+    <hr />
 
-        <hr />
-
-        <GameListWithFilters :games="games" />
-      </div>
-    </div>
+    <GameListWithFilters :games="games" ref="gameListRef" />
   </div>
 </template>
 
@@ -31,6 +20,7 @@ import systemBySlugQuery from "~/graphql/systemBySlug.gql";
 import gamesBySystemQuery from "~/graphql/gamesBySystem.gql";
 
 const route = useRoute();
+const gameListRef = ref(null);
 
 const { $graphql } = useNuxtApp();
 
@@ -63,6 +53,8 @@ const { data: gamesData } = await useAsyncData(
 );
 
 const games = computed(() => gamesData.value?.gameCollection?.items || []);
+
+const chartInstance = ref(null);
 
 // Calculate game statuses for chart
 const gameStatusSeries = computed(() => {
@@ -107,7 +99,7 @@ onMounted(async () => {
     const Accessibility = await import("highcharts/modules/accessibility");
     Accessibility.default(highcharts);
 
-    highcharts.chart("games-status-chart", {
+    chartInstance.value = highcharts.chart("games-status-chart", {
       chart: {
         backgroundColor: "transparent",
         plotBackgroundColor: null,
@@ -115,11 +107,14 @@ onMounted(async () => {
         plotShadow: false,
         type: "pie",
       },
+      credits: { enabled: false },
       title: {
         text: null,
       },
       tooltip: {
         pointFormat: "Games: <b>{point.y}</b>",
+        backgroundColor: "rgba(0,0,0,0.85)",
+        style: { color: "#ffffff", fontSize: "1.2rem" },
       },
       accessibility: {
         point: {
@@ -132,7 +127,23 @@ onMounted(async () => {
           cursor: "pointer",
           dataLabels: {
             enabled: true,
+            style: {
+              color: "#ffffff",
+              fontSize: "1.1rem",
+              textOutline: "none",
+            },
             format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+          },
+        },
+        series: {
+          point: {
+            events: {
+              click: function () {
+                if (gameListRef.value) {
+                  gameListRef.value.filters.status = this.name;
+                }
+              },
+            },
           },
         },
       },
@@ -147,4 +158,40 @@ onMounted(async () => {
     });
   }
 });
+
+// Watch for filter changes and update chart highlighting
+watch(
+  () => gameListRef.value?.filters.status,
+  (newStatus) => {
+    if (!chartInstance.value) return;
+
+    const chart = chartInstance.value;
+    const points = chart.series[0].points;
+
+    if (newStatus) {
+      // Dim all points except the selected one
+      points.forEach((point) => {
+        if (point.name === newStatus) {
+          point.update({ opacity: 1 }, false);
+        } else {
+          point.update({ opacity: 0.3 }, false);
+        }
+      });
+    } else {
+      // Reset all points to full opacity
+      points.forEach((point) => {
+        point.update({ opacity: 1 }, false);
+      });
+    }
+
+    chart.redraw();
+  },
+);
 </script>
+
+<style scoped>
+#games-status-chart {
+  height: 100%;
+  width: 100%;
+}
+</style>

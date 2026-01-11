@@ -22,6 +22,7 @@ Guidelines for developing and maintaining a Nuxt 3 game collection tracking site
 - Do not add erroneous or currently unnecessary features unless explicitly requested
 - If a request lacks specifics (e.g., "add a typography file"), prompt for clarification rather than assuming scope
 - Prefer straightforward solutions; technical debt from unused features is worse than minimal scaffolding
+- **NEVER add placeholder or instructional comments** such as "Your code here", "Replace this with...", or "AI assistant" comments. All generated code should be production-ready and placed directly into the codebase. The only exception is user-generated comments that start with "TODO", which should be preserved as-is.
 
 ### CSS and Styling Standards
 
@@ -46,9 +47,10 @@ Guidelines for developing and maintaining a Nuxt 3 game collection tracking site
   - `grid.scss`: CSS Grid utilities, container sizing, display utilities
   - `buttons.scss`: global button styles (primary, secondary)
   - `forms.scss`: global form element styles (inputs, selects, textareas)
-  - `global.scss`: entry point that `@use`s and `@forward`s others
+  - `global.scss`: entry point that `@use`s and `@forward`s others. It also houses generic, site-wide global styles that don't belong to a specific module (e.g., `hr` vertical margins, link defaults, base theme variables). Avoid adding new styles to `normalize.scss` unless explicitly requested.
 - The breakpoints module is for sharing variables only; components should `@use "~/assets/css/breakpoints"` when needing spacing or breakpoint variables
 - Choose the appropriate file for new CSS features: layout and background in `normalize.scss`, text and headings in `typography.scss`, grid/layout utilities in `grid.scss`, and component-specific styles within the component’s `<style scoped>`.
+- Choose the appropriate file for new CSS features: text and headings in `typography.scss`, grid/layout utilities in `grid.scss`, and component-specific styles within the component’s `<style scoped>`. Place generic, site-wide styles in `global.scss`. Do not add new styles to `normalize.scss` (it is for resets only) unless explicitly requested.
 - All spacing values use rem units (1rem = 10px via `font-size: 62.5%` on html)
 - **Always check existing global styles and classes before writing new styles.** Prioritize reusing established patterns, utilities, and classes. Follow the DRY (Don't Repeat Yourself) principle—if a style, component, or class already exists in global files, use it instead of duplicating code.
 

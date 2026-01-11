@@ -5,7 +5,6 @@
       <NuxtLink to="/" @click="isMenuOpen = false">Home</NuxtLink>
       <NuxtLink to="/systems/" @click="isMenuOpen = false">Systems</NuxtLink>
       <NuxtLink to="/games/" @click="isMenuOpen = false">Games</NuxtLink>
-      <NuxtLink to="/stats/" @click="isMenuOpen = false">Stats</NuxtLink>
       <NuxtLink to="/gallery/" @click="isMenuOpen = false">Gallery</NuxtLink>
       <NuxtLink to="/glog/" @click="isMenuOpen = false">Glog</NuxtLink>
     </nav>
