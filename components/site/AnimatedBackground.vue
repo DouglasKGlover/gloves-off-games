@@ -14,7 +14,6 @@
 .background-blobs {
   position: fixed;
   inset: 0;
-  overflow: hidden;
   z-index: 0;
   pointer-events: none;
 }

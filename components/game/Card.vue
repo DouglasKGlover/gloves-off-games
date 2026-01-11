@@ -68,7 +68,6 @@ defineProps({
   text-decoration: none;
   color: inherit;
   border-radius: 0.5rem;
-  overflow: hidden;
   transition: 0.2s ease;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
@@ -97,7 +96,6 @@ defineProps({
   position: relative;
   width: 100%;
   aspect-ratio: 5 / 3;
-  overflow: hidden;
   flex-shrink: 0;
   display: flex;
   align-items: center;

@@ -103,7 +103,6 @@ img {
 
 .games-grid-single-row {
   grid-template-rows: 1fr;
-  overflow: hidden;
 
   > * {
     min-height: 0;
