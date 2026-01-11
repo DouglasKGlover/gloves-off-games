@@ -9,13 +9,22 @@ export default $config({
     };
   },
   async run() {
+    const zone = aws.route53.getZoneOutput({
+      name: "douglasglover.ca",
+    });
+
     const site = new sst.aws.StaticSite("GlovesOffGames", {
       path: ".",
       build: {
         command: "npm run generate",
         output: ".output/public",
       },
-      domain: "gog.douglasglover.ca",
+      domain: {
+        name: "games.douglasglover.ca",
+        dns: sst.aws.dns({
+          zone: zone.zoneId,
+        }),
+      },
       environment: {
         CTF_HOST: process.env.CTF_HOST || "cdn.contentful.com",
         CTF_SPACE_ID: process.env.CTF_SPACE_ID || "",

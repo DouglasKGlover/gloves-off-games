@@ -5,17 +5,22 @@
         <div>
           <h1>{{ glog.title }}</h1>
           <p>
-            Game:
-            <NuxtLink
-              v-if="glog.game"
-              :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
-            >
-              {{ glog.game.title }}
-            </NuxtLink>
-            <br />
             Published on {{ $dateTranslate(glog.sys.firstPublishedAt).long }}
           </p>
         </div>
+      </div>
+
+      <div v-if="glog.game?.cover?.url" class="glog-game-card">
+        <GameCard :game="glog.game" />
+      </div>
+
+      <div v-else-if="glog.game" class="glog-game-button">
+        <NuxtLink
+          :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
+          class="button primary"
+        >
+          {{ glog.game.title }}
+        </NuxtLink>
       </div>
 
       <div>
@@ -37,10 +42,12 @@ const route = useRoute();
 
 const { $graphql } = useNuxtApp();
 
-const { data: glogData } = await useAsyncData("glogDetail", () =>
-  $graphql.request(gameLogBySlugQuery, {
-    slug: route.params.slug,
-  }),
+const { data: glogData } = await useAsyncData(
+  () => `glogDetail-${route.params.slug}`,
+  () =>
+    $graphql.request(gameLogBySlugQuery, {
+      slug: route.params.slug,
+    }),
 );
 
 const glog = computed(
@@ -55,3 +62,14 @@ useHead({
   ),
 });
 </script>
+
+<style scoped lang="scss">
+.glog-game-card {
+  max-width: 30rem;
+  margin: 2rem 0;
+}
+
+.glog-game-button {
+  margin: 2rem 0;
+}
+</style>

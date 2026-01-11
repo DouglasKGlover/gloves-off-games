@@ -1,6 +1,8 @@
 @use "./normalize";
 @use "./typography";
 @use "./grid";
+@use "./buttons";
+@use "./forms";
 
 /* Global CSS Variables */
 :root {
@@ -24,14 +26,14 @@ html {
 
 html,
 body {
-  background-color: #202020;
+  background-color: #141414;
   color: white;
   max-width: 100vw;
   overflow-x: hidden;
 }
 
 body {
-  padding-top: var(--header-height);
+  padding: var(--header-height) 0;
 }
 
 a {

@@ -40,14 +40,17 @@ Guidelines for developing and maintaining a Nuxt 3 game collection tracking site
 - Use `@use` instead of `@import` for Sass modules
 - Component-scoped styles go in `<style scoped lang="scss">` within `.vue` files
 - Global styles are managed in `assets/css/` with proper separation:
-  - `_tokens.scss`: z-index layers, breakpoints, spacing (no CSS output)
+  - `breakpoints.scss`: breakpoints and spacing variables (no CSS output)
   - `normalize.scss`: CSS reset and global element/layout basics (e.g., body background)
   - `typography.scss`: font stacks, base text styles, headings, text utilities
   - `grid.scss`: CSS Grid utilities, container sizing, display utilities
+  - `buttons.scss`: global button styles (primary, secondary)
+  - `forms.scss`: global form element styles (inputs, selects, textareas)
   - `global.scss`: entry point that `@use`s and `@forward`s others
-- Tokens module is meant for sharing variables only; components should `@use "./tokens"` directly when needed
+- The breakpoints module is for sharing variables only; components should `@use "~/assets/css/breakpoints"` when needing spacing or breakpoint variables
 - Choose the appropriate file for new CSS features: layout and background in `normalize.scss`, text and headings in `typography.scss`, grid/layout utilities in `grid.scss`, and component-specific styles within the component’s `<style scoped>`.
 - All spacing values use rem units (1rem = 10px via `font-size: 62.5%` on html)
+- **Always check existing global styles and classes before writing new styles.** Prioritize reusing established patterns, utilities, and classes. Follow the DRY (Don't Repeat Yourself) principle—if a style, component, or class already exists in global files, use it instead of duplicating code.
 
 ### Vue/Nuxt Standards
 
@@ -88,4 +91,4 @@ Guidelines for developing and maintaining a Nuxt 3 game collection tracking site
 - **Adding a new page:** Create `.vue` in `pages/` directory
 - **Adding a component:** Create `.vue` in `components/` with scoped styles
 - **Querying data:** Add `.gql` file in `graphql/`, import and use `$graphql.request()` in component
-- **Styling a component:** Use `<style scoped lang="scss">` and `@use "~/assets/css/tokens"` if accessing spacing/breakpoints
+- **Styling a component:** Use `<style scoped lang="scss">` and `@use "~/assets/css/breakpoints"` if accessing spacing/breakpoints

@@ -1,0 +1,49 @@
+/* Form Element Styles */
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 0.2rem solid var(--blue);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: inherit;
+  transition: 0.2s ease;
+  box-shadow: 0 0 0.6rem rgba(30, 144, 255, 0.3);
+
+  &:hover {
+    box-shadow: 0 0 1rem rgba(30, 144, 255, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1.4rem var(--blue);
+  }
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  font-size: 1.4rem;
+  padding-right: 2rem;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"><path fill="%231e90ff" d="M1 1l5 5 5-5"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  background-color: transparent;
+
+  option {
+    background: #1a1a1a;
+    color: inherit;
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
+}

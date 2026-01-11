@@ -5,11 +5,14 @@
 <script>
 export default {
   props: {
-    status: String,
+    status: {
+      type: String,
+      default: "",
+    },
   },
   computed: {
     statusClass() {
-      return this.status.toLowerCase();
+      return (this.status || "").toLowerCase();
     },
   },
 };

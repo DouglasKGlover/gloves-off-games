@@ -1,0 +1,53 @@
+/* Button Styles */
+
+button,
+.button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-family: inherit;
+  background: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline-offset: 0.2rem;
+  }
+
+  &.primary {
+    border: 0.2rem solid var(--blue);
+    color: var(--blue);
+    box-shadow: 0 0 0.6rem rgba(30, 144, 255, 0.3);
+
+    &:hover {
+      box-shadow: 0 0 1.4rem var(--blue);
+    }
+
+    &:focus-visible {
+      outline: 0.2rem solid var(--blue);
+      box-shadow: 0 0 0.8rem var(--blue);
+    }
+  }
+
+  &.secondary {
+    border: 0.2rem solid var(--pink);
+    color: var(--pink);
+    box-shadow: 0 0 0.6rem rgba(255, 38, 183, 0.3);
+
+    &:hover {
+      box-shadow: 0 0 1.4rem var(--pink);
+    }
+
+    &:focus-visible {
+      outline: 0.2rem solid var(--pink);
+      box-shadow: 0 0 0.8rem var(--pink);
+    }
+  }
+}

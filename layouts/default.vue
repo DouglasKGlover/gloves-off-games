@@ -1,5 +1,6 @@
 <template>
   <div class="layout-wrapper">
+    <SiteAnimatedBackground />
     <SiteHeader />
     <NuxtPage
       :transition="{
@@ -11,6 +12,10 @@
 </template>
 
 <style>
+.layout-wrapper {
+  position: relative;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.3s ease;

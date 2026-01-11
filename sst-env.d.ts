@@ -6,7 +6,7 @@
 declare module "sst" {
   export interface Resource {
     "GlovesOffGames": {
-      "type": "sst.aws.Nuxt"
+      "type": "sst.aws.StaticSite"
       "url": string
     }
   }

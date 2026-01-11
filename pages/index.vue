@@ -10,55 +10,35 @@
 
     <section class="container" v-if="currentlyPlayingGames.length">
       <h2>Currently Playing</h2>
-      <ul>
-        <li
+      <div class="games-grid">
+        <GameCard
           v-for="(game, index) in currentlyPlayingGames"
           :key="`new-game-${index}`"
-        >
-          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-            {{ game.title }}
-            <sup>[{{ game.system.shortName }}]</sup>
-            <sup v-if="game.digital">[Digital]</sup>
-          </NuxtLink>
-        </li>
-      </ul>
+          :game="game"
+        />
+      </div>
     </section>
 
     <section class="container">
       <h2>Recently Updated</h2>
-      <ul>
-        <li
+      <div class="games-grid games-grid-single-row">
+        <GameCard
           v-for="(game, index) in recentlyUpdated"
           :key="`updated-game-${index}`"
-        >
-          <span class="small">{{
-            $dateTranslate(game.sys.publishedAt).short
-          }}</span>
-          -
-          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-            {{ game.title }}
-            <sup>[{{ game.system.shortName }}]</sup>
-            <sup v-if="game.digital">[Digital]</sup>
-          </NuxtLink>
-        </li>
-      </ul>
+          :game="game"
+        />
+      </div>
     </section>
 
     <section class="container">
       <h2>Latest Additions</h2>
-      <ul>
-        <li v-for="(game, index) in latestGames" :key="`new-game-${index}`">
-          <span class="small">{{
-            $dateTranslate(game.sys.firstPublishedAt).short
-          }}</span>
-          -
-          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-            {{ game.title }}
-            <sup>[{{ game.system.shortName }}]</sup>
-            <sup v-if="game.digital">[Digital]</sup>
-          </NuxtLink>
-        </li>
-      </ul>
+      <div class="games-grid games-grid-single-row">
+        <GameCard
+          v-for="(game, index) in latestGames"
+          :key="`new-game-${index}`"
+          :game="game"
+        />
+      </div>
     </section>
   </main>
 </template>
@@ -106,3 +86,69 @@ const currentlyPlayingGames = computed(
   () => currentlyPlayingGamesData.value?.gameCollection?.items || [],
 );
 </script>
+<style scoped lang="scss">
+@use "~/assets/css/breakpoints" as *;
+
+img {
+  padding-top: $spacing-large;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+  max-width: 100%;
+}
+
+.games-grid-single-row {
+  grid-template-rows: 1fr;
+  overflow: hidden;
+
+  > * {
+    min-height: 0;
+  }
+
+  // Hide items beyond what fits in one row at each breakpoint
+  // These act as a base layer to prevent layout shift during hydration
+  > *:nth-child(n + 3) {
+    display: none;
+  }
+
+  @media (min-width: 57.6rem) {
+    > *:nth-child(n + 3) {
+      display: block;
+    }
+    > *:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 76.8rem) {
+    > *:nth-child(n + 4) {
+      display: block;
+    }
+    > *:nth-child(n + 5) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 99.2rem) {
+    > *:nth-child(n + 5) {
+      display: block;
+    }
+    > *:nth-child(n + 7) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 120rem) {
+    > *:nth-child(n + 7) {
+      display: block;
+    }
+    > *:nth-child(n + 9) {
+      display: none;
+    }
+  }
+}
+</style>

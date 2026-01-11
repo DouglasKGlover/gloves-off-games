@@ -151,6 +151,40 @@
   display: grid;
 }
 
+// Alignment utilities
+.place-items-center {
+  place-items: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.place-content-center {
+  place-content: center;
+}
+
+// Gap utilities
+.gap-1 {
+  gap: 0.5rem;
+}
+
+.gap-2 {
+  gap: 1rem;
+}
+
+.gap-3 {
+  gap: 1.5rem;
+}
+
+.gap-4 {
+  gap: 2rem;
+}
+
 @each $breakpoint, $width in $breakpoints {
   @media (min-width: $width) {
     .d-#{$breakpoint}-none {

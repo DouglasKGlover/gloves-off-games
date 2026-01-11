@@ -1,5 +1,9 @@
 query recentlyUpdatedQuery {
-  gameCollection(limit: 3, where: {sys:{publishedVersion_gt:4}}) {
+  gameCollection(
+    limit: 12
+    order: [sys_publishedAt_DESC]
+    where: { sys: { publishedVersion_gt: 4 } }
+  ) {
     items {
       sys {
         publishedAt
@@ -12,6 +16,11 @@ query recentlyUpdatedQuery {
       digital
       slug
       region
+      cover {
+        thumbnail: url(transform: { width: 400 })
+        load: url(transform: { width: 100, quality: 5 })
+        title
+      }
     }
   }
 }

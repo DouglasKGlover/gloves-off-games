@@ -13,6 +13,11 @@ query currentlyPlayingGamesQuery {
       playedStatus
       digital
       region
+      cover {
+        thumbnail: url(transform: { width: 400 })
+        load: url(transform: { width: 100, quality: 5 })
+        title
+      }
     }
   }
 }

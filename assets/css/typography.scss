@@ -19,6 +19,13 @@ body {
   line-height: 1.5;
 }
 
+// Headings
+h1,
+h2,
+h3 {
+  text-wrap: pretty;
+}
+
 // Text utilities
 .text-center {
   text-align: center;

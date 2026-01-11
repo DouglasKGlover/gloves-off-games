@@ -1,5 +1,9 @@
 query gamesBySystemQuery($system: String!) {
-  gameCollection(limit: 999, where: { system: { slug: $system } }, order: [title_ASC]) {
+  gameCollection(
+    limit: 999
+    where: { system: { slug: $system } }
+    order: [title_ASC]
+  ) {
     items {
       sys {
         id
@@ -8,11 +12,15 @@ query gamesBySystemQuery($system: String!) {
       slug
       playedStatus
       digital
-      wtbWts
       system {
         slug
       }
       region
+      cover {
+        thumbnail: url(transform: { width: 400 })
+        load: url(transform: { width: 100, quality: 5 })
+        title
+      }
     }
   }
 }

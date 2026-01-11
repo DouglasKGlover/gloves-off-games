@@ -16,7 +16,6 @@ query gameBySlugQuery($slug: String!) {
       region
       playedStatus
       requirementsForCompletion
-      wtbWts
       photosCollection(limit: 10) {
         items {
           url

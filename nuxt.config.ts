@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     "~/plugins/translateRichText",
   ],
 
-  modules: [],
+  modules: ["@nuxt/image"],
 
   ssr: true,
 

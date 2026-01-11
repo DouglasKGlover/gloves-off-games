@@ -1,5 +1,5 @@
 query latestGamesQuery {
-  gameCollection(limit: 3, order: [sys_firstPublishedAt_DESC]) {
+  gameCollection(limit: 12, order: [sys_firstPublishedAt_DESC]) {
     items {
       sys {
         firstPublishedAt
@@ -12,6 +12,11 @@ query latestGamesQuery {
       digital
       slug
       region
+      cover {
+        thumbnail: url(transform: { width: 400 })
+        load: url(transform: { width: 100, quality: 5 })
+        title
+      }
     }
   }
 }

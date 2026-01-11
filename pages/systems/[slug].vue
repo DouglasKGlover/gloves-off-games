@@ -35,10 +35,12 @@ const route = useRoute();
 const { $graphql } = useNuxtApp();
 
 // Fetch system data
-const { data: systemData } = await useAsyncData("system", () =>
-  $graphql.request(systemBySlugQuery, {
-    slug: route.params.slug,
-  }),
+const { data: systemData } = await useAsyncData(
+  () => `system-${route.params.slug}`,
+  () =>
+    $graphql.request(systemBySlugQuery, {
+      slug: route.params.slug,
+    }),
 );
 
 const system = computed(
@@ -52,10 +54,12 @@ useHead(() => ({
 }));
 
 // Fetch games for system
-const { data: gamesData } = await useAsyncData("gamesBySystem", () =>
-  $graphql.request(gamesBySystemQuery, {
-    system: route.params.slug,
-  }),
+const { data: gamesData } = await useAsyncData(
+  () => `gamesBySystem-${route.params.slug}`,
+  () =>
+    $graphql.request(gamesBySystemQuery, {
+      system: route.params.slug,
+    }),
 );
 
 const games = computed(() => gamesData.value?.gameCollection?.items || []);

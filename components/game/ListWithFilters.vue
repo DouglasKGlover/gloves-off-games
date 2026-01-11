@@ -1,138 +1,67 @@
 <template>
-  <div class="container">
-    <div class="game-list-wrapper">
-      <div
-        v-if="
-          filterStatuses[1].options.length > 1 || filterWtbWts[1].options.length
-        "
-        class="mobile-no-pad filters-column"
-      >
-        <div id="game-filters">
-          <div class="container">
-            <div class="filter-header">
-              <div class="mobile-no-pad">
-                <h2>Filter</h2>
-              </div>
-              <div class="mobile-no-pad filter-count">
-                <p>{{ filteredGames.length }}/{{ games.length }}</p>
-              </div>
-            </div>
-          </div>
+  <div class="game-list-wrapper">
+    <div v-if="filterStatuses[1].options.length > 1" class="filters-column">
+      <div id="game-filters" class="d-flex items-center gap-4">
+        <!-- Header -->
+        <div class="filter-header">
+          <h2>Filter</h2>
+        </div>
 
-          <div class="container">
-            <div class="filter-options">
-              <!-- Filter by status -->
-              <div
-                v-if="filterStatuses[1].options.length > 1"
-                class="filter-item"
-              >
-                <select v-model="filters.status" class="filter-select">
-                  <optgroup
-                    v-for="(group, index) in filterStatuses"
-                    :key="index"
-                    :label="group.label"
-                  >
-                    <option v-if="!group.label" :value="group.value">
-                      {{ group.text }}
-                    </option>
-                    <option
-                      v-for="(option, optIndex) in group.options"
-                      :key="optIndex"
-                      :value="option"
-                    >
-                      {{ option }}
-                    </option>
-                  </optgroup>
-                </select>
-              </div>
-
-              <!-- Filter by digital -->
-              <div
-                v-if="filterDigital[1].options.length > 1"
-                class="filter-item"
-              >
-                <select v-model="filters.digital" class="filter-select">
-                  <optgroup
-                    v-for="(group, index) in filterDigital"
-                    :key="index"
-                    :label="group.label"
-                  >
-                    <option v-if="!group.label" :value="group.value">
-                      {{ group.text }}
-                    </option>
-                    <option
-                      v-for="(option, optIndex) in group.options"
-                      :key="optIndex"
-                      :value="option.value"
-                    >
-                      {{ option.text }}
-                    </option>
-                  </optgroup>
-                </select>
-              </div>
-
-              <!-- Filter by WTB/WTS -->
-              <div v-if="filterWtbWts[1].options.length" class="filter-item">
-                <select v-model="filters.wtbWts" class="filter-select">
-                  <optgroup
-                    v-for="(group, index) in filterWtbWts"
-                    :key="index"
-                    :label="group.label"
-                  >
-                    <option v-if="!group.label" :value="group.value">
-                      {{ group.text }}
-                    </option>
-                    <option
-                      v-for="(option, optIndex) in group.options"
-                      :key="optIndex"
-                      :value="option.value"
-                    >
-                      {{ option.text }}
-                    </option>
-                  </optgroup>
-                </select>
-              </div>
-            </div>
-
-            <!-- Remove filters -->
-            <div
-              v-if="filteredGames.length < games.length"
-              class="filter-reset"
+        <!-- Filter by status -->
+        <div v-if="filterStatuses[1].options.length > 1">
+          <select v-model="filters.status" class="filter-select">
+            <option :value="filterStatuses[0].value">
+              {{ filterStatuses[0].text }}
+            </option>
+            <option
+              v-for="(option, optIndex) in filterStatuses[1].options"
+              :key="optIndex"
+              :value="option"
             >
-              <div>
-                <button @click="removeFilters">Remove Filters</button>
-              </div>
-            </div>
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Games shown -->
+        <p>{{ filteredGames.length }}/{{ games.length }}</p>
+
+        <!-- Remove filters -->
+        <div v-if="filteredGames.length < games.length" class="filter-reset">
+          <div>
+            <button class="secondary" @click="removeFilters">
+              Remove Filters
+            </button>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- List of games -->
-      <div class="mobile-no-pad games-column">
-        <div
+    <!-- List of games -->
+    <div class="mobile-no-pad games-column">
+      <div class="games-grid">
+        <GameCard
           v-for="(game, index) in loadedGames"
           :key="`game-${index}`"
-          :class="game.playedStatus"
-        >
-          <GamePlayedStatusIndicator :status="game.playedStatus" />
-          <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`">
-            {{ game.title }}
-            <GameRegionIndicator :region="game.region" />
-            <sup v-if="game.system.shortName">
-              [{{ game.system.shortName }}]</sup
-            >
-            <sup v-if="game.digital"> [Digital]</sup>
-          </NuxtLink>
-        </div>
+          :game="game"
+          :show-region="true"
+        />
+      </div>
 
-        <div class="load-more">
-          <button
-            @click="loadMore()"
-            v-if="loadedGames.length < filteredGames.length"
-          >
-            Load More
-          </button>
-        </div>
+      <div
+        ref="loadMoreSentinel"
+        class="load-more-sentinel"
+        aria-hidden="true"
+      ></div>
+
+      <div class="load-more">
+        <button
+          class="primary"
+          @click="loadMore()"
+          v-if="loadedGames.length < filteredGames.length"
+        >
+          Load More
+        </button>
       </div>
     </div>
   </div>
@@ -146,7 +75,9 @@ const props = defineProps({
   },
 });
 
-const totalToShow = ref(999);
+const BATCH_SIZE = 20;
+const totalToShow = ref(BATCH_SIZE);
+const loadMoreSentinel = ref(null);
 const filterStatuses = ref([
   {
     value: null,
@@ -167,20 +98,9 @@ const filterDigital = ref([
     options: [],
   },
 ]);
-const filterWtbWts = ref([
-  {
-    value: null,
-    text: "By WTB/WTS",
-  },
-  {
-    label: "Wanting to:",
-    options: [],
-  },
-]);
 const filters = ref({
   status: null,
   digital: null,
-  wtbWts: null,
 });
 
 const sortArray = (array) => {
@@ -193,22 +113,21 @@ const sortArray = (array) => {
 };
 
 const loadMore = () => {
-  totalToShow.value = totalToShow.value + 25;
+  totalToShow.value = Math.min(
+    totalToShow.value + BATCH_SIZE,
+    filteredGames.value.length,
+  );
 };
 
 const removeFilters = () => {
   filters.value = {
     status: null,
     digital: null,
-    wtbWts: null,
   };
 };
 
 const filteredGames = computed(() => {
   let filtered = props.games;
-  if (filters.value.wtbWts) {
-    filtered = filtered.filter((game) => game.wtbWts == filters.value.wtbWts);
-  }
   if (filters.value.status) {
     filtered = filtered.filter(
       (game) => game.playedStatus == filters.value.status,
@@ -226,9 +145,15 @@ const filteredGames = computed(() => {
   return filtered;
 });
 
+watch(filteredGames, () => {
+  totalToShow.value = BATCH_SIZE;
+});
+
 const loadedGames = computed(() => {
   return filteredGames.value.slice(0, totalToShow.value);
 });
+
+let observer = null;
 
 onMounted(() => {
   // Find all existing statuses and add to filter
@@ -258,24 +183,42 @@ onMounted(() => {
   });
   filterDigital.value[1].options = filterArray.sort();
 
-  // Find any games set to WTB/WTS and add to a filter if found
-  gameArr = [];
-  filterArray = [];
-  props.games.filter(function (game) {
-    let i = gameArr.findIndex((x) => x.wtbWts == game.wtbWts);
-    if (i <= -1 && game.wtbWts !== null) {
-      gameArr.push(game);
-      switch (game.wtbWts) {
-        case "WTB":
-          filterArray.push({ text: "Buy", value: "WTB" });
-          break;
-        case "WTS":
-          filterArray.push({ text: "Sell", value: "WTS" });
-          break;
-      }
-    }
-    return null;
-  });
-  filterWtbWts.value[1].options = filterArray.sort();
+  if (process.client && loadMoreSentinel.value) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadMore();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "200px 0px",
+        threshold: 0,
+      },
+    );
+    observer.observe(loadMoreSentinel.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer && loadMoreSentinel.value) {
+    observer.unobserve(loadMoreSentinel.value);
+  }
+  if (observer) {
+    observer.disconnect();
+  }
 });
 </script>
+<style scoped lang="scss">
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.load-more-sentinel {
+  width: 100%;
+  height: 1px;
+}
+</style>

@@ -20,7 +20,9 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
       highScore
       digital
       requirementsForCompletion
-      wtbWts
+      cover {
+        full: url
+      }
       photosCollection(limit: 10) {
         items {
           url

@@ -44,6 +44,11 @@ header {
   display: flex;
   justify-content: flex-end;
   z-index: var(--z-foreground);
+
+  @media (min-width: map.get($breakpoints, md)) {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
 }
 
 .hamburger {
@@ -127,6 +132,7 @@ nav {
     height: auto;
     padding: 0 5%;
     background: none;
+    backdrop-filter: none;
     box-shadow: none;
     opacity: 1;
     transform: none;
@@ -160,13 +166,14 @@ nav {
         display: block;
         position: absolute;
         bottom: -0.2rem;
-        left: 0;
+        left: 50%;
         width: 100%;
         height: 3px;
         border-radius: 1.5px;
         background: var(--blue);
         box-shadow: 0 0 8px var(--blue);
-        transform: translateY(0.5rem);
+        transform: translateX(-50%) translateY(-0.5rem) scaleX(0);
+        transform-origin: center;
         opacity: 0;
         transition: 0.2s ease;
       }
@@ -179,7 +186,7 @@ nav {
 
         &::after {
           opacity: 1;
-          transform: translateY(0);
+          transform: translateX(-50%) translateY(0) scaleX(1);
         }
       }
     }
