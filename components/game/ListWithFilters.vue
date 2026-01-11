@@ -215,6 +215,7 @@ onBeforeUnmount(() => {
 </script>
 <style scoped lang="scss">
 @use "~/assets/css/breakpoints" as *;
+@use "sass:map";
 
 #game-filters {
   flex-wrap: wrap;
@@ -228,7 +229,7 @@ onBeforeUnmount(() => {
   margin-bottom: $spacing-large;
 }
 
-@media (min-width: map-get($breakpoints, md)) {
+@media (min-width: map.get($breakpoints, md)) {
   #game-filters {
     flex-wrap: nowrap;
   }

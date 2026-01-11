@@ -111,16 +111,14 @@
 import gameBySlugAndSystemQuery from "~/graphql/gameBySlugAndSystem.gql";
 
 const route = useRoute();
-
 const { $graphql } = useNuxtApp();
-
-const parsePathMatch = (pathArray) => {
-  // pathArray is [system, slug] from [system]/[slug]
-  return {
-    slug: pathArray[1],
-    system: pathArray[0],
-  };
-};
+// const parsePathMatch = (pathArray) => {
+//   // pathArray is [system, slug] from [system]/[slug]
+//   return {
+//     slug: pathArray[1],
+//     system: pathArray[0],
+//   };
+// };
 
 // Normalize catch-all param to segments [system, slug]
 const pathParam = route.params.pathMatch;
