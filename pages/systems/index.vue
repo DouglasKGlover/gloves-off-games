@@ -1,33 +1,31 @@
 <template>
-  <div class="container">
-    <h1>Systems</h1>
-    <p>Every single one of them.</p>
+  <div>
+    <SiteHero title="Systems" />
+    <div class="container">
+      <div class="grid">
+        <!-- Systems list -->
+        <div class="col-span-12 col-span-md-6">
+          <ul>
+            <li
+              v-for="(system, index) in allSystems"
+              :key="`systems-list-item-${index}`"
+            >
+              <NuxtLink :to="`/systems/${system.slug}`">
+                {{ system.title }}
+                <sup> [{{ system.linkedFrom.gameCollection.total }}]</sup>
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
 
-    <hr />
-
-    <div class="grid">
-      <!-- Systems list -->
-      <div class="col-span-12 col-span-md-6">
-        <ul>
-          <li
-            v-for="(system, index) in allSystems"
-            :key="`systems-list-item-${index}`"
-          >
-            <NuxtLink :to="`/systems/${system.slug}`">
-              {{ system.title }}
-              <sup> [{{ system.linkedFrom.gameCollection.total }}]</sup>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Chart area -->
-      <div
-        class="col-span-12 col-span-md-6"
-        aria-labelledby="systems-chart-heading"
-      >
-        <h2 id="systems-chart-heading">Systems by total games</h2>
-        <div id="systems-totals-chart" class="chart-panel"></div>
+        <!-- Chart area -->
+        <div
+          class="col-span-12 col-span-md-6"
+          aria-labelledby="systems-chart-heading"
+        >
+          <h2 id="systems-chart-heading">Systems by total games</h2>
+          <div id="systems-totals-chart" class="chart-panel"></div>
+        </div>
       </div>
     </div>
   </div>

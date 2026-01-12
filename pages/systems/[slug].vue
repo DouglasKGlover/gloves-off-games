@@ -1,17 +1,15 @@
 <template>
-  <div class="container">
-    <h1>{{ system.title }}</h1>
-    <p v-if="system.manufacturer">{{ system.manufacturer.title }}</p>
+  <div>
+    <SiteHero :title="system.title" :subtitle="system.manufacturer?.title" />
+    <div class="container">
+      <section class="chart-wrapper chart-panel">
+        <div id="games-status-chart"></div>
+      </section>
 
-    <hr />
+      <hr />
 
-    <section class="chart-wrapper chart-panel">
-      <div id="games-status-chart"></div>
-    </section>
-
-    <hr />
-
-    <GameListWithFilters :games="games" ref="gameListRef" />
+      <GameListWithFilters :games="games" ref="gameListRef" />
+    </div>
   </div>
 </template>
 

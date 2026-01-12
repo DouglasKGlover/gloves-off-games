@@ -25,21 +25,17 @@
       <h3 class="game-title">{{ game.title }}</h3>
 
       <div class="game-meta">
-        <span class="system-badge" v-if="game.system.shortName">
+        <span class="meta-system" v-if="game.system.shortName">
           {{ game.system.shortName }}
         </span>
-        <GamePlayedStatusIndicator :status="game.playedStatus" />
-      </div>
 
-      <div
-        v-if="showRegion && game.region && game.region !== 'NA'"
-        class="game-region"
-      >
-        <GameRegionIndicator :region="game.region" />
-      </div>
-
-      <div v-if="false" class="game-flags">
-        <span v-if="false" class="flag digital-flag">Digital</span>
+        <span
+          class="meta-status"
+          :class="game.playedStatus.toLowerCase()"
+          v-if="game.playedStatus"
+        >
+          {{ game.playedStatus }}
+        </span>
       </div>
     </div>
   </NuxtLink>
@@ -53,10 +49,6 @@ defineProps({
     validator: (game) => {
       return game.title && game.slug && game.system?.slug;
     },
-  },
-  showRegion: {
-    type: Boolean,
-    default: false,
   },
 });
 </script>
@@ -73,6 +65,7 @@ defineProps({
   backdrop-filter: blur(10px);
   height: 100%;
   border: 0.2rem solid transparent;
+  overflow: hidden;
 
   &:hover {
     border: 0.2rem solid var(--pink);
@@ -96,10 +89,7 @@ defineProps({
   position: relative;
   width: 100%;
   aspect-ratio: 5 / 3;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 
   &.has-cover {
     background: transparent;
@@ -135,12 +125,11 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-height: 0;
 }
 
 .game-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 1.3;
   color: inherit;
@@ -151,39 +140,25 @@ defineProps({
   gap: 0.5rem;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 0.85rem;
-}
+  font-size: 1rem;
 
-.system-badge {
-  display: inline-block;
-  background: rgba(0, 0, 0, 0.08);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.2rem;
-  font-weight: 500;
-  font-size: 0.8rem;
-}
+  span {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.2rem;
 
-.game-region {
-  font-size: 0.9rem;
-}
+    &.beaten {
+      background: rgba(var(--beaten), 0.2);
+    }
 
-.game-flags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
+    &.completed {
+      background: rgba(var(--completed), 0.2);
+    }
 
-.flag {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 0.2rem;
-
-  &.digital-flag {
-    background: rgba(100, 150, 200, 0.2);
-    color: #2c5aa0;
+    &.abandoned {
+      background: rgba(var(--abandoned), 0.2);
+    }
   }
 }
 </style>

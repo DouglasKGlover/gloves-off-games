@@ -1,13 +1,9 @@
 <template>
   <main>
+    <SiteHero title="Games" />
     <div class="container">
       <div>
         <div>
-          <h1>Games</h1>
-          <p>Like, literally all my games.</p>
-
-          <hr />
-
           <section class="chart-wrapper chart-panel">
             <div id="games-status-chart"></div>
           </section>

@@ -42,10 +42,8 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { prerender: true },
     "/games/**": { prerender: true },
-    "/glog/**": { prerender: true },
+    "/blog/**": { prerender: true },
     "/systems/**": { prerender: true },
-    "/stats/**": { prerender: true },
-    "/gallery/**": { prerender: true },
   },
 
   runtimeConfig: {

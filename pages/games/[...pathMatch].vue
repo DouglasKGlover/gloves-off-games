@@ -1,21 +1,12 @@
 <template>
   <div>
-    <div
-      class="game-banner"
-      :style="
-        game.cover?.full ? { backgroundImage: `url('${game.cover.full}')` } : {}
-      "
-    >
-      <div class="banner-overlay"></div>
-      <div class="banner-content">
-        <h1>{{ game.title }}</h1>
-        <h2>
-          <NuxtLink :to="`/systems/${game.system.slug}`">
-            {{ game.system.title }}
-          </NuxtLink>
-        </h2>
-      </div>
-    </div>
+    <SiteHero :title="game.title" :background-image="game.cover?.full">
+      <template #subtitle>
+        <NuxtLink :to="`/systems/${game.system.slug}`">
+          {{ game.system.title }}
+        </NuxtLink>
+      </template>
+    </SiteHero>
     <div class="container" v-if="game.title">
       <div>
         <div>
@@ -96,7 +87,7 @@
               :key="`game-log-${index}`"
             >
               {{ $dateTranslate(glog.sys.firstPublishedAt).short }} -
-              <NuxtLink :to="`/glog/${glog.slug}`">
+              <NuxtLink :to="`/blog/${glog.slug}`">
                 {{ glog.title }}
               </NuxtLink>
             </div>
@@ -161,63 +152,4 @@ useHead({
 
 <style scoped lang="scss">
 @use "~/assets/css/breakpoints" as *;
-
-.game-banner {
-  position: relative;
-  width: 100%;
-  min-height: 20rem;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: $spacing-large;
-  padding-top: $spacing-large;
-  z-index: var(--z-default);
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1;
-}
-
-.banner-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-  text-align: center;
-  padding: 2rem;
-
-  h1 {
-    margin: 0;
-    font-size: 4rem;
-    text-shadow:
-      0 0.2rem 0.8rem rgba(0, 0, 0, 0.8),
-      0 0.4rem 1.6rem rgba(0, 0, 0, 0.6);
-  }
-
-  h2 {
-    margin: 1rem 0 0 0;
-    font-size: 2rem;
-    font-weight: 400;
-    text-shadow:
-      0 0.2rem 0.8rem rgba(0, 0, 0, 0.8),
-      0 0.4rem 1.6rem rgba(0, 0, 0, 0.6);
-
-    a {
-      color: white;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-  }
-}
 </style>

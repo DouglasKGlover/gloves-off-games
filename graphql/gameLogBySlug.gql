@@ -13,6 +13,10 @@ query gameLogBySlugQuery($slug: String!) {
           slug
         }
         region
+        cover {
+          thumbnail: url(transform: { width: 400, format: WEBP })
+          title
+        }
       }
       details {
         json

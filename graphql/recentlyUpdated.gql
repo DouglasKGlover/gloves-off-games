@@ -16,6 +16,7 @@ query recentlyUpdatedQuery {
       digital
       slug
       region
+      playedStatus
       cover {
         thumbnail: url(transform: { width: 400, format: WEBP })
         title

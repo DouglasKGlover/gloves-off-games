@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="container">
-      <div>
-        <div>
-          <h1>{{ glog.title }}</h1>
-          <p>
-            Published on {{ $dateTranslate(glog.sys.firstPublishedAt).long }}
-          </p>
-        </div>
-      </div>
-
-      <div v-if="glog.game?.cover?.url" class="glog-game-card">
+    <SiteHero
+      :title="glog.title"
+      :subtitle="
+        'Published on ' + $dateTranslate(glog.sys.firstPublishedAt).long
+      "
+    />
+    <div class="container grid gap-4 md:gap-6 grid-cols-12">
+      <div v-if="glog.game?.cover?.thumbnail" class="glog-game-card col-span-12 col-span-md-3"">
         <GameCard :game="glog.game" />
       </div>
 
-      <div v-else-if="glog.game" class="glog-game-button">
+      <div
+        v-else-if="glog.game"
+        class="glog-game-button col-span-12 col-span-md-3"
+      >
         <NuxtLink
           :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
           class="button primary"
@@ -23,14 +23,11 @@
         </NuxtLink>
       </div>
 
-      <div>
-        <div>
-          <div
-            id="glog-details"
-            v-html="$translateRichText(glog.details.json)"
-          ></div>
-        </div>
-      </div>
+      <div
+        id="glog-details"
+        class="col-span-12 col-span-md-6"
+        v-html="$translateRichText(glog.details.json)"
+      ></div>
     </div>
   </div>
 </template>
@@ -64,9 +61,17 @@ useHead({
 </script>
 
 <style scoped lang="scss">
+@use "~/assets/css/breakpoints" as *;
+@use "sass:map";
+
 .glog-game-card {
   max-width: 30rem;
-  margin: 2rem 0;
+  margin: 2rem auto;
+  align-self: start;
+
+  @media (min-width: map.get($breakpoints, md)) {
+    margin: 2rem 0;
+  }
 }
 
 .glog-game-button {
