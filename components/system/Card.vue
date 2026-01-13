@@ -1,13 +1,13 @@
 <template>
-  <NuxtLink :to="`/games/${game.system.slug}/${game.slug}`" class="game-card">
+  <NuxtLink :to="`/systems/${system.slug}`" class="system-card">
     <div
-      class="game-card-image"
-      :class="game.cover?.thumbnail ? 'has-cover' : 'no-cover'"
+      class="system-card-image"
+      :class="system.cover?.thumbnail ? 'has-cover' : 'no-cover'"
     >
       <NuxtImg
-        v-if="game.cover?.thumbnail"
-        :src="game.cover.thumbnail"
-        :alt="`${game.title} cover art`"
+        v-if="system.cover?.thumbnail"
+        :src="system.cover.thumbnail"
+        :alt="`${system.title} cover art`"
         class="cover-image"
         loading="lazy"
         sizes="sm:100vw md:50vw lg:33vw"
@@ -21,24 +21,13 @@
       </div>
     </div>
 
-    <div class="game-card-content">
-      <h3 class="game-title">{{ game.title }}</h3>
+    <div class="system-card-content">
+      <h3 class="system-title">{{ system.title }}</h3>
 
-      <div class="game-meta">
-        <span class="meta-system" v-if="game.system.shortName">
-          {{ game.system.shortName }}
-        </span>
-
-        <span
-          class="meta-status"
-          :class="game.playedStatus.toLowerCase()"
-          v-if="
-            (game.playedStatus && game.playedStatus == 'Beaten') ||
-            game.playedStatus == 'Completed' ||
-            game.playedStatus == 'Abandoned'
-          "
-        >
-          {{ game.playedStatus }}
+      <div class="system-meta">
+        <span class="meta-count">
+          {{ system.linkedFrom.gameCollection.total }}
+          {{ system.linkedFrom.gameCollection.total === 1 ? "game" : "games" }}
         </span>
       </div>
     </div>
@@ -47,18 +36,18 @@
 
 <script setup>
 defineProps({
-  game: {
+  system: {
     type: Object,
     required: true,
-    validator: (game) => {
-      return game.title && game.slug && game.system?.slug;
+    validator: (system) => {
+      return system.title && system.slug;
     },
   },
 });
 </script>
 
 <style scoped lang="scss">
-.game-card {
+.system-card {
   display: grid;
   grid-template-rows: auto 1fr;
   text-decoration: none;
@@ -89,27 +78,21 @@ defineProps({
   }
 }
 
-.game-card-image {
+.system-card-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 10 / 3;
   overflow: hidden;
-
-  &.has-cover {
-    background: transparent;
-  }
-
-  &.no-cover {
-    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-  }
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
 }
 
 .cover-image,
 .cover-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  padding: 1rem;
 }
 
 .cover-placeholder {
@@ -124,14 +107,14 @@ defineProps({
   font-weight: 500;
 }
 
-.game-card-content {
+.system-card-content {
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.game-title {
+.system-title {
   margin: 0;
   font-size: 1.4rem;
   font-weight: 600;
@@ -139,30 +122,18 @@ defineProps({
   color: inherit;
 }
 
-.game-meta {
+.system-meta {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  flex-wrap: wrap;
-  font-size: 1rem;
+  font-size: 0.95rem;
 
   span {
     display: inline-block;
     background: rgba(0, 0, 0, 0.2);
     padding: 0.25rem 0.5rem;
     border-radius: 0.2rem;
-
-    &.beaten {
-      background: rgba(var(--beaten), 0.2);
-    }
-
-    &.completed {
-      background: rgba(var(--completed), 0.2);
-    }
-
-    &.abandoned {
-      background: rgba(var(--abandoned), 0.2);
-    }
+    color: rgba(255, 255, 255, 0.8);
   }
 }
 </style>

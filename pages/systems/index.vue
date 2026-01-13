@@ -2,31 +2,17 @@
   <div>
     <SiteHero title="Systems" />
     <div class="container">
-      <div class="grid">
-        <!-- Systems list -->
-        <div class="col-span-12 col-span-md-6">
-          <ul>
-            <li
-              v-for="(system, index) in allSystems"
-              :key="`systems-list-item-${index}`"
-            >
-              <NuxtLink :to="`/systems/${system.slug}`">
-                {{ system.title }}
-                <sup> [{{ system.linkedFrom.gameCollection.total }}]</sup>
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
+      <!-- Chart area -->
+      <section class="chart-wrapper chart-panel">
+        <div id="systems-totals-chart"></div>
+      </section>
 
-        <!-- Chart area -->
-        <div
-          class="col-span-12 col-span-md-6"
-          aria-labelledby="systems-chart-heading"
-        >
-          <h2 id="systems-chart-heading">Systems by total games</h2>
-          <div id="systems-totals-chart" class="chart-panel"></div>
-        </div>
-      </div>
+      <hr />
+
+      <!-- Systems list -->
+      <section>
+        <SystemList :systems="allSystems" />
+      </section>
     </div>
   </div>
 </template>
@@ -136,13 +122,10 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @use "~/assets/css/breakpoints" as *;
+@use "sass:map";
 
-.chart-panel {
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(8px);
-  border-radius: 0.5rem;
-  border: 0.2rem solid rgba(255, 255, 255, 0.08);
-  padding: $spacing-default;
-  box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.25);
+#systems-totals-chart {
+  height: 100%;
+  width: 100%;
 }
 </style>

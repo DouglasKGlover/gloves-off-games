@@ -39,7 +39,9 @@
 
     <!-- List of games -->
     <div class="mobile-no-pad games-column">
-      <div class="games-grid">
+      <div
+        class="grid grid-cols-sm-3 grid-cols-md-4 grid-cols-lg-6 grid-cols-xl-8 grid-cols-xxl-12 games-grid"
+      >
         <GameCard
           v-for="(game, index) in loadedGames"
           :key="`game-${index}`"
@@ -75,8 +77,8 @@ const props = defineProps({
   },
 });
 
-const BATCH_SIZE = 20;
-const totalToShow = ref(BATCH_SIZE);
+const batchSize = 20;
+const totalToShow = ref(batchSize);
 const loadMoreSentinel = ref(null);
 const filterStatuses = ref([
   {
@@ -114,7 +116,7 @@ const sortArray = (array) => {
 
 const loadMore = () => {
   totalToShow.value = Math.min(
-    totalToShow.value + BATCH_SIZE,
+    totalToShow.value + batchSize,
     filteredGames.value.length,
   );
 };
@@ -146,7 +148,7 @@ const filteredGames = computed(() => {
 });
 
 watch(filteredGames, () => {
-  totalToShow.value = BATCH_SIZE;
+  totalToShow.value = batchSize;
 });
 
 const loadedGames = computed(() => {
@@ -242,10 +244,38 @@ onBeforeUnmount(() => {
 }
 
 .games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
   margin-top: 1rem;
+}
+
+@media (min-width: map.get($breakpoints, sm)) {
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: map.get($breakpoints, md)) {
+  .games-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: map.get($breakpoints, lg)) {
+  .games-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: map.get($breakpoints, xl)) {
+  .games-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media (min-width: map.get($breakpoints, xxl)) {
+  .games-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
 
 .load-more-sentinel {

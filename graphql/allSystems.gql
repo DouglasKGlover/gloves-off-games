@@ -4,6 +4,10 @@ query allSystemsQuery {
       title
       shortName
       slug
+      cover {
+        thumbnail: url(transform: { width: 400, format: WEBP })
+        title
+      }
       linkedFrom {
         gameCollection {
           total
