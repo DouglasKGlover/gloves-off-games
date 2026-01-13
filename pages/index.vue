@@ -4,7 +4,11 @@
       <div
         class="col-span-12 col-span-md-6 col-start-md-4 col-end-md-10 text-center"
       >
-        <img class="" :src="logoImage" alt="Gloves Off Games Logo" />
+        <img
+          :src="logoImage"
+          alt="Gloves Off Games Logo"
+          fetchpriority="high"
+        />
       </div>
     </section>
 
@@ -44,7 +48,7 @@
 </template>
 
 <script setup>
-import logoImage from "~/assets/images/logo.png";
+import logoImage from "~/assets/images/logo.webp";
 import recentlyUpdatedQuery from "~/graphql/recentlyUpdated.gql";
 import latestGamesQuery from "~/graphql/latestGames.gql";
 import currentlyPlayingGamesQuery from "~/graphql/currentlyPlayingGames.gql";

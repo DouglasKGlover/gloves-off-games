@@ -18,7 +18,7 @@ query recentlyUpdatedQuery {
       region
       playedStatus
       cover {
-        thumbnail: url(transform: { width: 400, format: WEBP })
+        thumbnail: url(transform: { width: 400, format: WEBP, quality: 5 })
         title
       }
     }
