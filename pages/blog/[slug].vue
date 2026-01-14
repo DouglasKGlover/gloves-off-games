@@ -17,15 +17,17 @@
       >
         <NuxtLink
           :to="`/games/${glog.game.system.slug}/${glog.game.slug}`"
-          class="button primary"
+          class="button secondary"
         >
           {{ glog.game.title }}
         </NuxtLink>
       </div>
 
+      <div v-else class="col-span-12 col-span-md-2"></div>
+
       <div
         id="glog-details"
-        class="col-span-12 col-span-md-6"
+        class="col-span-12 col-span-md-8 glog-details-bg"
         v-html="$translateRichText(glog.details.json)"
       ></div>
     </div>
@@ -76,5 +78,12 @@ useHead({
 
 .glog-game-button {
   margin: 2rem 0;
+}
+
+.glog-details-bg {
+  background: rgba(0,0,0,0.5);
+  border-radius: 0.8rem;
+  padding: 2rem;
+  color: #f7f7fa;
 }
 </style>

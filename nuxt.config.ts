@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Doug Glover's personal video game collection tracking site, with a rarely updated blog of thoughts and reviews on games I've played recently. Primary purpose being personal tracking so I don't accidently buy games I already own.",
+            "Doug Glover's personal video game collection tracking site.",
         },
         { name: "format-detection", content: "telephone=no" },
       ],
