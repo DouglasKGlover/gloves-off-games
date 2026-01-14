@@ -1,15 +1,12 @@
 <template>
   <main>
-    <section class="container grid">
-      <div
-        class="col-span-12 col-span-md-6 col-start-md-4 col-end-md-10 text-center"
-      >
-        <img
-          :src="logoImage"
-          alt="Gloves Off Games Logo"
-          fetchpriority="high"
-        />
-      </div>
+    <section class="container">
+      <img
+        :src="logoImage"
+        alt="Gloves Off Games Logo"
+        fetchpriority="high"
+        class="logo-img"
+      />
     </section>
 
     <section class="container" v-if="currentlyPlayingGames.length">
@@ -93,8 +90,12 @@ const currentlyPlayingGames = computed(
 <style scoped lang="scss">
 @use "~/assets/css/breakpoints" as *;
 
-img {
+// Center logo image on desktop
+.logo-img {
   padding-top: $spacing-large;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .games-grid {
