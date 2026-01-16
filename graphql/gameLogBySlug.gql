@@ -20,6 +20,19 @@ query gameLogBySlugQuery($slug: String!) {
       }
       details {
         json
+        links {
+          assets {
+            block {
+              sys {
+                id
+              }
+              url(transform: { width: 500, format: WEBP })
+              title
+              description
+              contentType
+            }
+          }
+        }
       }
     }
   }

@@ -25,10 +25,14 @@
 
       <div v-else class="col-span-12 col-span-md-2"></div>
 
+      <!-- <pre>
+        {{glog.details.json}}
+      </pre> -->
+
       <div
         id="glog-details"
-        class="col-span-12 col-span-md-8 glog-details-bg"
-        v-html="$translateRichText(glog.details.json)"
+        class="col-span-12 col-span-md-8"
+        v-html="$translateRichText(glog.details)"
       ></div>
     </div>
   </div>
@@ -80,7 +84,7 @@ useHead({
   margin: 2rem 0;
 }
 
-.glog-details-bg {
+#glog-details {
   background: rgba(0,0,0,0.5);
   border-radius: 0.8rem;
   padding: 2rem;
