@@ -90,19 +90,8 @@ const filterStatuses = ref([
     options: [],
   },
 ]);
-const filterDigital = ref([
-  {
-    value: null,
-    text: "By Physical/Digital",
-  },
-  {
-    label: "Physical/Digital",
-    options: [],
-  },
-]);
 const filters = ref({
   status: null,
-  digital: null,
 });
 
 const sortArray = (array) => {
@@ -124,7 +113,6 @@ const loadMore = () => {
 const removeFilters = () => {
   filters.value = {
     status: null,
-    digital: null,
   };
 };
 
@@ -134,15 +122,6 @@ const filteredGames = computed(() => {
     filtered = filtered.filter(
       (game) => game.playedStatus == filters.value.status,
     );
-  }
-  if (filters.value.digital !== null) {
-    filtered = filtered.filter((game) => {
-      if (game.digital && filters.value.digital) {
-        return true;
-      } else if (!game.digital && !filters.value.digital) {
-        return true;
-      }
-    });
   }
   return filtered;
 });
@@ -170,20 +149,6 @@ onMounted(() => {
     return null;
   });
   filterStatuses.value[1].options = filterArray.sort();
-
-  // Find any digital games and add to filter if found
-  gameArr = [];
-  filterArray = [];
-  props.games.filter(function (game) {
-    let i = gameArr.findIndex((x) => x.digital == game.digital);
-    if (i <= -1 && game.digital) {
-      gameArr.push(game);
-      filterArray.push({ text: "Digital", value: true });
-      filterArray.push({ text: "Physical", value: false });
-    }
-    return null;
-  });
-  filterDigital.value[1].options = filterArray.sort();
 
   if (process.client && loadMoreSentinel.value) {
     observer = new IntersectionObserver(

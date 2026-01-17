@@ -9,7 +9,6 @@ query latestGamesQuery {
         slug
         shortName
       }
-      digital
       slug
       region
       playedStatus

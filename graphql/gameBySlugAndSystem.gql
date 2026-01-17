@@ -18,7 +18,6 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
       region
       playedStatus
       highScore
-      digital
       requirementsForCompletion
       cover {
         full: url(transform: { width: 1440, format: WEBP })

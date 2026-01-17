@@ -8,15 +8,6 @@ query statistics {
   gamesCompleted: gameCollection(where: { playedStatus: "Completed" }) {
     total
   }
-  gamesUnfinished: gameCollection(where: { playedStatus: "Unfinished" }) {
-    total
-  }
-  gamesUntouched: gameCollection(where: { playedStatus: "Untouched" }) {
-    total
-  }
-  gamesAbandoned: gameCollection(where: { playedStatus: "Abandoned" }) {
-    total
-  }
   systems: systemCollection(order: [title_ASC]) {
     total
     items {

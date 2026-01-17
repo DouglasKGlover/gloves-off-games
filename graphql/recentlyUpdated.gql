@@ -13,7 +13,6 @@ query recentlyUpdatedQuery {
         slug
         shortName
       }
-      digital
       slug
       region
       playedStatus

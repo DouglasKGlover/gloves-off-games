@@ -68,10 +68,8 @@ const gameStatusSeries = computed(() => {
   const series = [];
   for (let gameStatus in gameStatuses) {
     let color = "";
-    if (gameStatus == "Untouched") {
-      color = "#DB4C40";
-    } else if (gameStatus == "Unfinished") {
-      color = "#FFB940";
+    if (gameStatus == "Unfinished") {
+      color = "#f24862"; // Red for Unfinished
     } else if (gameStatus == "Beaten") {
       color = "#4B8F8C";
     } else if (gameStatus == "Completed") {
