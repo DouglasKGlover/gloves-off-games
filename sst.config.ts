@@ -13,35 +13,6 @@ export default $config({
       name: "glovesoff.games",
     });
 
-    // S3 bucket for Contentful backups
-    const backupBucket = new sst.aws.Bucket("ContentfulBackups", {
-      access: "private",
-    });
-
-    // Lambda function for backup
-    const backupFunction = new sst.aws.Function("ContentfulBackup", {
-      handler: "functions/backup-contentful.handler",
-      timeout: "5 minutes",
-      memory: "512 MB",
-      link: [backupBucket],
-      environment: {
-        CTF_SPACE_ID: process.env.CTF_SPACE_ID || "",
-        CTF_CMA_ACCESS_TOKEN: process.env.CTF_CMA_ACCESS_TOKEN || "",
-      },
-      nodejs: {
-        install: ["contentful-management", "@aws-sdk/client-s3"],
-        esbuild: {
-          external: ["contentful-management", "@aws-sdk/client-s3"],
-        },
-      },
-    });
-
-    // Monthly cron trigger (1st of each month at 3am UTC)
-    new sst.aws.Cron("ContentfulBackupSchedule", {
-      schedule: "cron(0 3 1 * ? *)",
-      job: backupFunction,
-    });
-
     const site = new sst.aws.StaticSite("GlovesOffGames", {
       path: ".",
       build: {
@@ -63,7 +34,6 @@ export default $config({
 
     return {
       url: site.url,
-      backupBucket: backupBucket.name,
     };
   },
 });

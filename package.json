@@ -9,8 +9,7 @@
     "generate": "nuxt generate",
     "sst:dev": "sst dev",
     "sst:deploy": "sst deploy --stage production",
-    "sst:remove": "sst remove",
-    "backup:invoke": "npx sst shell -- aws lambda invoke --function-name $(npx sst resource ContentfulBackup | jq -r '.name') /dev/stdout"
+    "sst:remove": "sst remove"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^15.2.0",
