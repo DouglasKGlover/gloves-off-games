@@ -16,7 +16,6 @@
     "@contentful/rich-text-html-renderer": "^15.2.0",
     "@contentful/rich-text-types": "^15.1.0",
     "@nuxt/image": "^2.0.0",
-    "contentful-export": "^7.19.0",
     "contentful-management": "^11.67.2",
     "dotenv": "^16.3.1",
     "graphql": "^16.8.1",

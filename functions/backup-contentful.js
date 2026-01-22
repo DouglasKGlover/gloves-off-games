@@ -1,4 +1,5 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const contentful = require("contentful-management");
 const { Resource } = require("sst");
 
 const s3Client = new S3Client({});
@@ -10,20 +11,50 @@ exports.handler = async function () {
   console.log(`Starting Contentful backup: ${filename}`);
 
   try {
-    // Dynamic import for ESM-only contentful-export
-    const { default: contentfulExport } = await import("contentful-export");
-
-    // Export content from Contentful (returns the export data directly)
-    const exportData = await contentfulExport({
-      spaceId: process.env.CTF_SPACE_ID,
-      managementToken: process.env.CTF_CMA_ACCESS_TOKEN,
-      saveFile: false,
-      exportDir: "/tmp",
-      contentFile: filename,
-      downloadAssets: false,
-      includeDrafts: true,
-      includeArchived: true,
+    const client = contentful.createClient({
+      accessToken: process.env.CTF_CMA_ACCESS_TOKEN,
     });
+
+    const space = await client.getSpace(process.env.CTF_SPACE_ID);
+    const environment = await space.getEnvironment("master");
+
+    // Fetch all content types
+    const contentTypes = await environment.getContentTypes({ limit: 1000 });
+    console.log(`Fetched ${contentTypes.items.length} content types`);
+
+    // Fetch all entries (paginated)
+    const entries = [];
+    let skip = 0;
+    const limit = 100;
+    while (true) {
+      const batch = await environment.getEntries({ skip, limit });
+      entries.push(...batch.items);
+      console.log(`Fetched ${entries.length} entries...`);
+      if (batch.items.length < limit) break;
+      skip += limit;
+    }
+
+    // Fetch all assets (paginated)
+    const assets = [];
+    skip = 0;
+    while (true) {
+      const batch = await environment.getAssets({ skip, limit });
+      assets.push(...batch.items);
+      console.log(`Fetched ${assets.length} assets...`);
+      if (batch.items.length < limit) break;
+      skip += limit;
+    }
+
+    // Fetch locales
+    const locales = await environment.getLocales();
+
+    const exportData = {
+      contentTypes: contentTypes.items,
+      entries: entries,
+      assets: assets,
+      locales: locales.items,
+      exportedAt: new Date().toISOString(),
+    };
 
     // Upload to S3
     const uploadCommand = new PutObjectCommand({
@@ -42,9 +73,9 @@ exports.handler = async function () {
       body: JSON.stringify({
         message: "Backup completed successfully",
         filename,
-        entries: exportData.entries?.length || 0,
-        contentTypes: exportData.contentTypes?.length || 0,
-        assets: exportData.assets?.length || 0,
+        entries: entries.length,
+        contentTypes: contentTypes.items.length,
+        assets: assets.length,
       }),
     };
   } catch (error) {

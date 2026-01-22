@@ -29,7 +29,7 @@ export default $config({
         CTF_CMA_ACCESS_TOKEN: process.env.CTF_CMA_ACCESS_TOKEN || "",
       },
       nodejs: {
-        install: ["contentful-export", "@aws-sdk/client-s3"],
+        install: ["contentful-management", "@aws-sdk/client-s3"],
       },
     });
 
