@@ -3,7 +3,11 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - "**"
+      - main
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
@@ -20,22 +24,16 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Remove any global Pulumi
+        run: |
+          sudo rm -f /usr/local/bin/pulumi* || true
+          rm -rf ~/.pulumi || true
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Clean SST state
-        run: rm -rf .sst
-
-      - name: Refresh SST state
-        run: npx sst refresh --stage production
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
-        continue-on-error: true
-
       - name: Deploy with SST
-        run: npm run sst:deploy
+        run: npx sst deploy --stage production
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -43,5 +41,3 @@ jobs:
           CTF_HOST: ${{ secrets.CTF_HOST }}
           CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
           CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
-          PULUMI_SKIP_UPDATE_CHECK: "true"
-          CI: "true"
