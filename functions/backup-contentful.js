@@ -1,16 +1,18 @@
-import contentfulExport from "contentful-export";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { Resource } from "sst";
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { Resource } = require("sst");
 
 const s3Client = new S3Client({});
 
-export async function handler() {
+exports.handler = async function () {
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
   const filename = `backup-${timestamp}.json`;
 
   console.log(`Starting Contentful backup: ${filename}`);
 
   try {
+    // Dynamic import for ESM-only contentful-export
+    const { default: contentfulExport } = await import("contentful-export");
+
     // Export content from Contentful (returns the export data directly)
     const exportData = await contentfulExport({
       spaceId: process.env.CTF_SPACE_ID,
@@ -56,4 +58,4 @@ export async function handler() {
       }),
     };
   }
-}
+};
