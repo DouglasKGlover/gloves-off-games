@@ -30,6 +30,9 @@ export default $config({
       },
       nodejs: {
         install: ["contentful-management", "@aws-sdk/client-s3"],
+        esbuild: {
+          external: ["contentful-management", "@aws-sdk/client-s3"],
+        },
       },
     });
 
