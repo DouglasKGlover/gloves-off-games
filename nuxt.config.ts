@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     "~/plugins/translateRichText",
   ],
 
-  modules: ["@nuxt/image"],
+  modules: ["@nuxt/image", "~/modules/prerender-routes"],
 
   ssr: true,
 
