@@ -75,7 +75,7 @@ defineProps({
 
   h1 {
     margin: 0;
-    font-size: 4rem;
+    font-size: 6rem;
     text-shadow:
       0 0.2rem 0.8rem rgba(0, 0, 0, 0.8),
       0 0.4rem 1.6rem rgba(0, 0, 0, 0.6);

@@ -3,7 +3,13 @@
     <SiteHero :title="game.title" :background-image="game.cover?.full">
       <template #subtitle>
         <NuxtLink :to="`/systems/${game.system.slug}`">
-          {{ game.system.title }}
+          <img
+            v-if="game.system.cover?.thumbnail"
+            :src="game.system.cover.thumbnail"
+            :alt="game.system.title"
+            class="system-cover-link"
+          />
+          <span v-else>{{ game.system.title }}</span>
         </NuxtLink>
       </template>
     </SiteHero>
@@ -178,5 +184,15 @@ useHead({
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.system-cover-link {
+  max-height: 9rem;
+  width: auto;
+  transition: 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 </style>

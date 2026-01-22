@@ -14,6 +14,9 @@ query gameBySlugAndSystemQuery($slug: String!, $system: String!) {
         manufacturer {
           title
         }
+        cover {
+          thumbnail: url(transform: { width: 180, format: WEBP })
+        }
       }
       region
       playedStatus
