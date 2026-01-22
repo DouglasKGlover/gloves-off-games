@@ -73,6 +73,8 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
+      concurrency: 3,
+      interval: 100,
     },
   },
   vite: {
