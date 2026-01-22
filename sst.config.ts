@@ -30,6 +30,20 @@ export default $config({
         CTF_SPACE_ID: process.env.CTF_SPACE_ID || "",
         CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN || "",
       },
+      errorPage: "404.html",
+      edge: {
+        viewerRequest: {
+          injection: `
+            // Rewrite URLs without file extensions to append /index.html
+            const uri = event.request.uri;
+            if (!uri.includes('.') && !uri.endsWith('/')) {
+              event.request.uri = uri + '/index.html';
+            } else if (uri.endsWith('/')) {
+              event.request.uri = uri + 'index.html';
+            }
+          `,
+        },
+      },
     });
 
     return {

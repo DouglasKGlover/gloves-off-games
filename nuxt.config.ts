@@ -75,6 +75,7 @@ export default defineNuxtConfig({
       failOnError: false,
       concurrency: 3,
       interval: 100,
+      routes: ["/", "/games", "/systems", "/blog"],
     },
   },
   vite: {
