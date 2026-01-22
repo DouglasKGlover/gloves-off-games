@@ -1,38 +1,72 @@
-# Personal Collection Tracker & Gaming Blog
+# Gloves Off Games
 
 https://glovesoff.games
 
-I've built this tracking web app for my video game collection, as existing tools are in my experience too rigid. Building my own allows me to rapidly add new functionalities as I see fit. Also to more closely hold the data within without fear of the tool or service someone else is maintaining suddenly becoming defunct or changing direction in some way I don't like.
+A personal video game collection tracking web app and blog. Built from scratch because existing tools are too rigid—this allows rapid feature additions and full control over the data without relying on third-party services that may become defunct or change direction.
 
-## Stack
+## Tech Stack
 
-- Nuxt/Vue ([docs](https://nuxtjs.org))
-- Bootstrap ([docs](https://bootstrap-vue.org/docs))
-- Contenful GraphQL API ([docs](https://www.contentful.com/developers/docs/references/graphql/))
-- Netlify ([docs](https://docs.netlify.com/))
+- **Framework:** [Nuxt 4](https://nuxt.com/) / [Vue 3](https://vuejs.org/)
+- **Styling:** SCSS with custom CSS Grid system (mobile-first, responsive)
+- **Data:** [Contentful GraphQL API](https://www.contentful.com/developers/docs/references/graphql/)
+- **Charts:** [Highcharts](https://www.highcharts.com/)
+- **Deployment:** [SST](https://sst.dev/) on AWS (static site generation)
 
-## Local Development Commands
+## Project Structure
+
+```
+├── assets/css/       # Global SCSS (grid, typography, buttons, forms)
+├── components/       # Vue components organized by feature
+│   ├── blog/         # Blog-related components
+│   ├── game/         # Game card, list, filters
+│   ├── site/         # Header, footer, hero, background
+│   └── system/       # Gaming system components
+├── graphql/          # GraphQL query files (.gql)
+├── layouts/          # Nuxt layouts
+├── pages/            # File-based routing
+│   ├── blog/         # Blog pages
+│   ├── games/        # Game collection pages
+│   └── systems/      # Gaming system pages
+├── plugins/          # Nuxt plugins (date formatting, rich text)
+└── functions/        # Utility functions
+```
+
+## Local Development
 
 ```bash
-# install dependencies
-$ npm install
+# Install dependencies
+npm install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+# Start dev server (localhost:3000)
+npm run dev
 
-# generate static site
-$ npm run generate
+# Generate static site
+npm run generate
+
+# Preview generated site
+npm run preview
+```
+
+## Deployment
+
+The site is deployed to AWS using SST:
+
+```bash
+# Deploy to production
+npm run sst:deploy
+
+# Remove deployment
+npm run sst:remove
 ```
 
 ## Environment Variables
 
-Running or generating the site requires env vars; locally you need a .env file in the root folder of the project with the following:
+Create a `.env` file in the project root with the following:
 
 ```txt
-CTF_HOST=<Contentful Host; either cdn or preview.contentful.com>
-CTF_SPACE_ID=<ID of the Contentful Space>
-CTF_CDA_ACCESS_TOKEN=<CDA token from Contentful>
-CTF_CMA_ACCESS_TOKEN=<CMA token from Contentful>
+CTF_HOST=cdn.contentful.com
+CTF_SPACE_ID=<Contentful Space ID>
+CTF_CDA_ACCESS_TOKEN=<Contentful Delivery API token>
 ```
 
-The CMA token isn't currently used, but if I decide in the future to create my own interface for adding content it'll be required.
+Use `preview.contentful.com` as `CTF_HOST` to view draft content.
