@@ -10,7 +10,7 @@ export default $config({
   },
   async run() {
     const zone = aws.route53.getZoneOutput({
-      name: "douglasglover.ca",
+      name: "glovesoff.games",
     });
 
     const site = new sst.aws.StaticSite("GlovesOffGames", {
@@ -20,7 +20,7 @@ export default $config({
         output: ".output/public",
       },
       domain: {
-        name: "games.douglasglover.ca",
+        name: "glovesoff.games",
         dns: sst.aws.dns({
           zone: zone.zoneId,
         }),
