@@ -19,6 +19,28 @@
       >
         <span>No Cover</span>
       </div>
+      <div
+        v-if="totalGames > 0"
+        class="status-bar"
+        role="img"
+        :aria-label="statusBarLabel"
+      >
+        <span
+          v-if="unfinishedPercent > 0"
+          class="status-segment unfinished"
+          :style="{ width: unfinishedPercent + '%' }"
+        ></span>
+        <span
+          v-if="beatenPercent > 0"
+          class="status-segment beaten"
+          :style="{ width: beatenPercent + '%' }"
+        ></span>
+        <span
+          v-if="completedPercent > 0"
+          class="status-segment completed"
+          :style="{ width: completedPercent + '%' }"
+        ></span>
+      </div>
     </div>
 
     <div class="system-card-content">
@@ -35,7 +57,9 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   system: {
     type: Object,
     required: true,
@@ -43,6 +67,38 @@ defineProps({
       return system.title && system.slug;
     },
   },
+});
+
+const totalGames = computed(
+  () => props.system.linkedFrom?.gameCollection?.total || 0,
+);
+
+const games = computed(
+  () => props.system.linkedFrom?.gameCollection?.items || [],
+);
+
+const unfinishedCount = computed(
+  () => games.value.filter((g) => g.playedStatus === "Unfinished").length,
+);
+const beatenCount = computed(
+  () => games.value.filter((g) => g.playedStatus === "Beaten").length,
+);
+const completedCount = computed(
+  () => games.value.filter((g) => g.playedStatus === "Completed").length,
+);
+
+const unfinishedPercent = computed(() =>
+  totalGames.value > 0 ? (unfinishedCount.value / totalGames.value) * 100 : 0,
+);
+const beatenPercent = computed(() =>
+  totalGames.value > 0 ? (beatenCount.value / totalGames.value) * 100 : 0,
+);
+const completedPercent = computed(() =>
+  totalGames.value > 0 ? (completedCount.value / totalGames.value) * 100 : 0,
+);
+
+const statusBarLabel = computed(() => {
+  return `Game status: ${unfinishedCount.value} unfinished, ${beatenCount.value} beaten, ${completedCount.value} completed out of ${totalGames.value} total`;
 });
 </script>
 
@@ -84,6 +140,31 @@ defineProps({
   aspect-ratio: 10 / 3;
   overflow: hidden;
   background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+}
+
+.status-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.3rem;
+  display: flex;
+}
+
+.status-segment {
+  height: 100%;
+
+  &.unfinished {
+    background-color: #6b6b6b;
+  }
+
+  &.beaten {
+    background-color: rgb(var(--beaten));
+  }
+
+  &.completed {
+    background-color: rgb(var(--completed));
+  }
 }
 
 .cover-image,

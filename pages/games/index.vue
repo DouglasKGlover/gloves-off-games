@@ -48,11 +48,11 @@ const gameStatusSeries = computed(() => {
   for (let gameStatus in gameStatuses) {
     let color = "";
     if (gameStatus == "Unfinished") {
-      color = "#f24862"; // Red for Unfinished
+      color = "#6b6b6b"; // Grey for Unfinished
     } else if (gameStatus == "Beaten") {
-      color = "#4B8F8C";
+      color = "#5a9a5a";
     } else if (gameStatus == "Completed") {
-      color = "#FCD581";
+      color = "#ffb224";
     }
 
     series.push({

@@ -11,6 +11,9 @@ query allSystemsQuery {
       linkedFrom {
         gameCollection {
           total
+          items {
+            playedStatus
+          }
         }
       }
     }
