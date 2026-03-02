@@ -19,6 +19,13 @@
       >
         <span>No Cover</span>
       </div>
+      <div
+        v-if="game.playedStatus"
+        class="status-bar"
+        :class="game.playedStatus.toLowerCase()"
+        role="img"
+        :aria-label="`Status: ${game.playedStatus}`"
+      ></div>
     </div>
 
     <div class="game-card-content">
@@ -34,8 +41,7 @@
           :class="game.playedStatus.toLowerCase()"
           v-if="
             (game.playedStatus && game.playedStatus == 'Beaten') ||
-            game.playedStatus == 'Completed' ||
-            game.playedStatus == 'Abandoned'
+            game.playedStatus == 'Completed'
           "
         >
           {{ game.playedStatus }}
@@ -104,6 +110,26 @@ defineProps({
   }
 }
 
+.status-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.3rem;
+
+  &.unfinished {
+    background-color: #6b6b6b;
+  }
+
+  &.beaten {
+    background-color: rgb(var(--beaten));
+  }
+
+  &.completed {
+    background-color: rgb(var(--completed));
+  }
+}
+
 .cover-image,
 .cover-image img {
   width: 100%;
@@ -158,10 +184,6 @@ defineProps({
 
     &.completed {
       background: rgba(var(--completed), 0.2);
-    }
-
-    &.abandoned {
-      background: rgba(var(--abandoned), 0.2);
     }
   }
 }
